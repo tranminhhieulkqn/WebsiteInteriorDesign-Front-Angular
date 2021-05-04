@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
+import { LocalStorageService } from "../services/local-storage.service";
 import { CONFIGS } from "../configs/settings.config";
 
 @Injectable({
@@ -12,18 +14,34 @@ export class AuthenticationService {
   private loginURL = CONFIGS.HOST + "users/login";
   private registerURL = CONFIGS.HOST + "users/register";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) { }
 
-  getWelcomeMessage(){
+  getWelcomeMessage() {
     return this.http.get<any>(this.welcomeMassageURL);
   }
 
-  login(user: any){
+  register(user: any) {
+    return this.http.post<any>(this.registerURL, user);
+  }
+
+  login(user: any) {
     return this.http.post<any>(this.loginURL, user);
   }
 
-  register(user: any){
-    return this.http.post<any>(this.registerURL, user);
+  loggedIn(role: string[]) {
+    let checkToken = !!this.localStorageService.get("tokenUser") && !!this.localStorageService.getObject("infoUser");
+    let checkRole = role.includes(this.localStorageService.getObject("infoUser").role);
+    return checkToken && checkRole;
+  }
+
+  logout() {
+    this.localStorageService.remove("tokenUser");
+    this.localStorageService.remove("infoUser");
+    this.router.navigateByUrl("/");
   }
 
 }

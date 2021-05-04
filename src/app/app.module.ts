@@ -10,6 +10,10 @@ import { FooterComponent } from './components/home/footer/footer.component';
 import { PageNotFoundComponent } from './components/home/page-not-found/page-not-found.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { LoginComponent } from './components/user/login/login.component';
+import { AuthenticationGuard } from './guards/authentication.guard';
+import { PostCardComponent } from './conponents/post/post-card/post-card.component';
+import { PostEditorComponent } from './conponents/post/post-editor/post-editor.component';
+import { PostDetailComponent } from './conponents/post/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import { LoginComponent } from './components/user/login/login.component';
     FooterComponent,
     PageNotFoundComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    PostCardComponent,
+    PostEditorComponent,
+    PostDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +34,7 @@ import { LoginComponent } from './components/user/login/login.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

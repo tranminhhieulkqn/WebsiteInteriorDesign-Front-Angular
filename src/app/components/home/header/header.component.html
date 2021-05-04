@@ -15,10 +15,19 @@
         <a class="nav-link disabled" href="#">Disabled</a>
       </li> -->
       <li class="nav-item active">
+        <a class="nav-link" routerLink="/posts">Posts <span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf="!this.authenticationService.loggedIn([]);" class="nav-item active">
+        <a class="nav-link" routerLink="/login"> <span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf="!this.authenticationService.loggedIn([])" class="nav-item active">
         <a class="nav-link" routerLink="/login">Login <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active">
+      <li *ngIf="!this.authenticationService.loggedIn([])" class="nav-item active">
         <a class="nav-link" routerLink="/register">Register <span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf="this.authenticationService.loggedIn([])" class="nav-item active">
+        <a class="nav-link" routerLink="/" (click)="logout();">Logout <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline mt-2 mt-md-0">
