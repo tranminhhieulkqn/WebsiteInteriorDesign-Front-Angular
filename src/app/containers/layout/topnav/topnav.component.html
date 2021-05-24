@@ -37,8 +37,7 @@
       </ul>
     </div>
 
-    <!-- BUTTON BUY -->
-    <!-- <a class="btn btn-sm btn-outline-primary ml-2 d-none d-xl-inline-block" href="javascript:;">&nbsp;BUY&nbsp;</a> -->
+    <a class="btn btn-sm btn-outline-primary ml-2 d-none d-xl-inline-block" href="javascript:;">&nbsp;BUY&nbsp;</a>
   </div>
 
 
@@ -96,7 +95,6 @@
         </div>
       </div>
 
-      <!-- NOTIFICATION -->
       <div class="position-relative d-inline-block">
 
         <div dropdown>
@@ -160,7 +158,6 @@
         </div>
       </div>
 
-      <!-- FULL SCREEN -->
       <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton" (click)="fullScreenClick()">
         <i *ngIf="!isFullScreen" class="simple-icon-size-fullscreen"></i>
         <i *ngIf="isFullScreen" class="simple-icon-size-actual"></i>
@@ -168,17 +165,16 @@
 
     </div>
 
-    <!-- SIMPLE USER CONTROL -->
     <div class="user d-inline-block" dropdown>
       <button class="btn btn-empty p-0" type="button" dropdownToggle>
         <span class="name">{{displayName}}</span>
         <span>
-          <img alt="Profile Picture" src="{{ userPhoto }}" />
+          <img alt="Profile Picture" src="/assets/img/profile-pic-l.jpg" />
         </span>
       </button>
 
       <div class="dropdown-menu dropdown-menu-right mt-3" *dropdownMenu role="menu">
-        <a class="dropdown-item c-pointer" href="app/pages/profile/social">Account</a>
+        <a class="dropdown-item c-pointer">Account</a>
         <a class="dropdown-item c-pointer">Features</a>
         <a class="dropdown-item c-pointer">History</a>
         <a class="dropdown-item c-pointer">Support</a>

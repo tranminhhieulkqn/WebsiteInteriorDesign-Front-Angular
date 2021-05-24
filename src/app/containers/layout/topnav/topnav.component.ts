@@ -14,7 +14,6 @@ export class TopnavComponent implements OnInit, OnDestroy {
   sidebar: ISidebar;
   subscription: Subscription;
   displayName = 'Sarah Cortney';
-  userPhoto = '/assets/img/profile-pic-l.jpg';
   languages: Language[];
   currentLanguage: string;
   isSingleLang;
@@ -27,7 +26,6 @@ export class TopnavComponent implements OnInit, OnDestroy {
     this.currentLanguage = this.langService.languageShorthand;
     this.isSingleLang = this.langService.isSingleLang;
     this.isDarkModeActive = this.getColor().indexOf('dark') > -1 ? true : false;
-    this.userPhoto = authService.user.photoURL || this.userPhoto;
   }
 
   onDarkModeChange(event) {

@@ -5,11 +5,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
-import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
-  declarations: [BlankPageComponent, AppComponent, HomeComponent],
+  declarations: [BlankPageComponent, AppComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

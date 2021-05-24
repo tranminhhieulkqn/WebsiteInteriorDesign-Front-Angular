@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Vien-Angular": {
+    "WebsiteInteriorDesign-Front-Angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Vien-Angular",
+            "outputPath": "dist/WebsiteInteriorDesign-Front-Angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -178,18 +178,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Vien-Angular:build"
+            "browserTarget": "WebsiteInteriorDesign-Front-Angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Vien-Angular:build:production"
+              "browserTarget": "WebsiteInteriorDesign-Front-Angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Vien-Angular:build"
+            "browserTarget": "WebsiteInteriorDesign-Front-Angular:build"
           }
         },
         "test": {
@@ -223,18 +223,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Vien-Angular:serve"
+            "devServerTarget": "WebsiteInteriorDesign-Front-Angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Vien-Angular:serve:production"
+              "devServerTarget": "WebsiteInteriorDesign-Front-Angular:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Vien-Angular",
+  "defaultProject": "WebsiteInteriorDesign-Front-Angular",
   "cli": {
     "analytics": false
   }
