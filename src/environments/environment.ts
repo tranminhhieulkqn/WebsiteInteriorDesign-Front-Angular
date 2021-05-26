@@ -9,7 +9,7 @@ export const environment = {
   subHiddenBreakpoint: 1440,
   menuHiddenBreakpoint: 768,
   themeColorStorageKey: 'vien-themecolor',
-  isMultiColorActive: true,
+  isMultiColorActive: false,
   /*
   Color Options:
   'light.blueyale', 'light.blueolympic', 'light.bluenavy', 'light.greenmoss', 'light.greenlime', 'light.yellowgranola', 'light.greysteel', 'light.orangecarrot', 'light.redruby', 'light.purplemonster'
@@ -21,13 +21,13 @@ export const environment = {
   themeRadiusStorageKey: 'vien-themeradius',
   isAuthGuardActive: true,
   firebase: {
-    apiKey: 'AIzaSyCqoNLB_jTw4nncO12qR-eDH9gAeWiZVaw',
-    authDomain: 'vien-angular-login.firebaseapp.com',
-    databaseURL: 'https://vien-angular-login.firebaseio.com',
-    projectId: 'vien-angular-login',
-    storageBucket: 'vien-angular-login.appspot.com',
-    messagingSenderId: '16217062888',
-    appId: '1:16217062888:web:6b08232ca0c9662fedb85d',
-    measurementId: 'G-8ETT79WRRN'
+    apiKey: "AIzaSyBphYt75FCefv7bzB4n3k2gV8RSbXoelMA",
+    authDomain: "interior-design-afc76.firebaseapp.com",
+    databaseURL: "https://interior-design-afc76-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "interior-design-afc76",
+    storageBucket: "interior-design-afc76.appspot.com",
+    messagingSenderId: "975443254622",
+    appId: "1:975443254622:web:99a8860c8a1840f6f103cf",
+    measurementId: "G-DZ11BZMHEB"
   }
 };
