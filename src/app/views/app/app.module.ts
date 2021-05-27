@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
 import { HomeComponent } from './home/home.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { HomeComponent } from './home/home.component';
     CommonModule,
     AppRoutingModule,
     SharedModule,
-    LayoutContainersModule
+    LayoutContainersModule,
+    SimpleNotificationsModule.forRoot()
   ]
 })
 export class AppModule { }

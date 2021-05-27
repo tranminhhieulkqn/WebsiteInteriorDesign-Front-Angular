@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'https://api.coloredstrategies.com',
+  apiBackUrl: 'https://interiordesign-back.herokuapp.com/',
+  // apiBackUrl: 'http://localhost:3000/',
   defaultMenuType: 'menu-default',
   subHiddenBreakpoint: 1440,
   menuHiddenBreakpoint: 768,

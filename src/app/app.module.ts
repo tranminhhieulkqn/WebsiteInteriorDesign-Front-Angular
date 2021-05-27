@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { LayoutContainersModule } from './containers/layout/layout.containers.module';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { LayoutContainersModule } from './containers/layout/layout.containers.mo
   declarations: [
     AppComponent
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

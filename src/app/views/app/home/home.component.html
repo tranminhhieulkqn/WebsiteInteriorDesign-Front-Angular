@@ -1,1 +1,10 @@
-<p>home works!</p>
+<simple-notifications></simple-notifications>
+<div *ngFor="let user of allUser">
+  <h3 (click)="onTest(user);">
+    <a>{{ user.fullName }}</a>
+  </h3>
+  <ul>
+    <li>{{ user.email }}</li>
+    <li>{{ user.role }}</li>
+  </ul>
+</div>

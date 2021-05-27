@@ -13,7 +13,11 @@ export class ForgotPasswordComponent implements OnInit {
   buttonDisabled = false;
   buttonState = '';
 
-  constructor(private authService: AuthService, private notifications: NotificationsService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private notifications: NotificationsService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -27,15 +31,28 @@ export class ForgotPasswordComponent implements OnInit {
 
     this.authService.sendPasswordEmail(this.passwordForm.value.email).subscribe((answer) => {
     }, (error) => {
-      this.notifications.create('Error', error.message, NotificationType.Bare, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+      // show notification error
+      this.notifications.create(
+        'Error',
+        error.message,
+        NotificationType.Bare,
+        { theClass: 'outline primary', timeOut: 6000, showProgressBar: false }
+      );
       this.buttonDisabled = false;
       this.buttonState = '';
     }, () => {
-      this.notifications.create('Done', 'Password reset email is sent, you will be redirected to Reset Password page!', NotificationType.Bare, { theClass: 'outline primary', timeOut: 6000, showProgressBar: true });
+      // show notification success
+      this.notifications.create(
+        'Done',
+        'Password reset email is sent, please check your email to reset password!',
+        NotificationType.Bare,
+        { theClass: 'outline primary', timeOut: 6000, showProgressBar: true });
       this.buttonDisabled = false;
       this.buttonState = '';
+      // set time out and redirect
       setTimeout(() => {
-        this.router.navigate(['user/reset-password']);
+        // this.router.navigate(['user/reset-password']);
+        this.router.navigate(['user/login']);
       }, 6000);
     });
   }

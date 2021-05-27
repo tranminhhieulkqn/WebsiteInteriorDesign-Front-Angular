@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
@@ -10,15 +10,24 @@ import { AuthService } from 'src/app/shared/auth.service';
 })
 export class LoginComponent implements OnInit {
   @ViewChild('loginForm') loginForm: NgForm;
-  emailModel = 'demo@vien.com';
-  passwordModel = 'demovien1122';
+  emailModel = 'tranminhhieulkqn@gmail.com';
+  passwordModel = 'Hieu@123';
 
   buttonDisabled = false;
   buttonState = '';
 
-  constructor(private authService: AuthService, private notifications: NotificationsService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private notifications: NotificationsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.emailModel = params['email'];
+      this.passwordModel = params['password'];
+    });
   }
 
   onSubmit() {
@@ -28,12 +37,20 @@ export class LoginComponent implements OnInit {
     this.buttonDisabled = true;
     this.buttonState = 'show-spinner';
 
-    this.authService.signIn(this.loginForm.value).subscribe((user) => {
-      this.router.navigate(['/']);
-    }, (error) => {
-      this.buttonDisabled = false;
-      this.buttonState = '';
-      this.notifications.create('Error', error.message, NotificationType.Bare, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
-    });
+    this.authService.signIn(this.loginForm.value).subscribe(
+      () => {
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        // show notification error
+        this.buttonDisabled = false;
+        this.buttonState = '';
+        this.notifications.create(
+          'Error',
+          error.message,
+          NotificationType.Bare,
+          { theClass: 'outline primary', timeOut: 6000, showProgressBar: false }
+        );
+      });
   }
 }
