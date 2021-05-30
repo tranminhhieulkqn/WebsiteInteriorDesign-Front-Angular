@@ -1,4 +1,22 @@
-<simple-notifications></simple-notifications>
+<!--  -->
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="jumbotron">
+          <h1 class="display-4">{{'jumbotron.hello-world' | translate}}</h1>
+          <p class="lead">{{'jumbotron.lead' | translate}}</p>
+          <hr class="my-4">
+          <p>{{'jumbotron.lead-detail' | translate}}</p>
+          <p class="lead  mb-0">
+            <a class="btn btn-primary btn-lg c-pointer" role="button">{{'jumbotron.learn-more' | translate}}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  -->
 <div *ngFor="let user of allUser">
   <h3 (click)="onTest(user);">
     <a>{{ user.fullName }}</a>
@@ -8,3 +26,5 @@
     <li>{{ user.role }}</li>
   </ul>
 </div>
+<simple-notifications></simple-notifications>
+<a [routerLink]="'/app/test/test1'">Contacts</a>

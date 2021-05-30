@@ -112,7 +112,8 @@
     "wizard": "Wizard",
     "form-layouts": "Form Layouts",
     "form-validations": "Form Validations",
-    "form-wizard": "Form Wizard"
+    "form-wizard": "Form Wizard",
+    "account": "Account"
   },
   "dashboards": {
     "pending-orders": "Pending Orders",
@@ -466,6 +467,7 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "your-info": "Your Information",
     "basic": "Basic",
     "email": "E-mail",
     "email-muted": "We'll never share your email with anyone else.",

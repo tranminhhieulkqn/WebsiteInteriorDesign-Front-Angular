@@ -3,37 +3,51 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { TestService } from "../../../shared/test.service";
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { AuthService } from 'src/app/shared/auth.service';
+import { CarouselConfig } from 'ngx-bootstrap/carousel';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  providers: [
+    { provide: CarouselConfig, useValue: { interval: 2000, noPause: true, showIndicators: true } }
+  ]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  userCurrent: any;
   allUser: Observable<User[]>;
+  displayName = '';
+  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   hashPasswword: string = null;
   constructor(
+    private authService: AuthService,
     private notifications: NotificationsService,
     private test: TestService
   ) {
 
   }
   ngAfterViewInit(): void {
-    this.notifications.error(
-      'hello',
+    this.notifications.create(
+      `Hello ${this.displayName}`,
       'content',
+      NotificationType.Info,
       {
-        timeOut: 30000,
+        timeOut: 3000,
         showProgressBar: true,
-        pauseOnHover: false,
-        clickToClose: false,
+        pauseOnHover: true,
+        clickToClose: false
       }
     );
   }
 
 
   ngOnInit(): void {
+    if (this.authService.user) {
+      this.displayName = this.authService.user.displayName;
+    }
+    this.userCurrent = this.authService.userCurrent$;
     this.test.getAllUser()
       .subscribe(res => {
         this.allUser = res['users'];

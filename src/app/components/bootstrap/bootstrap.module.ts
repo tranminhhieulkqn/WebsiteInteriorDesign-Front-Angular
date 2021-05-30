@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
   AccordionModule, AlertModule, CollapseModule, BsDropdownModule, ModalModule, PaginationModule, PopoverModule, ProgressbarModule,
-   SortableModule, TabsModule, TooltipModule, TypeaheadModule, ButtonsModule
+   SortableModule, TabsModule, TooltipModule, TypeaheadModule, ButtonsModule, CarouselModule
 } from 'ngx-bootstrap';
 
 
@@ -21,7 +21,8 @@ import {
     SortableModule.forRoot(),
     TabsModule.forRoot(),
     TooltipModule.forRoot(),
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    CarouselModule.forRoot()
   ],
   exports: [
     AccordionModule,
@@ -36,7 +37,8 @@ import {
     SortableModule,
     TabsModule,
     TooltipModule,
-    TypeaheadModule
+    TypeaheadModule,
+    CarouselModule
   ]
 })
 export class BootstrapModule { }

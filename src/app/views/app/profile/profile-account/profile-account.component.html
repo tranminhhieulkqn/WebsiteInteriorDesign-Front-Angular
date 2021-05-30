@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col-12">
+    <!-- Breadcrumb -->
+    <div>
+      <h1>Sarah Kortney</h1>
+      <div class="text-zero top-right-button-container">
+        <div dropdown>
+          <button id="button-basic" dropdownToggle type="button" placement="bottom right"
+            class="btn btn-outline-primary dropdown-toggle btn-lg" aria-controls="dropdown-basic">{{ 'pages.actions' |
+            translate }} <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.action' | translate }}</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.another-action' | translate
+                }}</a></li>
+          </ul>
+        </div>
+      </div>
+      <app-breadcrumb></app-breadcrumb>
+    </div>
+    <!--  -->
+    <div>
+      <tabset class="separator-tabs">
+        <tab heading="{{'pages.profile' | translate | uppercase }}">
+          <div class="row">
+            <div class="col-12 col-lg-5 col-xl-4 col-left">
+              <app-profile-user-portfolio></app-profile-user-portfolio>
+            </div>
+
+            <div class="col-12 col-lg-7 col-xl-8 col-right">
+              <div class="row">
+                <!-- Card Begin -->
+                <div class="col-12 col-xl-6 mb-4">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h5 class="mb-4">{{ 'forms.your-info' | translate }}</h5>
+
+                      <form>
+                        <label class="form-group has-top-label">
+                          <input class="form-control" />
+                          <span>{{ 'forms.email' | translate | uppercase }}</span>
+                        </label>
+                        <label class="form-group has-top-label">
+                          <input class="form-control" />
+                          <span>{{ 'forms.email' | translate | uppercase }}</span>
+                        </label>
+
+
+                        <label class="form-group has-top-label">
+                          <textarea class="form-control" rows="2" name="details" required></textarea>
+                          <span>{{ 'forms.email' | translate | uppercase }}</span>
+                        </label>
+
+                        <label class="form-group has-top-label">
+                          <input class="form-control" id="password" type="password" placeholder="" />
+                          <span>{{ 'forms.password' | translate | uppercase  }}</span>
+                        </label>
+                        <label class="form-group has-top-label">
+                          <ng-select [items]="['Uber', 'Microsoft', 'Flexigen']" [addTag]="addTagFn" [hideSelected]="true"
+                            multiple="true" bindLabel="name">
+                          </ng-select>
+                          <span>{{ 'forms.tags' | translate | uppercase }}</span>
+                        </label>
+                        <!-- <label class="form-group has-top-label">
+                          <input class="form-control" bsDatepicker [container]="'html'">
+                          <span>{{ 'forms.date' | translate | uppercase }}</span>
+                        </label> -->
+                        <label class="form-group has-top-label">
+                          <ng-select [items]="[{id:0, name:'Cake'}, {id:1, name:'Dessert'}, {id:2, name:'Cupcake'}]" bindLabel="name"
+                            bindValue="id">
+                          </ng-select>
+                          <span>{{ 'forms.state' | translate | uppercase }}</span>
+                        </label>
+                        <button class="btn btn-primary" type="submit">{{ 'forms.signup' | translate }}</button>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- Card End -->
+                <div class="col-12 col-xl-6 mb-4">
+                  <h5 class="mb-4">Tooltip Positioning</h5>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </tab>
+
+        <tab heading="{{'pages.followers' | translate | uppercase }}">
+          <app-profile-friends></app-profile-friends>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+
+<p>profile-account works!</p>

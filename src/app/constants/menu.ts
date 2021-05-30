@@ -12,8 +12,31 @@ const data: IMenuItem[] = [
   {
     id: 'home',
     icon: 'iconsminds-home',
-    label: 'menu.home',
+    label: 'menu.app',
     to: '/app/home'
+  },
+  {
+    id: 'pages-profile',
+    icon: 'simple-icon-user',
+    label: 'menu.profile',
+    to: '/app/profile',
+    subs: [{
+      icon: 'simple-icon-user',
+      label: 'menu.account',
+      to: '/app/profile/account'
+    },
+    {
+      icon: 'simple-icon-share',
+      label: 'menu.social',
+      to: '/app/profile/social'
+    },
+    {
+      icon: 'simple-icon-link',
+      label: 'menu.portfolio',
+      to: '/app/profile/portfolio'
+    },
+
+    ]
   },
   {
     id: 'dashboards',

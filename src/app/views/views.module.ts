@@ -5,6 +5,9 @@ import { ViewRoutingModule } from './views.routing';
 import { SharedModule } from '../shared/shared.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+import { LayoutContainersModule } from '../containers/layout/layout.containers.module';
+import { SimpleNotificationsComponent, SimpleNotificationsModule } from 'angular2-notifications';
+import { BootstrapModule } from '../components/bootstrap/bootstrap.module';
 
 @NgModule({
   declarations: [ViewsComponent],
@@ -13,7 +16,10 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
     ViewRoutingModule,
     SharedModule,
     AngularFireAuthModule,
-    AngularFireAuthGuardModule
+    AngularFireAuthGuardModule,
+    LayoutContainersModule,
+    SimpleNotificationsModule.forRoot(),
+    BootstrapModule
   ]
 })
 export class ViewsModule { }

@@ -111,7 +111,8 @@
     "wizard": "Mago",
     "form-layouts": "Diseños de Formulario",
     "form-validations": "Validaciones de Formulario",
-    "form-wizard": "Asistente de Formulario"
+    "form-wizard": "Asistente de Formulario",
+    "account": "Cuenta"
   },
   "dashboards": {
     "pending-orders": "Pedidos Pendientes",
@@ -466,6 +467,7 @@
     "quill-bubble": "Quill Burbuja"
   },
   "forms": {
+    "your-info": "Tu información",
     "basic": "Básico",
     "email": "Email",
     "email-muted": "Nunca compartiremos tu email con nadie más.",
