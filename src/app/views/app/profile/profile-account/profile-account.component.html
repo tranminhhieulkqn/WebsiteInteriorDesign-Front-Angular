@@ -2,7 +2,7 @@
   <div class="col-12">
     <!-- Breadcrumb -->
     <div>
-      <h1>Sarah Kortney</h1>
+      <h1>{{ userAuthorized.displayName }}</h1>
       <div class="text-zero top-right-button-container">
         <div dropdown>
           <button id="button-basic" dropdownToggle type="button" placement="bottom right"
@@ -29,18 +29,42 @@
             </div>
 
             <div class="col-12 col-lg-7 col-xl-8 col-right">
-              <div class="row">
-                <!-- Card Begin -->
-                <div class="col-12 col-xl-6 mb-4">
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <h5 class="mb-4">{{ 'forms.your-info' | translate }}</h5>
+              <form>
+                <div class="row">
+                  <!-- Card Begin -->
+                  <div class="col-12 col-xl-6 mb-4">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h5 class="mb-4">{{ 'forms.your-info' | translate }}</h5>
 
-                      <form>
+                        <label class="form-group has-top-label">
+                          <input class="form-control" (input)="onSearchChange($event.target.value)" [disabled]="isEditing" name="displayName" [(ngModel)]="userAuthorizedInfo.displayName"/>
+                          <span>{{ 'forms.display-name' | translate | uppercase }}</span>
+                        </label>
+                        <label class="form-group has-top-label">
+                          <input class="form-control" [disabled]="!isEditing" name="email" [(ngModel)]="userAuthorizedInfo.email"/>
+                          <span>{{ 'forms.email' | translate | uppercase }}</span>
+                        </label>
+
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card End -->
+                  <div class="col-12 col-xl-6 mb-4">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h5 class="mb-4">{{ 'forms.your-info' | translate }}</h5>
+
+
+                        <label class="form-group has-top-label">
+                          <input class="form-control" />
+                          <span>{{ 'forms.display-name' | translate | uppercase }}</span>
+                        </label>
                         <label class="form-group has-top-label">
                           <input class="form-control" />
                           <span>{{ 'forms.email' | translate | uppercase }}</span>
                         </label>
+
                         <label class="form-group has-top-label">
                           <input class="form-control" />
                           <span>{{ 'forms.email' | translate | uppercase }}</span>
@@ -54,11 +78,11 @@
 
                         <label class="form-group has-top-label">
                           <input class="form-control" id="password" type="password" placeholder="" />
-                          <span>{{ 'forms.password' | translate | uppercase  }}</span>
+                          <span>{{ 'forms.password' | translate | uppercase }}</span>
                         </label>
                         <label class="form-group has-top-label">
-                          <ng-select [items]="['Uber', 'Microsoft', 'Flexigen']" [addTag]="addTagFn" [hideSelected]="true"
-                            multiple="true" bindLabel="name">
+                          <ng-select [items]="['Uber', 'Microsoft', 'Flexigen']" [addTag]="addTagFn"
+                            [hideSelected]="true" multiple="true" bindLabel="name">
                           </ng-select>
                           <span>{{ 'forms.tags' | translate | uppercase }}</span>
                         </label>
@@ -67,23 +91,17 @@
                           <span>{{ 'forms.date' | translate | uppercase }}</span>
                         </label> -->
                         <label class="form-group has-top-label">
-                          <ng-select [items]="[{id:0, name:'Cake'}, {id:1, name:'Dessert'}, {id:2, name:'Cupcake'}]" bindLabel="name"
-                            bindValue="id">
+                          <ng-select [items]="[{id:0, name:'Cake'}, {id:1, name:'Dessert'}, {id:2, name:'Cupcake'}]"
+                            bindLabel="name" bindValue="id">
                           </ng-select>
                           <span>{{ 'forms.state' | translate | uppercase }}</span>
                         </label>
-                        <button class="btn btn-primary" type="submit">{{ 'forms.signup' | translate }}</button>
-                      </form>
 
+                      </div>
                     </div>
                   </div>
                 </div>
-                <!-- Card End -->
-                <div class="col-12 col-xl-6 mb-4">
-                  <h5 class="mb-4">Tooltip Positioning</h5>
-
-                </div>
-              </div>
+              </form>
             </div>
 
           </div>

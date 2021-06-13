@@ -19,7 +19,7 @@
 <!--  -->
 <div *ngFor="let user of allUser">
   <h3 (click)="onTest(user);">
-    <a>{{ user.fullName }}</a>
+    <a>{{ user.displayName }}</a>
   </h3>
   <ul>
     <li>{{ user.email }}</li>

@@ -96,7 +96,7 @@ export class AuthService {
               uid: this.afAuth.auth.currentUser.uid,
               email: credentials.email,
               password: credentials.password,
-              fullName: credentials.displayName,
+              displayName: credentials.displayName,
               role: 'user'
             }
             // define query parametters for request.

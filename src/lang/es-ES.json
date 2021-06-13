@@ -467,6 +467,7 @@
     "quill-bubble": "Quill Burbuja"
   },
   "forms": {
+    "display-name": "Nombre para mostrar",
     "your-info": "Tu información",
     "basic": "Básico",
     "email": "Email",

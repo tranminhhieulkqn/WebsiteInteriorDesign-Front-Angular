@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
           let params = new HttpParams()
             .set('email', this.registerForm.value.email.toString())
             .set('password', this.registerForm.value.password.toString());
-          console.log(params.toString());
+          // console.log(params.toString());
           // redirect to login page with email with password
           this.router.navigate([`user/login`],
             {

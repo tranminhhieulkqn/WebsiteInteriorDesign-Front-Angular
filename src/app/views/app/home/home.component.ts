@@ -16,7 +16,7 @@ import { CarouselConfig } from 'ngx-bootstrap/carousel';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   userCurrent: any;
-  allUser: Observable<User[]>;
+  allUser: User[] = [];
   displayName = '';
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
@@ -51,13 +51,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.test.getAllUser()
       .subscribe(res => {
         this.allUser = res['users'];
+        console.log(this.allUser)
       });
   }
 
   onTest(user: User) {
     try {
       this.notifications.create(
-        user.fullName,
+        user.displayName,
         `Email: ${user.email}`,
         NotificationType.Success,
         {
