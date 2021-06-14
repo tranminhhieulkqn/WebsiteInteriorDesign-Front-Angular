@@ -12,6 +12,8 @@ export interface User {
   address?: string;
   about?: string;
   followed?: string[];
+  social?: string[];
+  tags?: string[];
   status?: string;
   createdAt?: string;
   updatedAt?: string;

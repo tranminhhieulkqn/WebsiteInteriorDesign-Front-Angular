@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-profile-user-portfolio',
   templateUrl: './profile-user-portfolio.component.html'
 })
 export class ProfileUserPortfolioComponent implements OnInit {
+  @Input() user = {} as User;
 
-  constructor(private lightbox: Lightbox) { }
+  social = this.user.social;
+
+  constructor(private lightbox: Lightbox) {
+    console.log(this.user);
+
+  }
 
   ngOnInit() {
   }

@@ -25,27 +25,73 @@
         <tab heading="{{'pages.profile' | translate | uppercase }}">
           <div class="row">
             <div class="col-12 col-lg-5 col-xl-4 col-left">
-              <app-profile-user-portfolio></app-profile-user-portfolio>
+              <app-profile-user-portfolio [user]="userAuthorizedInfo"></app-profile-user-portfolio>
             </div>
 
             <div class="col-12 col-lg-7 col-xl-8 col-right">
-              <form>
+              <form #inInputForm="ngForm" (ngSubmit)="clickSubmitButton(inInputForm)" novalidate>
                 <div class="row">
                   <!-- Card Begin -->
                   <div class="col-12 col-xl-6 mb-4">
                     <div class="card mb-4">
                       <div class="card-body">
                         <h5 class="mb-4">{{ 'forms.your-info' | translate }}</h5>
-
-                        <label class="form-group has-top-label">
-                          <input class="form-control" (input)="onSearchChange($event.target.value)" [disabled]="isEditing" name="displayName" [(ngModel)]="userAuthorizedInfo.displayName"/>
+                        <!-- NOTE!!! Set background to not change -->
+                        <!-- Display Name (input)="onSearchChange($event.target.value)" -->
+                        <label class="form-group has-top-label tooltip-right-top">
+                          <input class="form-control" [style.background-color]="background_color" name="displayName"
+                            #displayName="ngModel" [(ngModel)]="userAuthorizedInfo.displayName" [readonly]="!isEditing"
+                            required />
                           <span>{{ 'forms.display-name' | translate | uppercase }}</span>
+                          <div *ngIf="checkValidation(displayName, inInputForm);" class="invalid-tooltip">
+                            Value is required!
+                          </div>
                         </label>
+                        <!-- Gender -->
+                        <label class="form-group has-top-label tooltip-right-top">
+                          <ng-select [style.background-color]="background_color" name="gender" #gender="ngModel"
+                            [(ngModel)]="userAuthorizedInfo.gender" [readonly]="!isEditing"
+                            [items]="[{name:'Male'}, {name:'Female'}, {name:'Other'}]" bindLabel="name" bindValue="name"
+                            required>
+                          </ng-select>
+                          <span>{{ 'forms.gender' | translate | uppercase }}</span>
+                          <div *ngIf="checkValidation(gender, inInputForm);" class="invalid-tooltip">
+                            Value is required!
+                          </div>
+                        </label>
+                        <!-- BirthDate -->
+                        <label class="form-group has-top-label tooltip-right-top">
+                          <input class="form-control" [style.background-color]="background_color" name="birthDate"
+                            #birthDate="ngModel" [(ngModel)]="userAuthorizedInfo.birthDate" [readonly]="!isEditing"
+                            bsDatepicker [container]="'html'" required>
+                          <span>{{ 'forms.birthDate' | translate | uppercase }}</span>
+                          <div *ngIf="checkValidation(birthDate, inInputForm);" class="invalid-tooltip">
+                            Value is required!
+                          </div>
+                        </label>
+                        <!-- About -->
                         <label class="form-group has-top-label">
-                          <input class="form-control" [disabled]="!isEditing" name="email" [(ngModel)]="userAuthorizedInfo.email"/>
-                          <span>{{ 'forms.email' | translate | uppercase }}</span>
+                          <textarea class="form-control" [style.background-color]="background_color" name="about"
+                            [(ngModel)]="userAuthorizedInfo.about" [readonly]="!isEditing" rows="7">
+                          </textarea>
+                          <span>{{ 'forms.about' | translate | uppercase }}</span>
                         </label>
-
+                        <!-- Condition show edit or not eidt -->
+                        <div *ngIf="!isEditing; then notEditing else allowEditing"></div>
+                        <!-- Block button not editing -->
+                        <ng-template #notEditing>
+                          <button type="button" [style.margin-right]="'10px'" class="btn btn-primary mb-0"
+                            (click)="clickEditButton();">{{ 'forms.edit' | translate }}
+                          </button>
+                        </ng-template>
+                        <!-- Block button editing -->
+                        <ng-template #allowEditing>
+                          <button type="submit" [style.margin-right]="'10px'" class="btn btn-primary mb-0">
+                            {{ 'forms.save' | translate }}
+                          </button>
+                          <button type="button" class="btn btn-dark mb-0" (click)="clickCancelButton();">{{
+                            'forms.cancel' | translate }}</button>
+                        </ng-template>
                       </div>
                     </div>
                   </div>
@@ -53,49 +99,73 @@
                   <div class="col-12 col-xl-6 mb-4">
                     <div class="card mb-4">
                       <div class="card-body">
-                        <h5 class="mb-4">{{ 'forms.your-info' | translate }}</h5>
-
-
+                        <h5 class="mb-4">{{ 'forms.contact-info' | translate }}</h5>
+                        <!-- Email -->
                         <label class="form-group has-top-label">
-                          <input class="form-control" />
-                          <span>{{ 'forms.display-name' | translate | uppercase }}</span>
-                        </label>
-                        <label class="form-group has-top-label">
-                          <input class="form-control" />
+                          <input class="form-control" [style.background-color]="background_color" name="email"
+                            #email="ngModel" [(ngModel)]="userAuthorizedInfo.email" readonly />
                           <span>{{ 'forms.email' | translate | uppercase }}</span>
                         </label>
-
-                        <label class="form-group has-top-label">
-                          <input class="form-control" />
-                          <span>{{ 'forms.email' | translate | uppercase }}</span>
+                        <!-- Phone -->
+                        <label class="form-group has-top-label tooltip-right-top">
+                          <input class="form-control" [style.background-color]="background_color" name="phone"
+                            #phone="ngModel" [(ngModel)]="userAuthorizedInfo.phone" [readonly]="!isEditing" required />
+                          <span>{{ 'forms.phone' | translate | uppercase }}</span>
+                          <div *ngIf="checkValidation(phone, inInputForm);" class="invalid-tooltip">
+                            Value is required!
+                          </div>
                         </label>
-
-
-                        <label class="form-group has-top-label">
-                          <textarea class="form-control" rows="2" name="details" required></textarea>
-                          <span>{{ 'forms.email' | translate | uppercase }}</span>
+                        <!-- Address -->
+                        <label class="form-group has-top-label tooltip-right-top">
+                          <input class="form-control" [style.background-color]="background_color" name="address"
+                            #address="ngModel" [(ngModel)]="userAuthorizedInfo.address" [readonly]="!isEditing"
+                            required />
+                          <span>{{ 'forms.address' | translate | uppercase }}</span>
+                          <div *ngIf="checkValidation(address, inInputForm);" class="invalid-tooltip">
+                            Value is required!
+                          </div>
                         </label>
-
+                        <!-- Tags -->
                         <label class="form-group has-top-label">
-                          <input class="form-control" id="password" type="password" placeholder="" />
-                          <span>{{ 'forms.password' | translate | uppercase }}</span>
-                        </label>
-                        <label class="form-group has-top-label">
-                          <ng-select [items]="['Uber', 'Microsoft', 'Flexigen']" [addTag]="addTagFn"
-                            [hideSelected]="true" multiple="true" bindLabel="name">
+                          <ng-select [style.background-color]="background_color" name='tags'
+                            [items]="['Designer', 'Interior', 'Architect']" [addTag]="addTagFn"
+                            [(ngModel)]="userAuthorizedInfo.tags" #tags="ngModel" [hideSelected]="true" multiple="true"
+                            bindLabel="name" appendTo="body">
                           </ng-select>
                           <span>{{ 'forms.tags' | translate | uppercase }}</span>
                         </label>
-                        <!-- <label class="form-group has-top-label">
-                          <input class="form-control" bsDatepicker [container]="'html'">
-                          <span>{{ 'forms.date' | translate | uppercase }}</span>
-                        </label> -->
-                        <label class="form-group has-top-label">
-                          <ng-select [items]="[{id:0, name:'Cake'}, {id:1, name:'Dessert'}, {id:2, name:'Cupcake'}]"
-                            bindLabel="name" bindValue="id">
-                          </ng-select>
-                          <span>{{ 'forms.state' | translate | uppercase }}</span>
-                        </label>
+                        <!-- Facebook -->
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-facebook">@</span>
+                          </div>
+                          <input type="text" class="form-control" [style.background-color]="background_color"
+                            #facebook="ngModel" [(ngModel)]="social.facebook" [readonly]="!isEditing" name="facebook"
+                            placeholder="{{'forms.facebook' | translate | lowercase }}" aria-label="facebook"
+                            aria-describedby="addon-facebook">
+                        </div>
+                        <!-- Instagram -->
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-instagram">@</span>
+                          </div>
+                          <input type="text" class="form-control" [style.background-color]="background_color"
+                            #instagram="ngModel" [(ngModel)]="social.instagram" [readonly]="!isEditing" name="instagram"
+                            placeholder="{{'forms.instagram' | translate | lowercase }}" aria-label="instagram"
+                            aria-describedby="addon-instagram">
+                        </div>
+                        <!-- Twitter -->
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-instagram">@</span>
+                          </div>
+                          <input type="text" class="form-control" [style.background-color]="background_color"
+                            #twitter="ngModel" [(ngModel)]="social.twitter" [readonly]="!isEditing" name="twitter"
+                            placeholder="{{'forms.twitter' | translate | lowercase }}" aria-label="twitter"
+                            aria-describedby="addon-twitter">
+                        </div>
+
+                        <div [style.margin-bottom]="'-7px'"></div>
 
                       </div>
                     </div>
@@ -114,5 +184,3 @@
     </div>
   </div>
 </div>
-
-<p>profile-account works!</p>

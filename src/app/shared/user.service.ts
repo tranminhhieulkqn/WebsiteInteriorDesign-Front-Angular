@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../models/user.model';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UserService {
   private urlGetAll = `${this.urlAPI}get`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlRegister = `${this.urlAPI}register`
-  private url
+  private urlUpdate = `${this.urlAPI}update`
 
   // define header for request
   httpOptions = {
@@ -24,7 +25,8 @@ export class UserService {
   };
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private messageService: MessageService
   ) { }
 
   /** GET users from the server */
@@ -101,8 +103,8 @@ export class UserService {
 
   /** PUT: update the user on the server */
   updateUser(user: User): Observable<any> {
-    return this.http.put(this.urlGetBy, user, this.httpOptions).pipe(
-      tap(_ => this.log(`updated user id=${user.uid}`)),
+    return this.http.put(this.urlUpdate, user, this.httpOptions).pipe(
+      tap(_ => this.log(`updated user: ${user.displayName}`)),
       catchError(this.handleError<any>('updateHero'))
     );
   }
@@ -127,9 +129,9 @@ export class UserService {
     };
   }
 
-  /** Log a HeroService message with the MessageService */
+  /** Log a UserService message with the MessageService */
   private log(message: string) {
-    console.log(`UserService: ${message}`);
+    this.messageService.show(`UserService: ${message}`);
   }
 
 }

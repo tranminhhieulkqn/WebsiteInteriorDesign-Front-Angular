@@ -17,6 +17,9 @@ import { ProfileComponent } from './profile.component';
 import { ProfileSocialComponent } from './profile-social/profile-social.component';
 import { ProfilePortfolioComponent } from './profile-portfolio/profile-portfolio.component';
 import { ProfileAccountComponent } from './profile-account/profile-account.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
+
 
 @NgModule({
   declarations: [
@@ -29,15 +32,17 @@ import { ProfileAccountComponent } from './profile-account/profile-account.compo
     CommonModule,
     ProfileRoutingModule,
     FormsModule,
+    BsDatepickerModule.forRoot(),
     TranslateModule,
     TabsModule.forRoot(),
     LayoutContainersModule,
     BsDropdownModule.forRoot(),
     ProfileContainersModule,
     NgSelectModule,
-    BsDatepickerModule,
     FormValidationsContainersModule,
-    WizardsContainersModule
+    WizardsContainersModule,
+    SimpleNotificationsModule.forRoot(),
+    BootstrapModule
   ]
 })
 export class ProfileModule { }
