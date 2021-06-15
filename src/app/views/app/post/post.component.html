@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-12">
+    <app-heading></app-heading>
+    <app-breadcrumb></app-breadcrumb>
+    <div class="text-zero top-right-button-container">
+      <div dropdown>
+        <button id="button-basic" dropdownToggle type="button" placement="bottom right"
+          class="btn btn-outline-primary dropdown-toggle btn-lg" aria-controls="dropdown-basic">
+          {{ 'pages.actions' | translate }} <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+          aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'social']">Socical</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a>
+          </li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'post', 'post-manage']">My Posts</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="separator mb-5"></div>
+  </div>
+</div>
+<p>post works!</p>
+<router-outlet></router-outlet>

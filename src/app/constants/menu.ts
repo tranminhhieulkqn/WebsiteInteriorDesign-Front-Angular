@@ -9,15 +9,17 @@ export interface IMenuItem {
 }
 
 const data: IMenuItem[] = [
+  // Home
   {
     id: 'home',
     icon: 'iconsminds-home',
     label: 'menu.app',
     to: '/app/home'
   },
+  // Profile
   {
     id: 'pages-profile',
-    icon: 'simple-icon-user',
+    icon: 'iconsminds-profile',
     label: 'menu.profile',
     to: '/app/profile',
     subs: [{
@@ -38,6 +40,35 @@ const data: IMenuItem[] = [
 
     ]
   },
+  // Posts
+  {
+    id: 'post',
+    icon: 'iconsminds-newspaper',
+    label: 'menu.post',
+    to: '/app/post',
+    subs: [{
+      icon: 'simple-icon-layers',
+      label: 'menu.post-list',
+      to: '/app/post/post-list'
+    },
+    {
+      icon: 'simple-icon-book-open',
+      label: 'menu.post-detail',
+      to: '/app/post/post-detail'
+    },
+    {
+      icon: 'simple-icon-note',
+      label: 'menu.new-post',
+      to: '/app/post/post-create'
+    },
+    {
+      icon: 'simple-icon-docs',
+      label: 'menu.my-post',
+      to: '/app/post/post-manage'
+    },
+    ]
+  },
+  // Dashboards
   {
     id: 'dashboards',
     icon: 'iconsminds-shop-4',

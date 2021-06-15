@@ -11,9 +11,9 @@
           </button>
           <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
             aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.action' | translate }}</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.another-action' | translate
-                }}</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'social']">Socical</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">My Account</a></li>
           </ul>
         </div>
       </div>

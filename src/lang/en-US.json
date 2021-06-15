@@ -19,6 +19,13 @@
     "code": "Reset Code"
   },
   "menu": {
+    "post-manage": "Manage Posts",
+    "my-post": "My Post",
+    "new-post": "New Post",
+    "post-create": "New Post",
+    "post-detail": "Post Detail",
+    "post-list": "Post List",
+    "post": "Post",
     "app": "Home",
     "dashboards": "Dashboards",
     "default": "Default",

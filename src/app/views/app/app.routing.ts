@@ -16,6 +16,7 @@ const routes: Routes = [
       { path: 'ui', loadChildren: () => import('./ui/ui.module').then(m => m.UiModule) },
       { path: 'menu', loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule) },
       { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
+      { path: 'post', loadChildren: () => import('./post/post.module').then(m => m.PostModule)},
       { path: 'blank-page', component: BlankPageComponent },
     ]
   }
