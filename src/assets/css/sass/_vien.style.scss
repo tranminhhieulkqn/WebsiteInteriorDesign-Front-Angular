@@ -4077,6 +4077,7 @@ input:-webkit-autofill {
 
 .custom-control-input:disabled ~ .custom-control-label::before {
   background-color: rgba($primary-color, 0.25);
+  // background-color: transparent;
 }
 
 .custom-control-input:active ~ .custom-control-label::before {
@@ -5502,7 +5503,8 @@ select.form-control {
 
 .input-group > .custom-select:not(:first-child),
 .input-group > .form-control:not(:first-child) {
-  background: $foreground-color;
+  // background: $foreground-color;
+  background-color: $input-background;
   color: $primary-color;
   border-color: $separator-color;
 }
@@ -9583,4 +9585,29 @@ footer.page-footer {
       }
     }
   }
+}
+
+
+// Input background-color
+input.form-control {
+  background-color: $input-background;
+}
+input.form-control.ng-untouched.ng-pristine.ng-valid {
+    background-color: $input-background;
+}
+input.form-control.ng-pristine.ng-valid.ng-touched {
+  background-color: $input-background;
+}
+textarea.form-control.ng-untouched.ng-pristine.ng-valid {
+  background-color: $input-background;
+}
+textarea.form-control.ng-pristine.ng-valid.ng-touched {
+  background-color: $input-background;
+}
+
+.ql-editor {
+  background-color: $input-background;
+}
+.ql-editor.ql-blank {
+  background-color: $input-background;
 }

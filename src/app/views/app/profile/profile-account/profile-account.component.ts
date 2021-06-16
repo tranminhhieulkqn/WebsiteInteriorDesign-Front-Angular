@@ -27,7 +27,10 @@ export class ProfileAccountComponent implements OnInit {
 
   //
   isEditing = false;
-  background_color = "#18191B"
+
+  onChange() {
+    console.log("Change");
+  }
 
   constructor(
     private authService: AuthService,
@@ -39,7 +42,7 @@ export class ProfileAccountComponent implements OnInit {
 
   }
 
-   /** OnInit: get all the data needed for the page from the server  */
+  /** OnInit: get all the data needed for the page from the server  */
   ngOnInit() {
     // get user authorized
     this.userAuthorized = this.authService.user;

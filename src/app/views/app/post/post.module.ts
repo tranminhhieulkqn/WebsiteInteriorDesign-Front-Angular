@@ -21,9 +21,12 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { WizardsContainersModule } from 'src/app/containers/wizard/wizards.containers.module';
 import { FormValidationsContainersModule } from 'src/app/containers/form-validations/form.validations.containers.module';
 import { PostManageComponent } from './post-manage/post-manage.component';
+import { PostCreateComponent } from './post-create/post-create.component';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
-  declarations: [PostComponent, PostListComponent, PostDetailComponent, PostManageComponent],
+  declarations: [PostComponent, PostListComponent, PostDetailComponent, PostManageComponent, PostCreateComponent],
   imports: [
     CommonModule,
     PostRoutingModule,
@@ -39,6 +42,8 @@ import { PostManageComponent } from './post-manage/post-manage.component';
     BsDropdownModule.forRoot(),
     NgSelectModule,
     SimpleNotificationsModule.forRoot(),
+    DropzoneModule,
+    QuillModule.forRoot(),
   ]
 })
 export class PostModule { }

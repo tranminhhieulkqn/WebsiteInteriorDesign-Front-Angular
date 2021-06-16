@@ -474,6 +474,13 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "post-options": "Post Options",
+    "summary": "Summary",
+    "brief-description": "Brief Description",
+    "thumbnail": "Thumbnail",
+    "content": "Content",
+    "gallery": "Gallery",
+    "title": "Title",
     "twitter": "Twitter",
     "instagram": "Instagram",
     "facebook": "Facebook",
