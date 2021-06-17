@@ -21,7 +21,7 @@ export class ProfileAccountComponent implements OnInit {
 
   // the user needs to display
   userAuthorized: firebase.User;
-  userAuthorizedInfo = {} as User;
+  userAuthorizedInfo: User = {} as User;
   userAuthorizedInfo_: User;
   social = {} as Social;
 
@@ -47,7 +47,20 @@ export class ProfileAccountComponent implements OnInit {
     // get user authorized
     this.userAuthorized = this.authService.user;
     // get info user
-    this.getUserAuthorizedInfo(this.userAuthorized.uid);
+    // this.getUserAuthorizedInfo(this.userAuthorized.uid);
+    this.userService.getUser(this.userAuthorized.uid)
+      .subscribe(
+        res => {
+          if (res) {
+            this.userAuthorizedInfo = res['user'];
+            this.userAuthorizedInfo_ = Object.assign({}, this.userAuthorizedInfo);
+            console.log(this.userAuthorizedInfo);
+          }
+        },
+        err => {
+          // log to console
+        }
+      )
   }
 
   getUserAuthorizedInfo(uID: string | number) {

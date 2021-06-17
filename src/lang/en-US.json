@@ -474,6 +474,10 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "public": "Public",
+    "private": "Private",
+    "keywords": "Keywords",
+    "category": "Category",
     "post-options": "Post Options",
     "summary": "Summary",
     "brief-description": "Brief Description",

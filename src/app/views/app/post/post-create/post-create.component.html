@@ -8,20 +8,25 @@
           <h5 class="mb-4">{{ 'forms.brief-description' | translate }}</h5>
 
           <!-- Title -->
-          <div class="input-group input-group-lg">
+          <div class="input-group input-group-lg tooltip-right-top">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-lg">{{ 'forms.title' | translate }}</span>
             </div>
-            <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" name="title" #title="ngModel" [(ngModel)]="newPost.title" class="form-control"
+              aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
+            <div *ngIf="checkValidation(title, inInputForm);" class="invalid-tooltip">
+              Title is required!
+            </div>
           </div>
 
-          <!-- Sumary -->
+          <!-- Summary -->
           <div [style.margin-bottom]="'15px'"></div>
-          <div class="input-group mb-3">
+          <div class="input-group tooltip-right-top">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">{{'forms.summary' | translate}}</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input type="text" name="summary" #summary="ngModel" [(ngModel)]="newPost.summary" class="form-control"
+              aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
 
         </div>
@@ -29,10 +34,18 @@
 
 
       <!-- Editor -->
-      <div class="card mb-4">
+      <div class="card mb-4 tooltip-right-top">
         <div class="card-body">
           <h5 class="mb-4">{{'forms.content' | translate}}</h5>
-          <quill-editor [placeholder]="''"></quill-editor>
+          <quill-editor format="html" name="content" #content="ngModel" [(ngModel)]="newPost.content" [placeholder]="''"
+            (onEditorChanged)="onEditorChanged($event)"></quill-editor>
+
+          <!-- <input type="text" name="title" #title="ngModel" [(ngModel)]="newPost.title" class="form-control"
+              aria-label="Large" aria-describedby="inputGroup-sizing-sm" required> -->
+
+          <div *ngIf="checkEditor(inInputForm);" class="invalid-tooltip">
+            Content is required!
+          </div>
         </div>
       </div>
 
@@ -40,22 +53,33 @@
       <div class="card mb-4">
         <div class="card-body">
           <h5 class="mb-4">{{ 'forms.gallery' | translate }}</h5>
-          <dropzone [config]="config" [message]="'form-components.dropzone-message' | translate"
-            (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+          <dropzone [config]="configGallery" [message]="'form-components.dropzone-message' | translate"
+            (sending)="onSending($event)" (error)="onUploadError($event)" (success)="onUploadSuccessGallery($event)"
+            (removedFile)="onRemovedFileGallery($event)">
+          </dropzone>
+          <div *ngIf="checkGallery(inInputForm);" class="invalid-tooltip">
+            Gallery is required!
+          </div>
         </div>
       </div>
 
 
 
     </div>
-    <div class="col-4 col-lg-4 mb-4">
+    <div class=" col-4 col-lg-4 mb-4">
 
       <!-- Upload image thumbnail for post -->
-      <div class="card mb-4">
+      <div class="card mb-4 tooltip-right-top">
         <div class="card-body">
           <h5 class="mb-4">{{ 'forms.thumbnail' | translate }}</h5>
-          <dropzone [config]="config" [message]="'form-components.dropzone-message' | translate"
-            (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+          <dropzone [config]="configThumbnail" [message]="'form-components.dropzone-message' | translate"
+            (sending)="onSending($event)" (error)="onUploadError($event)" (success)="onUploadSuccessThumbnail($event)"
+            (removedFile)="onRemovedFileThumbnail($event)">
+            <input type="hidden" name="bucketPath" value="{{ this.bucketPath }}">
+          </dropzone>
+          <div *ngIf="checkThumbnail(inInputForm);" class="invalid-tooltip">
+            Gallery is required!
+          </div>
         </div>
       </div>
 
@@ -64,20 +88,51 @@
         <div class="col-12 card-body">
           <h5 class="mb-4">{{ 'forms.post-options' | translate }}</h5>
 
-          <!-- Title -->
+          <!-- Category -->
+          <label class="form-group has-top-label tooltip-right-top">
+            <ng-select name="category" #category="ngModel" [(ngModel)]="newPost.category"
+              [items]="['Interior Design', 'Hi-Tech', 'Indochina', 'Luxurious']" bindLabel="name" bindValue="name"
+              required>
+            </ng-select>
+            <span>{{ 'forms.category' | translate | uppercase }}</span>
+            <div *ngIf="checkValidation(category, inInputForm);" class="invalid-tooltip">
+              Category is required!
+            </div>
+          </label>
 
-          <div class="form-group tooltip-right-top input-group-lg">
-            <label>{{ 'forms.title' | translate }}</label>
-            <input type="text" class="form-control" name="title" ngModel required #title="ngModel">
-            <div *ngIf="!title.valid && inInputForm.submitted" class="invalid-tooltip">Title is required!</div>
-          </div>
+          <!-- Keywords -->
+          <label class="form-group has-top-label tooltip-right-top">
+            <ng-select name='keywords' [items]="['Hi-Tech', 'Indochina', 'Luxurious']" [addTag]="addTagFn"
+              [(ngModel)]="newPost.keywords" #keywords="ngModel" [hideSelected]="true" multiple="true" bindLabel="name"
+              appendTo="body" required>
+            </ng-select>
+            <span>{{ 'forms.keywords' | translate | uppercase }}</span>
+            <div *ngIf="checkValidation(keywords, inInputForm);" class="invalid-tooltip">
+              Keywords is required!
+            </div>
+          </label>
 
-          <!-- Sumary -->
-          <div class="form-group tooltip-right-top">
-            <label>{{ 'forms.summary' | translate }}</label>
-            <input type="text" class="form-control" name="name" ngModel required #name="ngModel">
-            <div *ngIf="!name.valid && inInputForm.submitted" class="invalid-tooltip">Summary is required!</div>
+          <!-- Status -->
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" [style]="'font-size: larger; text-align: right; font-weight: bold;'">
+              {{ 'forms.private' | translate }}
+            </label>
+            <div class="col-sm-4" [style.align-self]="'center'">
+              <div class="custom-control custom-switch " [style.text-align]="'center'">
+                <input type="checkbox" class="custom-control-input" name='status' [(ngModel)]="publicPost"
+                  #status="ngModel" id="switchStatus">
+                <label class="custom-control-label" for="switchStatus"></label>
+              </div>
+            </div>
+            <label class="col-sm-4 col-form-label" [style]="'font-size: larger; text-align: left; font-weight: bold;'">
+              {{ 'forms.public' | translate }}
+            </label>
           </div>
+          <hr>
+          <!-- Submit Save button -->
+          <button type="submit" [style.margin-right]="'10px'" class="btn btn-primary mb-0">
+            {{ 'forms.save' | translate }}
+          </button>
 
         </div>
       </div>

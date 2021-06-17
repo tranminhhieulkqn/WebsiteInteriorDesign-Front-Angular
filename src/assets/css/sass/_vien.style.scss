@@ -9592,8 +9592,14 @@ footer.page-footer {
 input.form-control {
   background-color: $input-background;
 }
+input.form-control.ng-pristine.ng-invalid.ng-touched {
+  background-color: $input-background;
+}
+input.form-control.ng-untouched.ng-pristine {
+  background-color: $input-background;
+}
 input.form-control.ng-untouched.ng-pristine.ng-valid {
-    background-color: $input-background;
+  background-color: $input-background;
 }
 input.form-control.ng-pristine.ng-valid.ng-touched {
   background-color: $input-background;
@@ -9609,5 +9615,8 @@ textarea.form-control.ng-pristine.ng-valid.ng-touched {
   background-color: $input-background;
 }
 .ql-editor.ql-blank {
+  background-color: $input-background;
+}
+input.form-control.ng-dirty.ng-invalid.ng-touched {
   background-color: $input-background;
 }
