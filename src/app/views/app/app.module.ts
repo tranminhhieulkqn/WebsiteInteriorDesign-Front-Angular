@@ -8,6 +8,8 @@ import { LayoutContainersModule } from 'src/app/containers/layout/layout.contain
 import { HomeComponent } from './home/home.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BootstrapModule } from "../../components/bootstrap/bootstrap.module";
+import { UiCardsContainersModule } from 'src/app/containers/ui/cards/ui.cards.containers.module';
+import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
 
 
 @NgModule({
@@ -18,8 +20,12 @@ import { BootstrapModule } from "../../components/bootstrap/bootstrap.module";
     SharedModule,
     LayoutContainersModule,
     SimpleNotificationsModule.forRoot(),
-    BootstrapModule
+    BootstrapModule,
+    LayoutContainersModule,
+    UiCardsContainersModule,
+    ComponentsCarouselModule
   ]
 })
 export class AppModule { }
+
 

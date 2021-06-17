@@ -5,7 +5,7 @@ import { TestService } from "../../../shared/test.service";
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
-
+import { carouselData, ICarouselItem } from 'src/app/data/carousels';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,7 +19,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   allUser: User[] = [];
   displayName = '';
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-
+  slides = [
+    {image: 'https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80', text: 'First'},
+    {image: 'https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',text: 'Second'},
+    {image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',text: 'Third'}
+ ];
+ carouselItems: ICarouselItem[] = carouselData;
+    noWrapSlides = false;
+   showIndicator = true;
   hashPasswword: string = null;
   constructor(
     private authService: AuthService,

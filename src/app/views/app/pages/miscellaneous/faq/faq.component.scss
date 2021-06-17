@@ -1,0 +1,9 @@
+ 
+
+.zoom:hover {
+    filter: brightness(120%);
+    transform: scale(1.15); 
+    transition: transform 1.5s, filter 0.4s ease-in-out;
+  }
+
+
