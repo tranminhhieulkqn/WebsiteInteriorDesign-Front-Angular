@@ -10,10 +10,10 @@ import { Subscription } from 'rxjs';
 })
 export class GlideThumbsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('glideRef', { static: true }) glideRef: ElementRef;
-  @ViewChild('glideThumbsRef', { static: true }) glideThumbsRef: ElementRef;
-  @ViewChild('glideSlides', { static: true }) glideSlides: ElementRef;
-  @ViewChild('glideThumbs', { static: true }) glideThumbs: ElementRef;
+  @ViewChild('glideRef', { static: false }) glideRef: ElementRef;
+  @ViewChild('glideThumbsRef', { static: false }) glideThumbsRef: ElementRef;
+  @ViewChild('glideSlides', { static: false }) glideSlides: ElementRef;
+  @ViewChild('glideThumbs', { static: false }) glideThumbs: ElementRef;
 
   @Input() settingsImages;
   @Input() settingsThumbs;
@@ -82,9 +82,9 @@ export class GlideThumbsComponent implements OnInit, AfterViewInit, OnDestroy {
   thumbsResize() {
     const perView = Math.min(this.glideCarouselThumbs.settings.perView, this.glideCount.length);
     this.thumbsPerView = perView;
-    if (this.glideCount.length <= perView) {
-      this.renderArrows = false;
-    }
+    // if (this.glideCount.length <= perView) {
+    //   this.renderArrows = false;
+    // }
     this.glideCarouselImages.update();
     this.glideCarouselThumbs.update();
   }

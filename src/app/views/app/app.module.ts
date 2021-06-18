@@ -10,6 +10,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BootstrapModule } from "../../components/bootstrap/bootstrap.module";
 import { UiCardsContainersModule } from 'src/app/containers/ui/cards/ui.cards.containers.module';
 import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
+import { MomentModule } from "ngx-moment";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ComponentsCarouselModule } from 'src/app/components/carousel/components
     BootstrapModule,
     LayoutContainersModule,
     UiCardsContainersModule,
-    ComponentsCarouselModule
+    ComponentsCarouselModule,
+    MomentModule
   ]
 })
 export class AppModule { }

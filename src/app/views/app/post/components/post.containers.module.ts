@@ -16,6 +16,8 @@ import { PostSideVideoComponent } from './post-side-video/post-side-video.compon
 import { ProfileRecentPostsComponent } from './profile-recent-posts/profile-recent-posts.component';
 import { PostDetailInfoComponent } from './post-detail-info/post-detail-info.component';
 import { PostDetailTabsComponent } from './post-detail-tabs/post-detail-tabs.component';
+import { QuillModule } from 'ngx-quill';
+import { MomentModule } from "ngx-moment";
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { PostDetailTabsComponent } from './post-detail-tabs/post-detail-tabs.com
     TabsModule.forRoot(),
     AccordionModule.forRoot(),
     BsDropdownModule.forRoot(),
+    QuillModule.forRoot(),
+    MomentModule
   ],
   exports: [
     PostCategoriesComponent,

@@ -27,7 +27,10 @@ export class PostDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private postService: PostService,
   ) {
-
+    this.route.queryParams.subscribe(
+      params => {
+        this.postID = params['id'];
+      });
   }
 
   //#region /** Get data (post) for page */
@@ -41,15 +44,21 @@ export class PostDetailComponent implements OnInit {
     this.postService.getPost(postID.toString())
       .subscribe(
         res => {
-          this.currentPost = res['post'] as Post;
-          for (let index = 0; index < res['post'].gallery.length; index++) {
-            // get image url
-            const element = res['post'].gallery[index];
-            // push to array image gallery
-            this.detailImages.push({
-              id: index.toString(),
-              img: element.toString()
-            } as ICarouselImage)
+          try {
+            this.currentPost = res['post'] as Post;
+            for (let index = 0; index < res['post'].gallery.length; index++) {
+              // get image url
+              const element = res['post'].gallery[index];
+              // push to array image gallery
+              this.detailImages.push({
+                id: index.toString(),
+                img: element.toString()
+              } as ICarouselImage)
+            }
+          } catch (error) {
+            this.router.navigateByUrl('/app/post/post-detail').then(() => {
+              window.location.reload();
+            });
           }
         },
         err => console.log(err), // show message
@@ -60,21 +69,27 @@ export class PostDetailComponent implements OnInit {
   /**
    * Get lastest post from server
    */
-  getLastPost(){
+  getLastPost() {
     // get post info from server
     this.postService.getLastPost()
       .subscribe(
         res => {
-          this.currentPost = res['posts'][0] as Post;
-          this.postID = res['posts'][0].id;
-          for (let index = 0; index < res['posts'][0].gallery.length; index++) {
-            // get image url
-            const element = res['posts'][0].gallery[index];
-            // push to array image gallery
-            this.detailImages.push({
-              id: index.toString(),
-              img: element.toString()
-            } as ICarouselImage)
+          try {
+            this.currentPost = res['posts'][0] as Post;
+            this.postID = res['posts'][0].id;
+            for (let index = 0; index < res['posts'][0].gallery.length; index++) {
+              // get image url
+              const element = res['posts'][0].gallery[index];
+              // push to array image gallery
+              this.detailImages.push({
+                id: index.toString(),
+                img: element.toString()
+              } as ICarouselImage)
+            }
+          } catch (error) {
+            this.router.navigateByUrl('/error').then(() => {
+              window.location.reload();
+            });
           }
         },
         err => console.log(err), // show message
@@ -85,20 +100,12 @@ export class PostDetailComponent implements OnInit {
   //#endregion
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(
-      params => {
-        this.postID = params['id'];
-      },
-      err => console.log(err),
-      () => { }
-    );
     if (this.postID) { // if in url has id param and get success
       this.getPost(this.postID);
     }
     else { // if not, get lastest post.
       this.getLastPost();
     }
-
   }
 
 

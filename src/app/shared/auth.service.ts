@@ -32,6 +32,7 @@ export class AuthService {
 
   userCurrent$: Observable<User>;
   saltRounds = 10;
+  defaultAvatarProfile = `https://storage.googleapis.com/interior-design-afc76.appspot.com/assets/default-avatar-profile.jpg`
 
   constructor(
     private http: HttpClient,
@@ -87,7 +88,10 @@ export class AuthService {
         this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password)
           .then(
             () => {
-              this.afAuth.auth.currentUser.updateProfile({ displayName: credentials.displayName });
+              this.afAuth.auth.currentUser.updateProfile({
+                displayName: credentials.displayName,
+                photoURL: this.defaultAvatarProfile
+              });
               this.afAuth.auth.updateCurrentUser(this.afAuth.auth.currentUser);
             })
           .then(() => {
@@ -156,6 +160,45 @@ export class AuthService {
     } catch (error) { // catch error and throw error
       throw new Error(error.message);
     }
+  }
+
+  updateAvatar(imageURL){
+    // try { // try
+    //   return from(
+    //     // create new account with email and password
+    //     this.user.updateProfile({ photoURL: imageURL })
+    //       .then(
+    //         () => {
+    //           this.afAuth.auth.updateCurrentUser(this.afAuth.auth.currentUser);
+    //         })
+    //       .then(() => {
+    //         // define new user on firestorage
+    //         var user: User = {
+    //           uid: this.afAuth.auth.currentUser.uid,
+    //           email: credentials.email,
+    //           password: credentials.password,
+    //           displayName: credentials.displayName,
+    //           role: 'user'
+    //         }
+    //         // define query parametters for request.
+    //         let params = new HttpParams()
+    //           .set('password', user.password.toString());
+    //         // request to get new hash password to save firestorage
+    //         this.http.get<User>(`${environment.apiBackUrl}users/hashpassword?${params.toString()}`)
+    //           .subscribe(
+    //             res => {
+    //               user.password = res['hashPass']; // change pass to hashed pass
+    //               const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${user.uid}`);
+    //               // update user data
+    //               userRef.set(user, { merge: true })
+    //             },
+    //             err => new Error(err.message)
+    //           );
+    //       }).catch(error => new Error(error.message))
+    //   );
+    // } catch (error) { // catch error and throw error
+    //   throw new Error(error.message);
+    // }
   }
 
   get user(): firebase.User {
