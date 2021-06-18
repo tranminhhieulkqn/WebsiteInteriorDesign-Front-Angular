@@ -24,6 +24,7 @@ import { PostManageComponent } from './post-manage/post-manage.component';
 import { PostCreateComponent } from './post-create/post-create.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { QuillModule } from 'ngx-quill';
+import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
 
 @NgModule({
   declarations: [PostComponent, PostListComponent, PostDetailComponent, PostManageComponent, PostCreateComponent],
@@ -44,6 +45,7 @@ import { QuillModule } from 'ngx-quill';
     SimpleNotificationsModule.forRoot(),
     DropzoneModule,
     QuillModule.forRoot(),
+    ComponentsCarouselModule,
   ]
 })
 export class PostModule { }

@@ -41,28 +41,34 @@ export class PostService {
       );
   }
 
-  /** GET hero by id. Return `undefined` when id not found */
-  // getHeroNo404<Data>(id: number): Observable<Hero> {
-  //   const url = `${this.heroesUrl}/?id=${id}`;
-  //   return this.http.get<Hero[]>(url)
-  //     .pipe(
-  //       map(heroes => heroes[0]), // returns a {0|1} element array
-  //       tap(h => {
-  //         const outcome = h ? `fetched` : `did not find`;
-  //         this.log(`${outcome} hero id=${id}`);
-  //       }),
-  //       catchError(this.handleError<Hero>(`getHero id=${id}`))
-  //     );
-  // }
+  /** GET post by id. Return `undefined` when id not found */
+  getPostNo404<Data>(id: string | number): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('id', id.toString());
+    const url = `${this.urlGetBy}?${params.toString()}`;
+    return this.http.get<Post[]>(url)
+      .pipe(
+        map(posts => posts[0]), // returns a {0|1} element array
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} post id=${id}`);
+        }),
+        catchError(this.handleError<Post>(`getPost id=${id}`))
+      );
+  }
 
-  /** GET hero by id. Will 404 if id not found */
-  // getHero(id: number): Observable<Hero> {
-  //   const url = `${this.heroesUrl}/${id}`;
-  //   return this.http.get<Hero>(url).pipe(
-  //     tap(_ => this.log(`fetched hero id=${id}`)),
-  //     catchError(this.handleError<Hero>(`getHero id=${id}`))
-  //   );
-  // }
+  /** GET post by id. Will 404 if id not found */
+  getPost(id: string | number): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('id', id.toString());
+    const url = `${this.urlGetBy}?${params.toString()}`;
+    return this.http.get<Post>(url).pipe(
+      tap(_ => this.log(`fetched post id=${id}`)),
+      catchError(this.handleError<Post>(`getHero id=${id}`))
+    );
+  }
 
   /* GET heroes whose name contains search term */
   // searchHeroes(term: string): Observable<Hero[]> {

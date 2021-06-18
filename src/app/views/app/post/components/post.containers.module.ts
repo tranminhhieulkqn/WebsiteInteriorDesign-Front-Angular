@@ -14,6 +14,8 @@ import { PostCategoriesComponent } from './post-categories/post-categories.compo
 import { PostContentComponent } from './post-content/post-content.component';
 import { PostSideVideoComponent } from './post-side-video/post-side-video.component';
 import { ProfileRecentPostsComponent } from './profile-recent-posts/profile-recent-posts.component';
+import { PostDetailInfoComponent } from './post-detail-info/post-detail-info.component';
+import { PostDetailTabsComponent } from './post-detail-tabs/post-detail-tabs.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ProfileRecentPostsComponent } from './profile-recent-posts/profile-rece
     PostCategoriesComponent,
     PostContentComponent,
     PostSideVideoComponent,
-    ProfileRecentPostsComponent
+    ProfileRecentPostsComponent,
+    PostDetailInfoComponent,
+    PostDetailTabsComponent,
   ],
   imports: [
     CommonModule,
@@ -38,13 +42,15 @@ import { ProfileRecentPostsComponent } from './profile-recent-posts/profile-rece
     RatingModule.forRoot(),
     TabsModule.forRoot(),
     AccordionModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
   ],
   exports: [
     PostCategoriesComponent,
     PostContentComponent,
     PostSideVideoComponent,
-    ProfileRecentPostsComponent
+    ProfileRecentPostsComponent,
+    PostDetailInfoComponent,
+    PostDetailTabsComponent,
   ]
 })
 export class PostContainersModule { }
