@@ -18,6 +18,7 @@ export class PostService {
   private urlCreate = `${this.urlAPI}create`
   private urlGetAll = `${this.urlAPI}get`;
   private urlGetBy = `${this.urlAPI}getBy`;
+  private urlGetLast = `${this.urlAPI}getLast`;
   private urlUpdate = `${this.urlAPI}update`
   private urlDetele = `${this.urlAPI}delete`
 
@@ -37,7 +38,7 @@ export class PostService {
     return this.http.get<Post[]>(this.urlGetAll)
       .pipe(
         tap(_ => this.log('fetched posts')),
-        catchError(this.handleError<Post[]>('getHeroes', []))
+        catchError(this.handleError<Post[]>('getPosts', []))
       );
   }
 
@@ -66,7 +67,19 @@ export class PostService {
     const url = `${this.urlGetBy}?${params.toString()}`;
     return this.http.get<Post>(url).pipe(
       tap(_ => this.log(`fetched post id=${id}`)),
-      catchError(this.handleError<Post>(`getHero id=${id}`))
+      catchError(this.handleError<Post>(`getPost id=${id}`))
+    );
+  }
+
+  /** GET post by id. Will 404 if id not found */
+  getLastPost(amount: number = 1): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('amount', amount.toString());
+    const url = `${this.urlGetLast}?${params.toString()}`;
+    return this.http.get<Post>(url).pipe(
+      tap(_ => this.log(`fetched ${amount} lastest post.`)),
+      catchError(this.handleError<Post>(`getLastPost`))
     );
   }
 

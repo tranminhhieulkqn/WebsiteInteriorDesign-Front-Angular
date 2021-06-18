@@ -12,4 +12,5 @@ export interface Post {
   keywords?: string[];
   status: string;
   likeCount: number;
+  dateCreated: Date;
 }

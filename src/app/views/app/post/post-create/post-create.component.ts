@@ -275,14 +275,18 @@ export class PostCreateComponent implements OnInit {
     ) {
       // change and delete needed value
       this.newPost.status = form.value.status ? `public` : `private`;
+      // add date created for post
+      this.newPost.dateCreated = new Date();
+      console.log(this.newPost.dateCreated);
+
       delete this.newPost.author;
       delete this.newPost['pid']
       delete this.newPost['createdAt'];
       delete this.newPost['updatedAt'];
       // update post to server
       this.postService.updatePost(this.postID, this.newPost).subscribe(
-        res => {},
-        err => {},
+        res => { },
+        err => { },
         () => {
           this.savedPost = true;
           // show message
