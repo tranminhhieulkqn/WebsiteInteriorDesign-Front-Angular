@@ -3,6 +3,8 @@ import { User } from 'src/app/models/user.model';
 import { carouselImages, carouselThumbs, ICarouselImage } from 'src/app/data/carousels';
 import { PostService } from 'src/app/shared/post.service';
 import { Observable, timer } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-post-detail',
@@ -14,14 +16,19 @@ export class PostDetailComponent implements OnInit {
   //#region /** Variable definition */
 
   postID: string;
+  currentPost: Post;
   showGallery = false;
   detailImages: ICarouselImage[] = [];
 
   //#endregion
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private postService: PostService,
-  ) { }
+  ) {
+
+  }
 
 
 
@@ -30,6 +37,7 @@ export class PostDetailComponent implements OnInit {
     this.postService.getPost(idPost.toString())
       .subscribe(
         res => {
+          this.currentPost = res['post'] as Post;
           for (let index = 0; index < res['post'].gallery.length; index++) {
             // get image url
             const element = res['post'].gallery[index];
@@ -52,6 +60,16 @@ export class PostDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      params => {
+        this.postID = params['id'];
+      },
+      err => { },
+      () => { }
+    );
+    if (this.postID) {
+      this.getPost(this.postID);
+    }
 
   }
 

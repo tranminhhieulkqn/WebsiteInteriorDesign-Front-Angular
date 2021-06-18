@@ -52,6 +52,11 @@ const data: IMenuItem[] = [
       to: '/app/post/post-list'
     },
     {
+      icon: 'simple-icon-layers',
+      label: 'menu.post-list1',
+      to: '/app/post/post-list1'
+    },
+    {
       icon: 'simple-icon-book-open',
       label: 'menu.post-detail',
       to: '/app/post/post-detail'

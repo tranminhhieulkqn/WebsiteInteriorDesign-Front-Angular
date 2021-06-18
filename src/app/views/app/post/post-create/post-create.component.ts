@@ -27,7 +27,7 @@ export class PostCreateComponent implements OnInit {
   newPost: Post;
   postID?: string = "";
   publicPost: boolean = false;
-  savedPost: boolean; // check post saved
+  savedPost: boolean = false; // check post saved
 
   //#endregion
 
