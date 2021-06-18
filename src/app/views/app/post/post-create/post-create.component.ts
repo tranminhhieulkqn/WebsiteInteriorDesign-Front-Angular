@@ -12,6 +12,7 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { delay } from 'rxjs/operators';
 import { UploadService } from 'src/app/shared/upload.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-create',
@@ -26,7 +27,7 @@ export class PostCreateComponent implements OnInit {
   newPost: Post;
   postID?: string = "";
   publicPost: boolean = false;
-  savedPost: boolean = false; // check post saved
+  savedPost: boolean; // check post saved
 
   //#endregion
 
@@ -101,6 +102,7 @@ export class PostCreateComponent implements OnInit {
     private notifications: NotificationsService,
     private localStorageService: LocalStorageService,
     private uploadService: UploadService,
+    private router: Router,
   ) {
     // get user authorized
     this.userAuthorized = this.authService.user;
@@ -211,7 +213,8 @@ export class PostCreateComponent implements OnInit {
     // get response
     let response = JSON.parse(event.xhr.response);
     // delete image
-    this.uploadService.deleteFile(response.imageURL).subscribe();
+    if (!this.savedPost)
+      this.uploadService.deleteFile(response.imageURL).subscribe();
     // remove file on gallery
     try {
       this.newPost.gallery.slice(this.newPost.gallery.indexOf(response.imageURL), 1);
@@ -223,7 +226,8 @@ export class PostCreateComponent implements OnInit {
     // get response
     let response = JSON.parse(event.xhr.response);
     // delete image
-    this.uploadService.deleteFile(response.imageURL).subscribe();
+    if (!this.savedPost)
+      this.uploadService.deleteFile(response.imageURL).subscribe();
     // remove file on thumbnail
     if (this.newPost.thumbnail == response.imageURL) {
       this.newPost.thumbnail = "";
@@ -261,9 +265,14 @@ export class PostCreateComponent implements OnInit {
 
 
   clickSubmitButton(form: NgForm) {
-    if (this.newPost.content?.length > 0 &&
+    if (
+      this.newPost.title?.length > 0 &&
+      this.newPost.category?.length > 0 &&
+      this.newPost.keywords?.length > 0 &&
+      this.newPost.content?.length > 0 &&
       this.newPost.thumbnail?.length > 0 &&
-      this.newPost.gallery?.length > 0) {
+      this.newPost.gallery?.length > 0
+    ) {
       // change and delete needed value
       this.newPost.status = form.value.status ? `public` : `private`;
       delete this.newPost.author;
@@ -271,9 +280,37 @@ export class PostCreateComponent implements OnInit {
       delete this.newPost['createdAt'];
       delete this.newPost['updatedAt'];
       // update post to server
-      this.postService.updatePost(this.postID, this.newPost).subscribe();
+      this.postService.updatePost(this.postID, this.newPost).subscribe(
+        res => {},
+        err => {},
+        () => {
+          this.savedPost = true;
+          // show message
+          this.notifications.create(
+            'Done',
+            'Your post is creating, Please wait a moment you will be redirected to the home page!',
+            NotificationType.Success,
+            { theClass: 'outline primary', timeOut: 3000, showProgressBar: true }
+          );
+          // set the time to turn pages
+          setTimeout(() => this.router.navigate([`app/home`]), 3000);
+        }
+      );
     }
-
+    else {
+      // show message
+      this.notifications.create(
+        `Some information is missing!`,
+        `Please fill in all the information of the post.`,
+        NotificationType.Info,
+        {
+          theClass: 'info',
+          timeOut: 3000,
+          pauseOnHover: true,
+          showProgressBar: true,
+          clickToClose: true
+        });
+    }
   }
 
   //#region /** Handling exceptions */
@@ -283,7 +320,7 @@ export class PostCreateComponent implements OnInit {
     if (!this.savedPost) { // if flag savedPost not true
       // delete all image to upload
       if (this.newPost.thumbnail) {
-        this.uploadService.deleteFile(this.newPost.thumbnail);
+        this.uploadService.deleteFile(this.newPost.thumbnail).subscribe();
       }
       this.newPost.gallery.forEach(image => {
         this.uploadService.deleteFile(image).subscribe();
