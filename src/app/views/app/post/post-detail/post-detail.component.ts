@@ -30,11 +30,15 @@ export class PostDetailComponent implements OnInit {
 
   }
 
+  //#region /** Get data (post) for page */
 
-
-  getPost(idPost: string | number) {
+  /**
+   * Get post by id from server
+   * @param postID post id needed get info
+   */
+  getPost(postID: string | number) {
     // get post info from server
-    this.postService.getPost(idPost.toString())
+    this.postService.getPost(postID.toString())
       .subscribe(
         res => {
           this.currentPost = res['post'] as Post;
@@ -48,29 +52,54 @@ export class PostDetailComponent implements OnInit {
             } as ICarouselImage)
           }
         },
-        err => {
-          // show message
-          console.log(err);
-        },
-        () => {
-          // show element gallery on html
-          this.showGallery = true;
-        }
+        err => console.log(err), // show message
+        () => this.showGallery = true, // show element gallery on html
       )
   }
+
+  /**
+   * Get lastest post from server
+   */
+  getLastPost(){
+    // get post info from server
+    this.postService.getLastPost()
+      .subscribe(
+        res => {
+          this.currentPost = res['posts'][0] as Post;
+          this.postID = res['posts'][0].id;
+          for (let index = 0; index < res['posts'][0].gallery.length; index++) {
+            // get image url
+            const element = res['posts'][0].gallery[index];
+            // push to array image gallery
+            this.detailImages.push({
+              id: index.toString(),
+              img: element.toString()
+            } as ICarouselImage)
+          }
+        },
+        err => console.log(err), // show message
+        () => this.showGallery = true, // show element gallery on html
+      )
+  }
+
+  //#endregion
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       params => {
         this.postID = params['id'];
       },
-      err => { },
+      err => console.log(err),
       () => { }
     );
-    if (this.postID) {
+    if (this.postID) { // if in url has id param and get success
       this.getPost(this.postID);
+    }
+    else { // if not, get lastest post.
+      this.getLastPost();
     }
 
   }
+
 
 }
