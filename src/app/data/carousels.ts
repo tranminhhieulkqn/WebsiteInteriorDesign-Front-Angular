@@ -6,6 +6,14 @@ export interface ICarouselItem {
   category: string;
   badges: string[];
 }
+export interface IPostItem {
+  id: string;
+  title: string;
+  img: string;
+  detail: string;
+  category: string;
+  badges: string[];
+}
 
 export interface ICarouselImage {
   id: string;

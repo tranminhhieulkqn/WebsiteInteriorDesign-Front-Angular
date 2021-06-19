@@ -39,11 +39,13 @@
       </div>
     </div>
 
+
+
+
     <h5 class="mb-4" style="text-align: center;font-size: 50px;">
       <i>{{'carousel.featurepost' | translate}}</i></h5>
     <div class="row">
-      <div class="col-md-12 mb-4">
-    
+      <div *ngIf="showfeature" class="col-md-12 mb-4">
         <app-glide [settings]="{
           gap: 0,
           type: 'carousel',
@@ -51,8 +53,8 @@
           perView: 3,
           breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
         }">
-          <div *ngFor="let item of carouselItems" class="glide__slide">
-    
+          <div *ngFor="let item of featurePost" class="glide__slide">
+
             <div class="card">
               <div class="position-relative">
                 <img class="card-img-top" [src]="item.img" alt="Card image cap">
@@ -66,12 +68,15 @@
                 </footer>
               </div>
             </div>
-    
+
           </div>
         </app-glide>
-    
       </div>
     </div>
+
+
+
+
     <div class="card mb-4">
       <div class="card-body">
         <div>
@@ -105,8 +110,7 @@
           </div>
           <div class="card-body">
             <div class="mb-5">
-              <h5 class="card-title"
-                style="font-size: 25px; text-align: center;">HIGH-TECH
+              <h5 class="card-title" style="font-size: 25px; text-align: center;">HIGH-TECH
                 INTERIOR DESIGN STYLE</h5>
               <p style="font-size: 20px;">
                 The interior design of a modern house or apartment in high-tech style is a solution for dynamic people,
@@ -144,8 +148,7 @@
           </div>
           <div class="col-md-6">
             <div class="card-body">
-              <h5 class="card-title"
-                style="font-size: 25px; text-align: center;">INDO-CHINE
+              <h5 class="card-title" style="font-size: 25px; text-align: center;">INDO-CHINE
                 INTERIOR DESIGN STYLE</h5>
               <p style="font-size: 20px;">
                 This is a perfect combination between the two Eastern and Western cultures, namely the two great
@@ -203,8 +206,7 @@
     </div>
     <div class="card-body">
       <div class="mb-5">
-        <h5 class="card-title"
-          style="font-size: 25px; text-align: center;">INDUSTRIAL
+        <h5 class="card-title" style="font-size: 25px; text-align: center;">INDUSTRIAL
           INTERIOR DESIGN STYLE</h5>
         <p style="font-size: 20px;">
           Industrial style is also known as industrial architectural style. It shows strength and generosity in another
@@ -232,21 +234,24 @@
         <div class="row">
           <div class="col-md-6">
             <div class="card-body">
-              <h5 class="card-title"
-                style="font-size: 25px; text-align: center;">ART DECO
+              <h5 class="card-title" style="font-size: 25px; text-align: center;">ART DECO
                 INTERIOR DESIGN STYLE</h5>
               <p style="font-size: 20px;">
-                Art Deco style in architecture is a school of design that focuses on classical geometric blocks in space, inspired by cubism,
-                 creating a strong style, personality imbued with regal and luxury. for space.
+                Art Deco style in architecture is a school of design that focuses on classical geometric blocks in
+                space, inspired by cubism,
+                creating a strong style, personality imbued with regal and luxury. for space.
               </p>
               <p style="font-size: 20px;">
-                The colors used in this design are those that exude luxury and formality such as gold, metallic, silver, black, red, green,
-                 blue. Colors that can be found in any outfit of the Western nobility
+                The colors used in this design are those that exude luxury and formality such as gold, metallic, silver,
+                black, red, green,
+                blue. Colors that can be found in any outfit of the Western nobility
               </p>
               <p style="font-size: 20px;">
-                Besides, using interior decorations from animal skins, animal bones, items with natural floral and animal motifs is
-                 also very popular. The more precious, rare and 
-                unique materials that show the uniqueness and high-class value, are the top priority applied to this design style.
+                Besides, using interior decorations from animal skins, animal bones, items with natural floral and
+                animal motifs is
+                also very popular. The more precious, rare and
+                unique materials that show the uniqueness and high-class value, are the top priority applied to this
+                design style.
               </p>
               <div style=" text-align: center;">
                 <button type="button" class="btn btn-outline-dark mb-1"><i>View More </i></button>{{" "}}
@@ -254,7 +259,7 @@
             </div>
           </div>
           <div class="col-md-6">
-           
+
             <div class="card-body">
               <div class="zoom">
                 <img style="width: 100%; height:100%;border-radius: 0.25rem;"
@@ -275,7 +280,7 @@
 <h5 class="mb-4" style="text-align: center;font-size: 50px;">
   <i>{{'carousel.recentposts' | translate}}</i></h5>
 <div class="row">
-  <div class="col-md-12 mb-4 pl-0 pr-0">
+  <div *ngIf="showrecent"  class="col-md-12 mb-4 pl-0 pr-0">
 
     <app-glide [settings]="{
       gap: 0,
@@ -283,7 +288,7 @@
       perView: 3,
       breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
     }">
-      <div *ngFor="let item of carouselItems" class="glide__slide">
+      <div *ngFor="let item of recentPost" class="glide__slide">
         <div class="card flex-row">
           <div class="w-50 position-relative">
             <img class="card-img-left" [src]="item.img" alt="Card image cap">
