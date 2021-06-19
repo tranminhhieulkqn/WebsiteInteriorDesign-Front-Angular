@@ -19,6 +19,7 @@ import { ProfilePortfolioComponent } from './profile-portfolio/profile-portfolio
 import { ProfileAccountComponent } from './profile-account/profile-account.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
+import { ProfileDesignerComponent } from './profile-designer/profile-designer.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
     ProfileComponent,
     ProfileAccountComponent,
     ProfileSocialComponent,
-    ProfilePortfolioComponent
+    ProfilePortfolioComponent,
+    ProfileDesignerComponent
   ],
   imports: [
     CommonModule,

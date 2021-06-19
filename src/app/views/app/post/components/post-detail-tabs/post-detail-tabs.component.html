@@ -36,8 +36,13 @@
       <form #commentInputForm="ngForm" (ngSubmit)="clickSubmitCommentButton(commentInputForm)" novalidate>
         <div class="comment-contaiener">
           <div class="input-group">
-            <div ></div>
-            <input type="text" class="form-control" placeholder="Add a comment">
+            <!-- <div class="input-group-prepend tooltip-right-top">
+              <input type="text" name="content" #content="ngModel" [(ngModel)]="a" class="form-control"
+                placeholder="Add a comment">
+              <div *ngIf="checkValidation(content, inInputForm);" class="invalid-tooltip">
+                Title is required!
+              </div>
+            </div> -->
             <div class="input-group-append">
               <!-- <span class="input-group-text">{{'input-groups.first-and-last-name' | translate}}</span> -->
               <div class="input-group-text">
