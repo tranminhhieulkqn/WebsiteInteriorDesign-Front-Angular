@@ -1,3 +1,17 @@
+
+
+
+export interface blog {
+  id: string;
+  title: string;
+  description: string;
+  thumb: string;
+  badge: string;
+  type:string
+}
+
+
+
 export const blogData = [
   {
     title: 'Distinctively Exploit Optimal Alignments with Mentality Networks',
