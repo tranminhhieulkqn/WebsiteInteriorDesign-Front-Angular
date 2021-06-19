@@ -17,6 +17,8 @@
                 [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a></li>
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">My
                 Account</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">Change
+                Avarta</a></li>
           </ul>
         </div>
       </div>
@@ -24,7 +26,7 @@
     </div>
     <!--  -->
     <div>
-      <tabset class="separator-tabs">
+      <tabset class="separator-tabs" #staticTabs>
         <tab heading="{{'pages.profile' | translate | uppercase }}">
           <div class="row">
             <div class="col-12 col-lg-5 col-xl-4 col-left">
@@ -179,7 +181,44 @@
         <tab heading="{{'pages.followers' | translate | uppercase }}">
           <app-profile-friends></app-profile-friends>
         </tab>
+
+
+        <tab heading="{{'pages.profile' | translate | uppercase }}">
+          <div class="row">
+            <div class="col-12 col-lg-5 col-xl-4 col-left">
+              <app-profile-user-portfolio [user]="userAuthorizedInfo"></app-profile-user-portfolio>
+            </div>
+
+            <div class="col-12 col-lg-7 col-xl-8 col-right">
+              <form #inInputForm="ngForm" (ngSubmit)="clickSubmitButton(inInputForm)" novalidate>
+                <div class="row">
+                  <!-- Card Begin -->
+                  <div class="col-12 col-xl-6 mb-4">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h5 class="mb-4">{{ 'forms.preview' | translate }}</h5>
+
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card End -->
+                  <div class="col-12 col-xl-6 mb-4">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h5 class="mb-4">{{ 'forms.upload-your-image' | translate }}</h5>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </tab>
       </tabset>
+
+
     </div>
   </div>
 </div>

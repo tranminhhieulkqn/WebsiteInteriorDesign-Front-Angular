@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { TabsetComponent } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -18,6 +19,7 @@ interface Social {
   templateUrl: './profile-account.component.html'
 })
 export class ProfileAccountComponent implements OnInit {
+  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
 
   // the user needs to display
   userAuthorized: firebase.User;
@@ -30,6 +32,10 @@ export class ProfileAccountComponent implements OnInit {
 
   onChange() {
     console.log("Change");
+  }
+
+  selectTab(tabId: number) {
+    this.staticTabs.tabs[tabId].active = true;
   }
 
   constructor(
