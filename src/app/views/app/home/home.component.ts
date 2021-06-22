@@ -74,7 +74,33 @@ export class HomeComponent implements OnInit, AfterViewInit {
       )
   }
 
+  getFeaturetPost() {
+    // get post info from server
+    this.postService.getFeaturePost(2)
+      .subscribe(
+        res => {
+          this.currentPost = res['posts'] as Post;
+          this.postID = res['posts'].id;
+          for (let index = 0; index < 2; index++) {
+            try { this.des = res['posts'][index].summary.toString() } catch (error) { this.des = ' '; }
+            this.featurePost.push({
+              id: res['posts'][index].id.toString(),
+              title: res['posts'][index].title.toString(),
+              detail: this.des,
+              img: res['posts'][index].thumbnail.toString(),
+              badges: ['NEW'],
+              category: res['posts'][index].category.toString(),
+            } as IPostItem)
 
+          }
+          for (let i = 0; i < 2; i++) {
+            console.log(this.featurePost[i])
+          }
+        },
+        err => console.log(err),
+        () => this.showfeature = true,
+      )
+  }
   
 
 
@@ -95,7 +121,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getRecentPost()
-
+this.getFeaturetPost()
     if (this.authService.user) {
       this.displayName = this.authService.user.displayName;
     }

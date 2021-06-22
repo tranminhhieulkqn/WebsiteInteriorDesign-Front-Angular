@@ -21,6 +21,7 @@ export class PostService {
   private urlGetLast = `${this.urlAPI}getLast`;
   private urlUpdate = `${this.urlAPI}update`
   private urlDetele = `${this.urlAPI}delete`
+  private urlGetFeature = `${this.urlAPI}getFeatured`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -82,6 +83,21 @@ export class PostService {
       catchError(this.handleError<Post>(`getLastPost`))
     );
   }
+
+
+ /** GET post feature. Will 404 if id not found */
+ getFeaturePost(amount: number = 0): Observable<Post> {
+  // define query parametters for request.
+  let params = new HttpParams()
+    .set('amount', amount.toString());
+  const url = `${this.urlGetFeature}?${params.toString()}`;
+  return this.http.get<Post>(url).pipe(
+    tap(_ => this.log(`fetched ${amount} feature post.`)),
+    catchError(this.handleError<Post>(`getFeaturePost`))
+  );
+}
+
+
 
   /* GET heroes whose name contains search term */
   // searchHeroes(term: string): Observable<Hero[]> {
