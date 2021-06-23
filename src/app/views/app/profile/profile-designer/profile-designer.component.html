@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-lg-4 col-12 mb-4" *ngFor="let item of datashow">
+    <div class="card flex-row listing-card-container">
+      <a class="d-flex" routerLink="./">
+        <img alt="Profile" [src]='item.avartar'
+          class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+      </a>
+            <div class="card-body">
+              <a routerLink="/app/pages/blog/blog-detail">
+                <h5 class="mb-3 listing-heading" ellipsis>{{item.name}}</h5>
+              </a>
+              <p style="font-size: 13px;" >Birthday : {{item.birthday}}</p>
+              <p class="listing-desc text-muted" ellipsis>About : {{item.about}}</p>
+              <footer>
+                <p class="text-muted text-small mb-0 font-weight-light">Posts : {{item.posts}}</p>
+              </footer>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <pagination class="justify-content-center" [totalItems]="30" previousText="<i class='simple-icon-arrow-left'></i>"
+      nextText="<i class='simple-icon-arrow-right'></i>"></pagination>
+  </div>
+</div>

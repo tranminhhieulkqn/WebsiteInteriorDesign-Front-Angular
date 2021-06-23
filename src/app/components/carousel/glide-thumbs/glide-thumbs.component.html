@@ -2,7 +2,7 @@
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides" #glideSlides>
       <li class="glide__slide" *ngFor="let item of images">
-        <img alt="detail" [src]="item.img" class="responsive border-0 border-radius img-fluid mb-3" />
+        <img alt="detail" [style]="'width: 100%;'" [src]="item.img" class="responsive border-0 border-radius img-fluid mb-3" />
       </li>
     </ul>
   </div>

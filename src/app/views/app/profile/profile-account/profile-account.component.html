@@ -17,6 +17,8 @@
                 [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a></li>
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">My
                 Account</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">Change
+                Avatar</a></li>
           </ul>
         </div>
       </div>
@@ -24,7 +26,7 @@
     </div>
     <!--  -->
     <div>
-      <tabset class="separator-tabs">
+      <tabset class="separator-tabs" #staticTabs>
         <tab heading="{{'pages.profile' | translate | uppercase }}">
           <div class="row">
             <div class="col-12 col-lg-5 col-xl-4 col-left">
@@ -179,7 +181,73 @@
         <tab heading="{{'pages.followers' | translate | uppercase }}">
           <app-profile-friends></app-profile-friends>
         </tab>
+
+
+        <tab heading="{{'pages.avatar' | translate | uppercase }}">
+          <div class="row">
+            <div class="col-12 col-lg-5 col-xl-4 col-left">
+              <app-profile-user-portfolio [user]="userAuthorizedInfo"></app-profile-user-portfolio>
+            </div>
+
+            <div class="col-12 col-lg-7 col-xl-8 col-right">
+              <form #inInputForm="ngForm" (ngSubmit)="clickSubmitButton(inInputForm)" novalidate>
+                <div class="row">
+                  <!-- Card Begin -->
+                  <div class="col-12 col-xl-6 mb-4">
+
+                    <div class="card flex-row listing-card-container">
+
+                      <a class="d-flex" routerLink="./">
+                        <img alt="avartar" [src]="userAuthorizedInfo.avatarURL" [style]="'height: 125px; width: 125px;'"
+                          class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+                      </a>
+                      <div class="card-body">
+                        <a routerLink="/app/pages/blog/blog-detail">
+                          <h5 class="mb-3 listing-heading" ellipsis>{{ userAuthorizedInfo_?.displayName }}</h5>
+                        </a>
+                        <div [style.margin-bottom]="'-20px'"></div>
+                        <p class="listing-desc text-muted" ellipsis>{{ userAuthorizedInfo_?.about }}</p>
+                        <div [style.margin-bottom]="'-10px'"></div>
+                        <footer>
+                          <p class="text-muted text-small mb-0 font-weight-light">Posts : {{ 27 }}</p>
+                        </footer>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <!-- Card End -->
+                  <div class="col-12 col-xl-6 mb-4">
+
+                    <form action="">
+                      <div class="card mb-4 tooltip-right-top">
+                        <div class="card-body">
+
+                          <h5 class="mb-4">{{ 'forms.avatar' | translate }}</h5>
+                          <dropzone [config]="configAvatar" [message]="'form-components.dropzone-message' | translate"
+                            (sending)="onSending($event)" (error)="onUploadError($event)"
+                            (success)="onUploadSuccessAvatar($event)" (removedFile)="onRemovedFileAvatar($event)">
+                            <input type="hidden" name="bucketPath" value="{{ this.bucketPath }}">
+                          </dropzone>
+                          <div *ngIf="checkAvatar(inInputForm);" class="invalid-tooltip">
+                            Avatar is required!
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </tab>
       </tabset>
+
+
     </div>
   </div>
 </div>

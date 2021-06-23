@@ -1,12 +1,36 @@
 <p>post-detail works!</p>
 <div class="row">
   <div class="col-12 col-md-12 col-xl-8 col-left">
-    <app-post-content></app-post-content>
+    <div class="card mb-4">
+      <div *ngIf="showGallery" class="card-body">
+        <app-glide-thumbs *ngIf="detailImages" [images]="detailImages" [settingsImages]="{
+              bound: true,
+              rewind: false,
+              focusAt: 0,
+              startAt: 0,
+              gap: 5,
+              perView: 1
+            }" [thumbs]="detailImages" [settingsThumbs]="{
+              bound: true,
+              rewind: false,
+              focusAt: 0,
+              startAt: 0,
+              gap: 10,
+              perView: 5,
+              breakpoints: {
+                '2640' : { perView: 5 },
+                '576' : { perView: 4 },
+                '420' : { perView: 3 }
+              }
+            }"></app-glide-thumbs>
+      </div>
+    </div>
+
+    <app-post-detail-tabs [currentPost]="currentPost"></app-post-detail-tabs>
   </div>
+
   <div class="col-12 col-md-12 col-xl-4 col-right">
-    <app-post-side-video></app-post-side-video>
-    <app-profile-recent-posts></app-profile-recent-posts>
-    <app-post-categories></app-post-categories>
+    <app-post-detail-info></app-post-detail-info>
+    <!-- <app-profile-photos></app-profile-photos> -->
   </div>
 </div>
-

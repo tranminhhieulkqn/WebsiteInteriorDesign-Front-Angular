@@ -1,0 +1,76 @@
+<div class="card">
+  <tabset class="card-tabs">
+    <tab heading="{{'pages.details-title' | translate}}" class="card-body">
+      <!-- Show content -->
+      <div [innerHTML]="currentPost?.content"></div>
+      {{ datetimeNow | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} | {{ datetimeNow | amTimeAgo }}
+    </tab>
+
+    <tab heading="{{'pages.comments-title' | translate}} (19)" class="card-body">
+      <!-- Show comment -->
+      <div
+        [class]="i===comments.length-1 ? 'd-flex flex-row mb-3 pb-3 justify-content-between': 'd-flex flex-row mb-3 pb-3 border-bottom justify-content-between'"
+        *ngFor="let comment of comments; let i = index;">
+        <a href="javascript:;">
+          <img [src]="comment.thumb" [alt]="comment.title"
+            class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
+        </a>
+        <div class="pl-3 flex-grow-1">
+          <a href="javascript:;">
+            <p class="font-weight-medium mb-0 ">{{ comment.title }}</p>
+            <p class="text-muted mb-1 text-small">{{ comment.detail }}</p>
+            <div>
+              <rating [readonly]="true" [max]="5" [(ngModel)]="comment.rate" [customTemplate]="t2"></rating>
+              <ng-template #t2 let-index="index" let-value="value">{{index < value ? '' : '' }}</ng-template>
+            </div>
+          </a>
+        </div>
+        <div class="comment-likes">
+          <span class="post-icon"><a href="#"><span>12 Likes</span> <i class="simple-icon-heart ml-2"></i></a></span>
+        </div>
+      </div>
+
+      <hr>
+      <br>
+
+      <form #commentInputForm="ngForm" (ngSubmit)="clickSubmitCommentButton(commentInputForm)" novalidate>
+        <div class="comment-contaiener">
+          <div class="input-group">
+            <!-- <div class="input-group-prepend tooltip-right-top">
+              <input type="text" name="content" #content="ngModel" [(ngModel)]="a" class="form-control"
+                placeholder="Add a comment">
+              <div *ngIf="checkValidation(content, inInputForm);" class="invalid-tooltip">
+                Title is required!
+              </div>
+            </div> -->
+            <div class="input-group-append">
+              <!-- <span class="input-group-text">{{'input-groups.first-and-last-name' | translate}}</span> -->
+              <div class="input-group-text">
+                <rating [max]="5" [(ngModel)]="rate" [customTemplate]="t"></rating>
+                <ng-template #t let-index="index" let-value="value">{{index < value ? '' : '' }}</ng-template>
+              </div>
+            </div>
+            <div class="input-group-append">
+              <button class="btn btn-secondary" type="button"><span class="d-inline-block">Send</span> <i
+                  class="simple-icon-arrow-right ml-2"></i></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </tab>
+
+    <tab heading="{{'pages.questions-title' | translate}}" class="card-body">
+      <!-- Show any anwer for question -->
+      <div>
+        <accordion class="detail-tabs" [closeOthers]="true" [isAnimated]="true">
+          <accordion-group heading="{{question.question | translate}}" [isOpen]="i === 0 ? true : false"
+            *ngFor="let question of questions; let i = index;">
+            <p class="mb-0">
+              {{question.answer}}
+            </p>
+          </accordion-group>
+        </accordion>
+      </div>
+    </tab>
+  </tabset>
+</div>

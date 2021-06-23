@@ -176,9 +176,9 @@
 
     <div class="user d-inline-block" dropdown>
       <button class="btn btn-empty p-0" type="button" dropdownToggle>
-        <span class="name">{{displayName}}</span>
+        <span class="name">{{ userCurrent.displayName }}</span>
         <span>
-          <img alt="Profile Picture" src="/assets/img/profile-pic-l.jpg" />
+          <img alt="Profile Picture" [src]="userCurrent.photoURL" />
         </span>
       </button>
 

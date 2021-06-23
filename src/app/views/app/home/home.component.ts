@@ -5,7 +5,9 @@ import { TestService } from "../../../shared/test.service";
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
-
+import { carouselData, ICarouselItem, IPostItem } from 'src/app/data/carousels';
+import { Post } from 'src/app/models/post.model';
+import { PostService } from 'src/app/shared/post.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,15 +21,63 @@ export class HomeComponent implements OnInit, AfterViewInit {
   allUser: User[] = [];
   displayName = '';
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-
+  slides = [
+    { image: 'https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80', text: 'First' },
+    { image: 'https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80', text: 'Second' },
+    { image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80', text: 'Third' }
+  ];
+  //  carouselItems: ICarouselItem[] = carouselData;
+  featurePost: IPostItem[] = [];
+  recentPost: IPostItem[] = [];
+  noWrapSlides = false;
+  showIndicator = true;
+  showfeature = false;
+  showrecent = false;
   hashPasswword: string = null;
+  des: string;
+  postID: string;
+  currentPost: Post;
   constructor(
     private authService: AuthService,
     private notifications: NotificationsService,
-    private test: TestService
+    private test: TestService,
+    private postService: PostService,
   ) {
 
   }
+
+  getRecentPost() {
+    // get post info from server
+    this.postService.getLastPost(7)
+      .subscribe(
+        res => {
+          this.currentPost = res['posts'] as Post;
+          this.postID = res['posts'].id;
+          for (let index = 0; index < 5; index++) {
+            try { this.des = res['posts'][index].summary.toString() } catch (error) { this.des = ' '; }
+            this.recentPost.push({
+              id: res['posts'][index].id.toString(),
+              title: res['posts'][index].title.toString(),
+              detail: this.des,
+              img: res['posts'][index].thumbnail.toString(),
+              badges: ['NEW'],
+              category: res['posts'][index].category.toString(),
+            } as IPostItem)
+
+          }
+          for (let i = 0; i < 5; i++) {
+            console.log(this.recentPost[i])
+          }
+        },
+        err => console.log(err),
+        () => this.showrecent = true,
+      )
+  }
+
+
+  
+
+
   ngAfterViewInit(): void {
     this.notifications.create(
       `Hello ${this.displayName}`,
@@ -44,6 +94,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.getRecentPost()
+
     if (this.authService.user) {
       this.displayName = this.authService.user.displayName;
     }

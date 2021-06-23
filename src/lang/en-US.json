@@ -176,6 +176,7 @@
     "top-rated-items": "Top Rated Items"
   },
   "pages": {
+    "avatar": "Avatar",
     "add-new": "ADD NEW",
     "add-new-modal-title": "Add New Item",
     "display-options": "Display Options",
@@ -303,6 +304,7 @@
     "secondary": "Secondary",
     "info": "Info",
     "success": "Success",
+    "viewmore": "View More",
     "warning": "Warning",
     "error": "Error",
     "filled": "Filled",
@@ -412,7 +414,9 @@
     "glide-basic": "Glide Basic",
     "glide-centered": "Glide Centered",
     "glide-single": "Glide Single",
-    "without-controls": "Carousel Without Controls"
+    "without-controls": "Carousel Without Controls",
+    "featurepost":"Feature Posts",
+    "recentposts":"Recent Posts"
   },
   "charts": {
     "line": "Line Chart",
@@ -474,6 +478,8 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "avatar": "Avatar",
+    "whoareyou": "Who are you?",
     "public": "Public",
     "private": "Private",
     "keywords": "Keywords",

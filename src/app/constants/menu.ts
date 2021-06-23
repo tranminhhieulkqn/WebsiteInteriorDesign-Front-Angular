@@ -37,7 +37,11 @@ const data: IMenuItem[] = [
       label: 'menu.portfolio',
       to: '/app/profile/portfolio'
     },
-
+    {
+      icon: 'simple-icon-link',
+      label: 'menu.designer',
+      to: '/app/profile/designer'
+    },
     ]
   },
   // Posts
@@ -50,6 +54,11 @@ const data: IMenuItem[] = [
       icon: 'simple-icon-layers',
       label: 'menu.post-list',
       to: '/app/post/post-list'
+    },
+    {
+      icon: 'simple-icon-layers',
+      label: 'menu.post-list1',
+      to: '/app/post/post-list1'
     },
     {
       icon: 'simple-icon-book-open',

@@ -3,19 +3,314 @@
   <div class="col-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="jumbotron">
-          <h1 class="display-4">{{'jumbotron.hello-world' | translate}}</h1>
-          <p class="lead">{{'jumbotron.lead' | translate}}</p>
-          <hr class="my-4">
-          <p>{{'jumbotron.lead-detail' | translate}}</p>
-          <p class="lead  mb-0">
-            <a class="btn btn-primary btn-lg c-pointer" role="button">{{'jumbotron.learn-more' | translate}}</a>
-          </p>
+        <div style="size : 100%;">
+          <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
+            <slide *ngFor="let slide of slides; let index=index">
+              <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;
+                   border-radius: 0.25rem; filter:brightness(70%);">
+              <div class="carousel-caption">
+                <h2 style=" font-size: 60px; opacity : 0.6;">Provide
+                  Professional Interior Solutions</h2>
+                <img src="https://jobseekers.vn/wp-content/uploads/2017/12/logo_HBBS-300x122.png"
+                  style="margin-bottom: 200px; margin-top: 50px; filter:brightness(120%);" />
+              </div>
+            </slide>
+          </carousel>
+          <br />
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 style=" font-size: 40px; text-align: center;">
+          <i>FOR A BETTER LIFE</i>
+        </h2>
+        <h2 style=" text-align: center;">Everything we do is about
+          surpassing the norm every day and embodying our passion for design, manufacturing and service delivery.</h2>
+        <h2 style=" text-align: center;">We are always passionate,
+          aspire and constantly create generations
+          of the best products and services to satisfy the most demanding needs of our customers. We are always
+          self-aware as a
+          research institute of architecture, construction, interior and living space development. The development of
+          technology, the creation of new materials and the application of advanced scientific
+          and technical solutions have always been our cross-cutting activities..</h2>
+      </div>
+    </div>
+
+
+
+
+    <h5 class="mb-4" style="text-align: center;font-size: 50px;">
+      <i>{{'carousel.featurepost' | translate}}</i></h5>
+    <div class="row">
+      <div *ngIf="showfeature" class="col-md-12 mb-4">
+        <app-glide [settings]="{
+          gap: 0,
+          type: 'carousel',
+          peek: { before: 50, after: 50 },
+          perView: 3,
+          breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
+        }">
+          <div *ngFor="let item of featurePost" class="glide__slide">
+
+            <div class="card">
+              <div class="position-relative">
+                <img class="card-img-top" [src]="item.img" alt="Card image cap">
+                <span *ngFor="let badge of item.badges"
+                  class="badge badge-pill badge-theme-1 position-absolute badge-top-left">{{badge}}</span>
+              </div>
+              <div class="card-body">
+                <h6 class="mb-4">{{item.title}}</h6>
+                <footer>
+                  <p class="text-muted text-small mb-0 font-weight-light">{{item.detail}}</p>
+                </footer>
+              </div>
+            </div>
+
+          </div>
+        </app-glide>
+      </div>
+    </div>
+
+
+
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card-body">
+                  <div class="zoom">
+                    <img style="width: 100%;height: 100%; border-radius: 0.25rem;"
+                      src="https://fr2.decorexpro.com/wp-content/uploads/2018/01/Stil-haj-tek-v-interere-1-e1518554376463.jpg">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card-body">
+                  <div class="zoom">
+                    <img style="width: 100%;height: 100% ;border-radius: 0.25rem;"
+                      src="https://fr2.decorexpro.com/wp-content/uploads/2018/01/Stil-haj-tek-v-interere-2-1024x768.jpg">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card-body">
+                  <div class="zoom">
+                    <img style="width: 100%;height: 100%; border-radius: 0.25rem;"
+                      src="https://fr2.decorexpro.com/wp-content/uploads/2018/01/Stil-haj-tek-v-interere-020-1.jpg">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="mb-5">
+              <h5 class="card-title" style="font-size: 25px; text-align: center;">HIGH-TECH
+                INTERIOR DESIGN STYLE</h5>
+              <p style="font-size: 20px;">
+                The interior design of a modern house or apartment in high-tech style is a solution for dynamic people,
+                who are motivated, ambitious, focused on the rhythm of the city, and not tired from life.
+              </p>
+              <p style="font-size: 20px;">
+                Apartment in high-tech style – this is a timeless design, luxurious beauty of shiny smooth surfaces,
+                modern appliances, and a special dynamic elegance of the interior.
+              </p>
+              <div style=" text-align: center;">
+                <button type="button" class="btn btn-outline-dark mb-1"><i>View More </i></button>{{" "}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="card mb-4">
+  <div class="card-body">
+    <div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-body">
+              <div class="zoom">
+                <img style="width: 100%; height: 100%;border-radius: 0.25rem;"
+                  src="https://i.pinimg.com/originals/aa/e4/aa/aae4aa9048c4c45e4d9d060e62f4f224.png">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: 25px; text-align: center;">INDO-CHINE
+                INTERIOR DESIGN STYLE</h5>
+              <p style="font-size: 20px;">
+                This is a perfect combination between the two Eastern and Western cultures, namely the two great
+                cultures of mankind: China and India.
+              </p>
+              <p style="font-size: 20px;">
+                Neutral colors are used for the entire interior of Indochine design style, including: light yellow,
+                cream yellow, white, creating a comfortable feeling suitable for the tropical climate in Vietnam.
+              </p>
+              <p style="font-size: 20px;">
+                Indochinese style in interior design was initially served for the bourgeoisie and small-town people, but
+                later it was selected with details showing the national identity of Vietnam. Simple, sophisticated but
+                still ensuring full facilities in modern life to bring comfort and convenience to users.
+              </p>
+              <div style=" text-align: center;">
+                <button type="button" class="btn btn-outline-dark mb-1"><i>View More </i></button>{{" "}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="card mb-4">
+  <div style="size: 100%;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card-body">
+            <div class="zoom1">
+              <img style="width: 100%; height: 626px;border-radius: 0.25rem; "
+                src="https://i2.wp.com/i.pinimg.com/736x/0e/ac/6e/0eac6e8bdee5bcadfa5d255881dc66f0.jpg?ssl=1">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <div class="zoom1">
+              <img style="width: 100%; height: 300px;border-radius: 0.25rem;"
+                src="https://dyfanewyork.com/wp-content/uploads/2020/01/Bolig-1024x450.jpg">
+            </div>
+            <div style="margin-top: 25px;" class="zoom1">
+              <img style="width:  100%; height: 300px;border-radius: 0.25rem;"
+                src="http://www.ubwood.co.uk/uploads/4/0/2/3/40236947/industrial-interior-living-room_orig.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="mb-5">
+        <h5 class="card-title" style="font-size: 25px; text-align: center;">INDUSTRIAL
+          INTERIOR DESIGN STYLE</h5>
+        <p style="font-size: 20px;">
+          Industrial style is also known as industrial architectural style. It shows strength and generosity in another
+          aspect
+          of life. Industrial has a distinct color that attracts people with strong personalities.
+        </p>
+        <p style="font-size: 20px;">
+          Based on the old architecture with classic colors with beams, arched glass door frames, and dark colors, the
+          architects have breathed the soul of modern life
+          into it by adding decorative details. with strong lines and high-tech furniture into the space.
+        </p>
+        <div style=" text-align: center;">
+          <button type="button" class="btn btn-outline-dark mb-1"><i>View More </i></button>{{" "}}
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<div class="card mb-4">
+  <div class="card-body">
+    <div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: 25px; text-align: center;">ART DECO
+                INTERIOR DESIGN STYLE</h5>
+              <p style="font-size: 20px;">
+                Art Deco style in architecture is a school of design that focuses on classical geometric blocks in
+                space, inspired by cubism,
+                creating a strong style, personality imbued with regal and luxury. for space.
+              </p>
+              <p style="font-size: 20px;">
+                The colors used in this design are those that exude luxury and formality such as gold, metallic, silver,
+                black, red, green,
+                blue. Colors that can be found in any outfit of the Western nobility
+              </p>
+              <p style="font-size: 20px;">
+                Besides, using interior decorations from animal skins, animal bones, items with natural floral and
+                animal motifs is
+                also very popular. The more precious, rare and
+                unique materials that show the uniqueness and high-class value, are the top priority applied to this
+                design style.
+              </p>
+              <div style=" text-align: center;">
+                <button type="button" class="btn btn-outline-dark mb-1"><i>View More </i></button>{{" "}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="card-body">
+              <div class="zoom">
+                <img style="width: 100%; height:100%;border-radius: 0.25rem;"
+                  src="https://www.mydomaine.com/thmb/jwSWyICOXrD8Q6C5V5iZbFagFJQ=/700x525/smart/filters:no_upscale()/artdecoroom-8415b4a22fa54d23add4ae51785e99eb.jpg">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<h5 class="mb-4" style="text-align: center;font-size: 50px;">
+  <i>{{'carousel.recentposts' | translate}}</i></h5>
+<div class="row">
+  <div *ngIf="showrecent"  class="col-md-12 mb-4 pl-0 pr-0">
+
+    <app-glide [settings]="{
+      gap: 0,
+      type: 'carousel',
+      perView: 3,
+      breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
+    }">
+      <div *ngFor="let item of recentPost" class="glide__slide">
+        <div class="card flex-row">
+          <div class="w-50 position-relative">
+            <img class="card-img-left" [src]="item.img" alt="Card image cap">
+            <span *ngFor="let badge of item.badges"
+              class="badge badge-pill badge-theme-1 position-absolute badge-top-left">{{badge}}</span>
+          </div>
+          <div class="w-50">
+            <div class="card-body">
+              <h6 class="mb-4">{{item.title}}</h6>
+              <footer>
+                <p class="text-muted text-small mb-0 font-weight-light">{{item.detail}}</p>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-glide>
+
+  </div>
+</div>
+
+
 <!--  -->
 <div *ngFor="let user of allUser">
   <h3 (click)="onTest(user);">

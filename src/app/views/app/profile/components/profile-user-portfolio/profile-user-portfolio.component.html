@@ -5,19 +5,22 @@
     </button>
   </div>
 
-  <img alt="Profile" src="/assets/img/profile-pic.jpg" (click)="openLightbox('/assets/img/profile-pic.jpg')"
-    class="card-img-top">
+  <img alt="Profile" style="height: 250px; object-fit: cover;" [src]="user.avatarURL"
+    (click)="openLightbox(user.avatarURL)" class="card-img-top">
 
 
   <div class="card-body">
     <p class="text-muted text-small mb-2">{{'menu.about' | translate}}</p>
-    <p class="mb-3">
+    <p *ngIf="user.about" class="mb-3">
       {{ user.about }}
       <!-- I’m a web developer. I spend my whole day, practically every day,
       experimenting with HTML, CSS, and JavaScript; dabbling with Python and
       Ruby; and inhaling a wide variety of potentially useless information
       through a few hundred RSS feeds. I build websites that delight and
       inform. I do it well. -->
+    </p>
+    <p *ngIf="!user.about" class="mb-3">
+      {{ 'No Infomation' }}
     </p>
 
     <p class="text-muted text-small mb-2">{{'pages.location' | translate}}</p>

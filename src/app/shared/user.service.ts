@@ -51,7 +51,7 @@ export class UserService {
           const outcome = u ? `fetched` : `did not find`;
           this.log(`${outcome} user id=${id}`);
         }),
-        catchError(this.handleError<User>(`get user by id=${id}`))
+        catchError(this.handleError<User>(`get user by id = ${id}`))
       );
   }
 
@@ -63,7 +63,7 @@ export class UserService {
     const url = `${this.urlGetBy}?${params.toString()}`;
     return this.http.get<User>(url).pipe(
       tap(_ => this.log(`fetched user id=${id}`)),
-      catchError(this.handleError<User>(`get user by id=${id}`))
+      catchError(this.handleError<User>(`get user by id = ${id}`))
     );
   }
 
@@ -104,7 +104,7 @@ export class UserService {
   /** PUT: update the user on the server */
   updateUser(user: User): Observable<any> {
     return this.http.put(this.urlUpdate, user, this.httpOptions).pipe(
-      tap(_ => this.log(`updated user: ${user.displayName}`)),
+      tap(_ => this.log(`updated user ${user.displayName}`)),
       catchError(this.handleError<any>('updateHero'))
     );
   }

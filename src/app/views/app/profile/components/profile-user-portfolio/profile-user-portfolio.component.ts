@@ -12,7 +12,6 @@ export class ProfileUserPortfolioComponent implements OnInit {
   social = this.user.social;
 
   constructor(private lightbox: Lightbox) {
-    console.log(this.user);
 
   }
 

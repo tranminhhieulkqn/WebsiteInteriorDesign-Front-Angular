@@ -14,6 +14,7 @@ import { ComponentsCardsModule } from 'src/app/components/cards/components.cards
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { PaginationModule, CollapseModule } from 'ngx-bootstrap';
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [InvoiceComponent, MailingComponent, SearchComponent, MiscellaneousComponent, ErrorComponent, FaqComponent, KnowledgeBaseComponent, PricesComponent, ComingSoonComponent],
@@ -24,7 +25,8 @@ import { LayoutContainersModule } from 'src/app/containers/layout/layout.contain
     ComponentsCardsModule,
     PagesContainersModule,
     PaginationModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    CarouselModule
   ]
 })
 export class MiscellaneousModule { }

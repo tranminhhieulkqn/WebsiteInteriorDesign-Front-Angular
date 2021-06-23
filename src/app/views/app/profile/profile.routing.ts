@@ -4,6 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { ProfileAccountComponent } from './profile-account/profile-account.component';
 import { ProfileSocialComponent } from './profile-social/profile-social.component';
 import { ProfilePortfolioComponent } from './profile-portfolio/profile-portfolio.component';
+import { ProfileDesignerComponent } from './profile-designer/profile-designer.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: 'account', component: ProfileAccountComponent },
       { path: 'social', component: ProfileSocialComponent },
       { path: 'portfolio', component: ProfilePortfolioComponent },
+      { path: 'designer', component: ProfileDesignerComponent }
     ]
   }
 ];
