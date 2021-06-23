@@ -176,6 +176,7 @@
     "top-rated-items": "Top Rated Items"
   },
   "pages": {
+    "avatar": "Avatar",
     "add-new": "ADD NEW",
     "add-new-modal-title": "Add New Item",
     "display-options": "Display Options",
@@ -477,6 +478,8 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "avatar": "Avatar",
+    "whoareyou": "Who are you?",
     "public": "Public",
     "private": "Private",
     "keywords": "Keywords",

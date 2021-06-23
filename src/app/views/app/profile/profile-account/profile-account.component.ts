@@ -65,7 +65,6 @@ export class ProfileAccountComponent implements OnInit {
           if (res) {
             this.userAuthorizedInfo = res['user'];
             this.userAuthorizedInfo_ = Object.assign({}, this.userAuthorizedInfo);
-            console.log(this.userAuthorizedInfo);
           }
         },
         err => {

@@ -21,6 +21,7 @@ import { ProfileFriendsComponent } from './profile-friends/profile-friends.compo
 import { ProfileUserPortfolioComponent } from './profile-user-portfolio/profile-user-portfolio.component';
 import { ProfileProcessComponent } from './profile-process/profile-process.component';
 import { ProfilePortfolioItemsComponent } from './profile-portfolio-items/profile-portfolio-items.component';
+import { ProfileUserInforComponent } from './profile-user-infor/profile-user-infor.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ProfilePortfolioItemsComponent } from './profile-portfolio-items/profil
     ProfileFriendsComponent,
     ProfileUserPortfolioComponent,
     ProfileProcessComponent,
-    ProfilePortfolioItemsComponent
+    ProfilePortfolioItemsComponent,
+    ProfileUserInforComponent
   ],
   imports: [
     CommonModule,
@@ -63,6 +65,7 @@ import { ProfilePortfolioItemsComponent } from './profile-portfolio-items/profil
     ProfileUserPortfolioComponent,
     ProfileProcessComponent,
     ProfilePortfolioItemsComponent,
+    ProfileUserInforComponent
   ]
 })
 export class ProfileContainersModule { }

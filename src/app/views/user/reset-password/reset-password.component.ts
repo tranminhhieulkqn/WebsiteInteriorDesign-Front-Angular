@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 })
 export class ResetPasswordComponent implements OnInit {
   @ViewChild('resetForm') resetForm: NgForm;
-  oobCode = ""
+  oobCode: string = ""
 
   buttonDisabled = false;
   buttonState = '';
@@ -20,12 +20,14 @@ export class ResetPasswordComponent implements OnInit {
     private notifications: NotificationsService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.route.queryParams.subscribe(params => {
       this.oobCode = params['oobCode'];
     });
+  }
+
+  ngOnInit() {
+
   }
 
   onSubmit() {

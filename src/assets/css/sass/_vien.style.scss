@@ -9623,4 +9623,9 @@ input.form-control.ng-dirty.ng-invalid.ng-touched {
 textarea.form-control.ng-valid.ng-touched.ng-dirty {
   background-color: $input-background;
 }
-
+input.form-control.ng-touched.ng-dirty.ng-valid {
+  background-color: $input-background;
+}
+input.form-control.ng-touched.ng-dirty {
+  background-color: $input-background;
+}

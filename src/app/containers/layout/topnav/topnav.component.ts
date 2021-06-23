@@ -1,20 +1,21 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SidebarService, ISidebar } from '../sidebar/sidebar.service';
 import { Router } from '@angular/router';
 import { LangService, Language } from 'src/app/shared/lang.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { environment } from 'src/environments/environment';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-topnav',
   templateUrl: './topnav.component.html'
 })
 export class TopnavComponent implements OnInit, OnDestroy {
+  @Input() userCurrent: User;
+
   sidebar: ISidebar;
   subscription: Subscription;
-  displayName = 'Tran Minh Hieu';
-  avartaURL = '';
   languages: Language[];
   currentLanguage: string;
   isSingleLang;
@@ -22,7 +23,14 @@ export class TopnavComponent implements OnInit, OnDestroy {
   isDarkModeActive = false;
   searchKey = '';
 
-  constructor(private sidebarService: SidebarService, private authService: AuthService, private router: Router, private langService: LangService) {
+  constructor(
+    private sidebarService: SidebarService,
+    private authService: AuthService,
+    private router: Router,
+    private langService: LangService) {
+    if (!this.userCurrent) { // avoid errors
+      this.userCurrent = {} as User;
+    }
     this.languages = this.langService.supportedLanguages;
     this.currentLanguage = this.langService.languageShorthand;
     this.isSingleLang = this.langService.isSingleLang;
@@ -64,7 +72,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.authService.user) {
-      this.displayName = this.authService.user.displayName;
+      this.userCurrent = this.authService.user;
     }
     this.subscription = this.sidebarService.getSidebar().subscribe(
       res => {

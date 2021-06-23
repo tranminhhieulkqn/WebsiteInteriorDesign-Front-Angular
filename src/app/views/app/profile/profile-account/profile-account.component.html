@@ -18,7 +18,7 @@
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">My
                 Account</a></li>
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">Change
-                Avarta</a></li>
+                Avatar</a></li>
           </ul>
         </div>
       </div>
@@ -183,7 +183,7 @@
         </tab>
 
 
-        <tab heading="{{'pages.profile' | translate | uppercase }}">
+        <tab heading="{{'pages.avatar' | translate | uppercase }}">
           <div class="row">
             <div class="col-12 col-lg-5 col-xl-4 col-left">
               <app-profile-user-portfolio [user]="userAuthorizedInfo"></app-profile-user-portfolio>
@@ -198,7 +198,7 @@
                     <div class="card flex-row listing-card-container">
 
                       <a class="d-flex" routerLink="./">
-                        <img alt="avartar" src='/assets/img/profile-pic.jpg' [style]="'height: 125px; width: 125px;'"
+                        <img alt="avartar" [src]="userAuthorizedInfo.avatarURL" [style]="'height: 125px; width: 125px;'"
                           class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
                       </a>
                       <div class="card-body">
