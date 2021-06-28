@@ -25,6 +25,7 @@ import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
 import { ProfileAccountInforComponent } from './profile-account-infor/profile-account-infor.component';
 import { ProfileAccountAvatarComponent } from './profile-account-avatar/profile-account-avatar.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { MomentModule } from "ngx-moment";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
     BsDatepickerModule.forRoot(),
     BootstrapModule,
     DropzoneModule,
+    MomentModule,
   ],
   exports: [
     ProfileUserSocialComponent,

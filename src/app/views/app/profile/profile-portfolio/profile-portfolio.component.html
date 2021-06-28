@@ -2,7 +2,7 @@
 <div class="row" [hidden]="loading">
   <div class="col-12">
     <div>
-      <h1>{{ displayName }}</h1>
+      <h1>{{ userAuthorizedInfo.displayName }}</h1>
       <div class="text-zero top-right-button-container">
         <div dropdown>
           <button id="button-basic" dropdownToggle type="button" placement="bottom right"
@@ -25,13 +25,13 @@
         <tab heading="{{'pages.profile' | translate | uppercase }}">
           <div class="row">
             <div class="col-12 col-lg-5 col-xl-4 col-left">
-              <app-profile-user-portfolio></app-profile-user-portfolio>
+              <app-profile-user-portfolio [user]="userAuthorizedInfo"></app-profile-user-portfolio>
               <app-profile-recent-posts></app-profile-recent-posts>
               <app-profile-process></app-profile-process>
             </div>
 
             <div class="col-12 col-lg-7 col-xl-8 col-right">
-              <app-profile-portfolio-items></app-profile-portfolio-items>
+              <app-profile-portfolio-items [authorID]="userIDCurrent"></app-profile-portfolio-items>
               <!-- Test Blog -->
 
               <!--  -->

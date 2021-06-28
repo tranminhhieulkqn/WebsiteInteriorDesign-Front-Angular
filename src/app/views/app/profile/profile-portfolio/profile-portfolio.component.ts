@@ -14,11 +14,11 @@ import { UserService } from 'src/app/shared/user.service';
 export class ProfilePortfolioComponent implements OnInit {
 
   // the user needs to display
-  userIDCurrent: string = null;
-  userCurrent: Observable<User>;
   userAuthorized: firebase.User;
+  userAuthorizedInfo: User = {} as User;
 
-  displayName: string;
+  userIDCurrent: string;
+
   loading: boolean = true;
 
   //
@@ -28,23 +28,34 @@ export class ProfilePortfolioComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    // setTimeout(() => {
-    //   this.loading = false;
-    // }, 3000);
+    // this.userIDCurrent = this.userAuthorized.uid;
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => this.userIDCurrent = params.id || undefined);
-    if (this.userIDCurrent)
-      this.userService.getUser(this.userIDCurrent)
-        .subscribe(
-          res => {
-            if (!res){
-              this.router.navigate([`error`]);
+    // get user authorized
+    this.userAuthorized = this.authService.user;
+    this.userIDCurrent = this.userAuthorized.uid;
+    this.route.queryParams.subscribe(
+      (params) => {
+        this.userIDCurrent = params.id || this.userIDCurrent;
+        // get info user
+        // this.getUserAuthorizedInfo(this.userAuthorized.uid);
+        this.userService.getUser(this.userIDCurrent)
+          .subscribe(
+            (res) => {
+              if (res['success']) {
+                this.userAuthorizedInfo = res['user'];
+              }
+            },
+            (err) => {
+              // log to console
             }
-            this.displayName = res['user'].fullName;
-          }
-        )
+          )
+      },
+      (err) => { },
+      () => { } // complete
+    );
+
     this.loading = false;
   }
 

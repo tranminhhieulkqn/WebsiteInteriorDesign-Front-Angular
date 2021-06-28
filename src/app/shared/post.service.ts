@@ -17,6 +17,7 @@ export class PostService {
   private urlAPI = `${environment.apiBackUrl}posts/`;
   private urlCreate = `${this.urlAPI}create`
   private urlGetAll = `${this.urlAPI}get`;
+  private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
   private urlUpdate = `${this.urlAPI}update`
@@ -39,6 +40,19 @@ export class PostService {
       .pipe(
         tap(_ => this.log('fetched posts')),
         catchError(this.handleError<Post[]>('getPosts', []))
+      );
+  }
+
+  /** GET posts from the server */
+  getPostsByAuthor(auhtorID: string): Observable<Post[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('authorID', auhtorID.toString());
+    const url = `${this.urlGetAllByAuhtor}?${params.toString()}`;
+    return this.http.get<Post[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched posts by author id')),
+        catchError(this.handleError<Post[]>('getPostsByAuthor', []))
       );
   }
 
@@ -71,7 +85,7 @@ export class PostService {
     );
   }
 
-  /** GET post by id. Will 404 if id not found */
+  /** GET lastest post by id. Will 404 if id not found */
   getLastPost(amount: number = 1): Observable<Post> {
     // define query parametters for request.
     let params = new HttpParams()
