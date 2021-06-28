@@ -209,43 +209,33 @@ export class AuthService {
     }
   }
 
-  updateAvatar(imageURL) {
-    // try { // try
-    //   return from(
-    //     // create new account with email and password
-    //     this.user.updateProfile({ photoURL: imageURL })
-    //       .then(
-    //         () => {
-    //           this.afAuth.auth.updateCurrentUser(this.afAuth.auth.currentUser);
-    //         })
-    //       .then(() => {
-    //         // define new user on firestorage
-    //         var user: User = {
-    //           uid: this.afAuth.auth.currentUser.uid,
-    //           email: credentials.email,
-    //           password: credentials.password,
-    //           displayName: credentials.displayName,
-    //           role: 'user'
-    //         }
-    //         // define query parametters for request.
-    //         let params = new HttpParams()
-    //           .set('password', user.password.toString());
-    //         // request to get new hash password to save firestorage
-    //         this.http.get<User>(`${environment.apiBackUrl}users/hashpassword?${params.toString()}`)
-    //           .subscribe(
-    //             res => {
-    //               user.password = res['hashPass']; // change pass to hashed pass
-    //               const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${user.uid}`);
-    //               // update user data
-    //               userRef.set(user, { merge: true })
-    //             },
-    //             err => new Error(err.message)
-    //           );
-    //       }).catch(error => new Error(error.message))
-    //   );
-    // } catch (error) { // catch error and throw error
-    //   throw new Error(error.message);
-    // }
+  updateAvatar(avatarURL) {
+    try { // try
+      return from(
+        // create new account with email and password
+        this.afAuth.auth.currentUser.updateProfile({
+          photoURL: avatarURL
+        }).then(
+          () => {
+            // get user ref from firestore
+            const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${this.user.uid}`);
+            // update user data
+            userRef.set({ avatarURL: avatarURL }, { merge: true })
+            // show message in log
+            this.log(`updated ${this.user.displayName}'s infor to firestore database successfully!`);
+          }
+        )
+          .then(
+            () => {
+              this.afAuth.auth.updateCurrentUser(this.afAuth.auth.currentUser);
+              // show message in log
+              this.log(`updated ${this.user.displayName}'s avatar to database successfully!`);
+            }
+          )
+      )
+    } catch (error) { // catch error
+      catchError(this.handleError<any>(error.message))
+    }
   }
 
   get user(): firebase.User {

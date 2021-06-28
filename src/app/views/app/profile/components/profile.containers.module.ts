@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CollapseModule, RatingModule, TabsModule, AccordionModule, BsDropdownModule } from 'ngx-bootstrap';
+import { CollapseModule, RatingModule, TabsModule, AccordionModule, BsDropdownModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { LightboxModule } from 'ngx-lightbox';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -21,7 +21,10 @@ import { ProfileFriendsComponent } from './profile-friends/profile-friends.compo
 import { ProfileUserPortfolioComponent } from './profile-user-portfolio/profile-user-portfolio.component';
 import { ProfileProcessComponent } from './profile-process/profile-process.component';
 import { ProfilePortfolioItemsComponent } from './profile-portfolio-items/profile-portfolio-items.component';
-import { ProfileUserInforComponent } from './profile-user-infor/profile-user-infor.component';
+import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
+import { ProfileAccountInforComponent } from './profile-account-infor/profile-account-infor.component';
+import { ProfileAccountAvatarComponent } from './profile-account-avatar/profile-account-avatar.component';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { ProfileUserInforComponent } from './profile-user-infor/profile-user-inf
     ProfileUserPortfolioComponent,
     ProfileProcessComponent,
     ProfilePortfolioItemsComponent,
-    ProfileUserInforComponent
+    ProfileAccountInforComponent,
+    ProfileAccountAvatarComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +56,10 @@ import { ProfileUserInforComponent } from './profile-user-infor/profile-user-inf
     RatingModule.forRoot(),
     TabsModule.forRoot(),
     AccordionModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    BootstrapModule,
+    DropzoneModule,
   ],
   exports: [
     ProfileUserSocialComponent,
@@ -65,7 +72,8 @@ import { ProfileUserInforComponent } from './profile-user-infor/profile-user-inf
     ProfileUserPortfolioComponent,
     ProfileProcessComponent,
     ProfilePortfolioItemsComponent,
-    ProfileUserInforComponent
+    ProfileAccountInforComponent,
+    ProfileAccountAvatarComponent
   ]
 })
 export class ProfileContainersModule { }

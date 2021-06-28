@@ -35,7 +35,7 @@ export class UploadService {
     // define query parametters for request.
     const url = `${this.urlDetele}?${params.toString()}`;
     return this.http.delete(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted image successfully`)),
+      tap(_ => this.log(`deleted image successfully!`)),
       catchError(this.handleError<string>('deleteImage'))
     );
   }
@@ -63,9 +63,9 @@ export class UploadService {
     };
   }
 
-  /** Log a PostService message with the MessageService */
+  /** Log a UploadService message with the MessageService */
   private log(message: string) {
-    this.messageService.show(`PostService: ${message}`);
+    this.messageService.show(`UploadService: ${message}`);
   }
 
 
