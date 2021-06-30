@@ -34,11 +34,11 @@
 
 
       <!-- Editor -->
-      <div class="card mb-4 tooltip-right-top">
-        <div class="card-body">
+      <div class="card mb-4 tooltip-right-top" style="min-height: 400px; overflow: auto;">
+        <div class="card-body" style="min-height: 400px; overflow: auto;">
           <h5 class="mb-4">{{'forms.content' | translate}}</h5>
-          <quill-editor format="html" name="content" #content="ngModel" [(ngModel)]="newPost.content" [placeholder]="''"
-            (onEditorChanged)="onEditorChanged($event)"></quill-editor>
+          <quill-editor  style="min-height: 300px;" format="html" name="content" #content="ngModel"
+            [(ngModel)]="newPost.content" [placeholder]="''" (onEditorChanged)="onEditorChanged($event)"></quill-editor>
 
           <!-- <input type="text" name="title" #title="ngModel" [(ngModel)]="newPost.title" class="form-control"
               aria-label="Large" aria-describedby="inputGroup-sizing-sm" required> -->

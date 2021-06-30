@@ -117,7 +117,7 @@ export class PostCreateComponent implements OnInit {
       .subscribe(
         res => {
           this.newPost = res['post'] as Post;
-          this.postID = res['post'].pid;
+          this.postID = res['post'].id;
           // after has postID, define the bucketPath
           this.bucketPath = `posts/${this.postID}/`
         },

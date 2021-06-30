@@ -1,6 +1,7 @@
 import { User } from "./user.model";
 
 export interface Post {
+  id: string;
   authorID: string;
   author?: User;
   title: string;

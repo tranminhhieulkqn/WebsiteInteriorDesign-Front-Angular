@@ -1,51 +1,50 @@
-<div class="row">
-  <div class="col-12">
-    <!-- Breadcrumb -->
-    <div>
-      <h1>{{ userAuthorized.displayName }}</h1>
-      <div class="text-zero top-right-button-container">
-        <div dropdown>
-          <button id="button-basic" dropdownToggle type="button" placement="bottom right"
-            class="btn btn-outline-primary dropdown-toggle btn-lg" aria-controls="dropdown-basic">{{ 'pages.actions' |
-            translate }} <span class="caret"></span>
-          </button>
-          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
-            aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'social']">Socical</a>
-            </li>
-            <li role="menuitem"><a class="dropdown-item"
-                [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a></li>
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">My
-                Account</a></li>
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">Change
-                Avatar</a></li>
-          </ul>
-        </div>
-      </div>
-      <app-breadcrumb></app-breadcrumb>
-    </div>
-    <!--  -->
-    <div>
-      <tabset class="separator-tabs" #staticTabs>
-        <tab heading="{{'pages.profile' | translate | uppercase }}">
-          <!-- Show infor and allow edit your profile -->
-          <app-profile-account-infor [userAuthorizedInfo]="userAuthorizedInfo"
-            [userAuthorizedInfo_]="userAuthorizedInfo_">
-          </app-profile-account-infor>
-        </tab>
-
-        <tab heading="{{'pages.followers' | translate | uppercase }}">
-          <app-profile-friends></app-profile-friends>
-        </tab>
-
-
-        <tab heading="{{'pages.avatar' | translate | uppercase }}">
-          <app-profile-account-avatar [userAuthorized]="userAuthorized" [userAuthorizedInfo]="userAuthorizedInfo">
-          </app-profile-account-avatar>
-        </tab>
-      </tabset>
-
-
+<!-- <div class="row">
+  <div class="col-12"> -->
+<!-- Breadcrumb -->
+<div>
+  <h1>{{ userAuthorized.displayName }}</h1>
+  <div class="text-zero top-right-button-container">
+    <div dropdown>
+      <button id="button-basic" dropdownToggle type="button" placement="bottom right"
+        class="btn btn-outline-primary dropdown-toggle btn-lg" aria-controls="dropdown-basic">{{ 'pages.actions' |
+        translate }} <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+        aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'social']">Socical</a>
+        </li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a>
+        </li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">My
+            Account</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'account']">Change
+            Avatar</a></li>
+      </ul>
     </div>
   </div>
+  <app-breadcrumb></app-breadcrumb>
 </div>
+<!--  -->
+<div>
+  <tabset class="separator-tabs" #staticTabs>
+    <tab heading="{{'pages.profile' | translate | uppercase }}">
+      <!-- Show infor and allow edit your profile -->
+      <app-profile-account-infor [userAuthorizedInfo]="userAuthorizedInfo" [userAuthorizedInfo_]="userAuthorizedInfo_">
+      </app-profile-account-infor>
+    </tab>
+
+    <tab heading="{{'pages.followers' | translate | uppercase }}">
+      <app-profile-friends></app-profile-friends>
+    </tab>
+
+
+    <tab heading="{{'pages.avatar' | translate | uppercase }}">
+      <app-profile-account-avatar [userAuthorized]="userAuthorized" [userAuthorizedInfo]="userAuthorizedInfo">
+      </app-profile-account-avatar>
+    </tab>
+  </tabset>
+
+
+</div>
+<!-- </div>
+</div> -->

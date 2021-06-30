@@ -9629,3 +9629,7 @@ input.form-control.ng-touched.ng-dirty.ng-valid {
 input.form-control.ng-touched.ng-dirty {
   background-color: $input-background;
 }
+
+.ql-editor {
+  min-height: 300px;
+}
