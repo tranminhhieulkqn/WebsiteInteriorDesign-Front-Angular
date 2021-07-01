@@ -20,6 +20,8 @@ export class PostDetailTabsComponent implements OnInit {
   @Input() postComments: Comment[];
   @Input() questions: IQuestion[];
 
+  currentUserID = this.authService.user.uid;
+
   newComment = {
     authorID: this.authService.user.uid,
     displayNameAuthor: this.authService.user.displayName,
@@ -68,6 +70,26 @@ export class PostDetailTabsComponent implements OnInit {
         (error) => console.log(error), // show message
         () => { } // complete
       )
+  }
+
+  clickLikeComment(comment: Comment) {
+    this.commentService.addLike(comment.id, this.authService.user.uid).subscribe(
+      (next) => this.postComments[this.postComments.indexOf(comment)].liked.push(this.authService.user.uid),
+      (error) => console.log(error), // show message
+      () => { } // complete
+    );
+  }
+
+  clickUnlikeComment(comment: Comment) {
+    this.commentService.deleteLike(comment.id, this.authService.user.uid).subscribe(
+      (next) => {
+        let indexComment = this.postComments.indexOf(comment);
+        let indexLikedUser = this.postComments[indexComment].liked.indexOf(this.authService.user.uid);
+        this.postComments[indexComment].liked.splice(indexLikedUser, 1);
+      },
+      (error) => console.log(error), // show message
+      () => { } // complete
+    );
   }
 
 }

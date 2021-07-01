@@ -16,6 +16,8 @@ export class CommentService {
   private urlCreate = `${this.urlAPI}create`;
   private urlGetByPostID = `${this.urlAPI}getByPostID`;
   private urlDelete = `${this.urlAPI}delete`
+  private urlLike = `${this.urlAPI}like`
+  private urlUnlike = `${this.urlAPI}unlike`
   private urlGetAll = `${this.urlAPI}get`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlRegister = `${this.urlAPI}register`
@@ -88,6 +90,32 @@ export class CommentService {
     return this.http.post<Comment>(this.urlCreate, comment, this.httpOptions).pipe(
       tap((comment_: Comment) => this.log(`added new comment for post id = ${comment.postID}`)),
       catchError(this.handleError<Comment>('addComment'))
+    );
+  }
+
+  /** POST: add a new like for comment of post to the server */
+  addLike(commentID: string, userID: string): Observable<Comment> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('commentID', commentID.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlLike}?${params.toString()}`;
+    return this.http.post<Comment>(url, {}, this.httpOptions).pipe(
+      tap((comment_: Comment) => this.log(`user id = ${userID} added new like for comment id = ${commentID}`)),
+      catchError(this.handleError<Comment>('addLike'))
+    );
+  }
+
+  /** DELETE: delete liked for comment of post to the server */
+  deleteLike(commentID: string, userID: string): Observable<Comment> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('commentID', commentID.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlUnlike}?${params.toString()}`;
+    return this.http.delete<Comment>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`user id = ${userID} unlike for comment id = ${commentID}`)),
+      catchError(this.handleError<Comment>('deleteLike'))
     );
   }
 

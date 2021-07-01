@@ -10,8 +10,8 @@
       <!-- Show content -->
       <br>
       <!-- <div [innerHTML]="currentPost?.content"></div> -->
-      <quill-view id="quill-view-container" style="height: auto; min-height: 100%;"
-        [content]="currentPost?.content" format="html" theme="snow"></quill-view>
+      <quill-view id="quill-view-container" style="height: auto; min-height: 100%;" [content]="currentPost?.content"
+        format="html" theme="snow"></quill-view>
       <br>
 
       <!-- Post info -->
@@ -90,11 +90,29 @@
         </div>
         <!-- Show like commnent and remove if your -->
         <div class="comment-likes">
-          <span class="post-icon"><a href="#"><span>12 Likes</span> <i class="simple-icon-heart ml-2"></i></a></span>
+          <span class="post-icon">
+            <!-- (click)="clickLikeComment(comment)" -->
+            <a href="javascript:;">
+              <span>{{ comment.liked?.length || '0' }} Likes</span>
+              <div *ngIf="comment.liked?.includes(currentUserID); then liked else notLike"></div>
+              <ng-template #liked>
+                <i style="color: pink;" class="simple-icon-heart ml-2" (click)="clickUnlikeComment(comment);"></i>
+              </ng-template>
+              <ng-template #notLike>
+                <i class="simple-icon-heart ml-2" (click)="clickLikeComment(comment);"></i>
+              </ng-template>
+              <!-- <div *ngIf="comment.liked?.includes(currentUserID) ">
+                {{ currentUserID }}
+              </div>
+              <i class="simple-icon-heart ml-2"></i> -->
+            </a>
+          </span>
           <br>
           <br>
           <div class="post-icon">
-            <a href="javascript:;" (click)="clickDeleteComment(comment)"><i class="simple-icon-trash" ></i></a>
+            <a href="javascript:;" (click)="clickDeleteComment(comment)">
+              <i class="simple-icon-trash"></i>
+            </a>
           </div>
         </div>
       </div>

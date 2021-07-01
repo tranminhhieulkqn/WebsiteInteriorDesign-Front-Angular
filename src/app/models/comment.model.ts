@@ -6,5 +6,6 @@ export interface Comment {
   authorAvatar: string;
   content: string;
   rated: number;
+  liked: string[];
   dateCreated: Date;
 }
