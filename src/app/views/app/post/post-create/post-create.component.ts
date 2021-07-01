@@ -28,6 +28,7 @@ export class PostCreateComponent implements OnInit {
   postID?: string = "";
   publicPost: boolean = false;
   savedPost: boolean = false; // check post saved
+  quill: any;
 
   //#endregion
 
@@ -259,7 +260,7 @@ export class PostCreateComponent implements OnInit {
   // check event editor
   onEditorChanged(quill: EditorChangeContent | EditorChangeSelection) {
     // check editor changed
-    // console.log(quill);
+    this.quill = quill;
   }
 
 
@@ -277,7 +278,9 @@ export class PostCreateComponent implements OnInit {
       this.newPost.status = form.value.status ? `public` : `private`;
       // add date created for post
       this.newPost.dateCreated = new Date();
-      console.log(this.newPost.dateCreated);
+      if(this.newPost.summary?.length == 0){
+        this.newPost.summary = this.quill['text'];
+      }
 
       delete this.newPost.author;
       delete this.newPost['pid']

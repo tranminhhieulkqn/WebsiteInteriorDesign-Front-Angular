@@ -80,8 +80,8 @@ export class PostService {
       .set('id', id.toString());
     const url = `${this.urlGetBy}?${params.toString()}`;
     return this.http.get<Post>(url).pipe(
-      tap(_ => this.log(`fetched post id=${id}`)),
-      catchError(this.handleError<Post>(`getPost id=${id}`))
+      tap(_ => this.log(`fetched post id = ${id}.`)),
+      catchError(this.handleError<Post>(`getPost id = ${id}.`))
     );
   }
 

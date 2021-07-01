@@ -1,22 +1,30 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user.model';
-import { carouselImages, carouselThumbs, ICarouselImage } from 'src/app/data/carousels';
 import { PostService } from 'src/app/shared/post.service';
 import { Observable, timer } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
+import { Comment } from 'src/app/models/comment.model';
+import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/shared/user.service';
+import { CommentService } from 'src/app/shared/comment.service';
+
+interface ICarouselImage {
+  id: string;
+  img: string;
+}
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
 })
 export class PostDetailComponent implements OnInit {
-  @Input() user = {} as User;
-
   //#region /** Variable definition */
 
-  postID: string;
+  currentPostID: string;
   currentPost: Post;
+  postAuthor: User;
+  postComments: Comment[];
+  // for show gallery
   showGallery = false;
   detailImages: ICarouselImage[] = [];
 
@@ -26,87 +34,83 @@ export class PostDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private postService: PostService,
+    private userService: UserService,
+    private commentService: CommentService,
   ) {
-    this.route.queryParams.subscribe(
-      params => {
-        this.postID = params['id'];
-      });
+    this.getParamFromURL(); // get id post from url
+  }
+
+  ngOnInit(): void {
+    if (this.currentPostID) { // if in url has id param and get success
+      this.getPost();
+    }
+    else { // if not, get lastest post.
+      this.getLastestPost();
+    }
+  }
+
+  getParamFromURL() {
+    this.route.queryParams.subscribe(params => this.currentPostID = params['id']);
   }
 
   //#region /** Get data (post) for page */
 
-  /**
-   * Get post by id from server
-   * @param postID post id needed get info
-   */
-  getPost(postID: string | number) {
-    // get post info from server
-    this.postService.getPost(postID.toString())
+  getGallery() {
+    this.currentPost.gallery.forEach(element => {
+      // push object image for list
+      this.detailImages.push({
+        id: this.currentPost.gallery.indexOf(element).toString(),
+        img: element.toString()
+      } as ICarouselImage)
+    });
+    this.showGallery = true; // show element gallery on html
+  }
+
+  getAuthor() {
+    this.userService.getUser(this.currentPost.authorID)
       .subscribe(
-        res => {
-          try {
-            this.currentPost = res['post'] as Post;
-            for (let index = 0; index < res['post'].gallery.length; index++) {
-              // get image url
-              const element = res['post'].gallery[index];
-              // push to array image gallery
-              this.detailImages.push({
-                id: index.toString(),
-                img: element.toString()
-              } as ICarouselImage)
-            }
-          } catch (error) {
-            this.router.navigateByUrl('/app/post/post-detail').then(() => {
-              window.location.reload();
-            });
-          }
-        },
-        err => console.log(err), // show message
-        () => this.showGallery = true, // show element gallery on html
+        (next) => this.postAuthor = next['user'],
+        (error) => console.log(error), // show message
+        () => { } // complete
       )
   }
 
-  /**
-   * Get lastest post from server
-   */
-  getLastPost() {
-    // get post info from server
+  getComments() {
+    this.commentService.getCommentsForPost(this.currentPost.id)
+      .subscribe(
+        (next) => this.postComments = next['comments'].sort((a, b) => (a.dateCreated < b.dateCreated ? -1 : 1)),
+        (error) => console.log(error), // show message
+        () => { } // complete
+      )
+  }
+
+  getPost() {
+    this.postService.getPost(this.currentPostID)
+      .subscribe(
+        (next) => this.currentPost = next['post'], // get current post to show
+        (error) => console.log(error), // show message if error
+        () => {
+          this.getAuthor(); // get user author
+          this.getGallery(); // get image for gallery
+          this.getComments(); // get all comments of post
+        }
+      )
+  }
+
+  getLastestPost() {
     this.postService.getLastPost()
       .subscribe(
-        res => {
-          try {
-            this.currentPost = res['posts'][0] as Post;
-            this.postID = res['posts'][0].id;
-            for (let index = 0; index < res['posts'][0].gallery.length; index++) {
-              // get image url
-              const element = res['posts'][0].gallery[index];
-              // push to array image gallery
-              this.detailImages.push({
-                id: index.toString(),
-                img: element.toString()
-              } as ICarouselImage)
-            }
-          } catch (error) {
-            this.router.navigateByUrl('/error').then(() => {
-              window.location.reload();
-            });
-          }
-        },
-        err => console.log(err), // show message
-        () => this.showGallery = true, // show element gallery on html
+        (next) => this.currentPost = next['posts'][0], // get current post to show
+        (error) => console.log(error), // show message if error
+        () => {
+          this.currentPostID = this.currentPost.id; // get current post id
+          this.getAuthor(); // get user author
+          this.getGallery(); // get image for gallery
+          this.getComments(); // get all comments of post
+        }
       )
   }
 
   //#endregion
-
-  ngOnInit(): void {
-    if (this.postID) { // if in url has id param and get success
-      this.getPost(this.postID);
-    }
-    else { // if not, get lastest post.
-      this.getLastPost();
-    }
-  }
-
 
 }

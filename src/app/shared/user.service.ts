@@ -33,8 +33,8 @@ export class UserService {
   getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.urlGetAll)
       .pipe(
-        tap(_ => this.log('fetched user')),
-        catchError(this.handleError<User[]>('get all user', []))
+        tap(_ => this.log('fetched users.')),
+        catchError(this.handleError<User[]>('get all user.', []))
       );
   }
 
@@ -49,9 +49,9 @@ export class UserService {
         map(user => user[0]), // returns a {0|1} element array
         tap(u => {
           const outcome = u ? `fetched` : `did not find`;
-          this.log(`${outcome} user id=${id}`);
+          this.log(`${outcome} user id = ${id}.`);
         }),
-        catchError(this.handleError<User>(`get user by id = ${id}`))
+        catchError(this.handleError<User>(`get user by id = ${id}.`))
       );
   }
 
@@ -62,8 +62,8 @@ export class UserService {
       .set('id', id.toString());
     const url = `${this.urlGetBy}?${params.toString()}`;
     return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${id}`)),
-      catchError(this.handleError<User>(`get user by id = ${id}`))
+      tap(_ => this.log(`fetched user id = ${id}.`)),
+      catchError(this.handleError<User>(`get user by id = ${id}.`))
     );
   }
 
@@ -104,7 +104,7 @@ export class UserService {
   /** PUT: update the user on the server */
   updateUser(user: User): Observable<any> {
     return this.http.put(this.urlUpdate, user, this.httpOptions).pipe(
-      tap(_ => this.log(`updated user ${user.displayName}`)),
+      tap(_ => this.log(`updated user ${user.displayName}.`)),
       catchError(this.handleError<any>('updateHero'))
     );
   }

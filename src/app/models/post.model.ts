@@ -14,4 +14,6 @@ export interface Post {
   status: string;
   likeCount: number;
   dateCreated: Date;
+  mainColor: string;
+  pattern: string;
 }

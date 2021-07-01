@@ -15,6 +15,7 @@ export class CommentService {
   private urlAPI = `${environment.apiBackUrl}comments/`;
   private urlCreate = `${this.urlAPI}create`;
   private urlGetByPostID = `${this.urlAPI}getByPostID`;
+  private urlDelete = `${this.urlAPI}delete`
   private urlGetAll = `${this.urlAPI}get`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlRegister = `${this.urlAPI}register`
@@ -38,7 +39,7 @@ export class CommentService {
     const url = `${this.urlGetByPostID}?${params.toString()}`;
     return this.http.get<Comment[]>(url)
       .pipe(
-        tap(_ => this.log('fetched comments for post.')),
+        tap(_ => this.log(`fetched comments for post id = ${postID}.`)),
         catchError(this.handleError<Comment[]>('getCommentFor', []))
       );
   }
@@ -85,20 +86,22 @@ export class CommentService {
   /** POST: add a new comment for post to the server */
   addComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(this.urlCreate, comment, this.httpOptions).pipe(
-      tap((comment: Comment) => this.log(`added new comment for post w/ id=${comment.postID}`)),
+      tap((comment_: Comment) => this.log(`added new comment for post id = ${comment.postID}`)),
       catchError(this.handleError<Comment>('addComment'))
     );
   }
 
-  /** DELETE: delete the hero from the server */
-  // deleteHero(id: number): Observable<Hero> {
-  //   const url = `${this.heroesUrl}/${id}`;
-
-  //   return this.http.delete<Hero>(url, this.httpOptions).pipe(
-  //     tap(_ => this.log(`deleted hero id=${id}`)),
-  //     catchError(this.handleError<Hero>('deleteHero'))
-  //   );
-  // }
+  /** DELETE: delete the comment from the server */
+  deleteComment(id: string | number): Observable<Comment> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('id', id.toString());
+    const url = `${this.urlDelete}?${params.toString()}`;
+    return this.http.delete<Comment>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted comment id = ${id}.`)),
+      catchError(this.handleError<Comment>('deleteComment'))
+    );
+  }
 
   /** PUT: update the hero on the server */
   // updateHero(hero: Hero): Observable<any> {

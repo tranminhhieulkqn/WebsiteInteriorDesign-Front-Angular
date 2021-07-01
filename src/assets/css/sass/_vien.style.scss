@@ -9631,5 +9631,35 @@ input.form-control.ng-touched.ng-dirty {
 }
 
 .ql-editor {
-  min-height: 300px;
+  height: auto;
+  min-height: 400px;
 }
+
+.ql-editor.ql-blank {
+  min-height: 400px;
+}
+
+#quill-view-container .ql-editor {
+  height: auto;
+  min-height: 50px;
+  background: #1E2022;
+  overflow: visible;
+  display: table-row;
+}
+
+// .ql-container.ql-snow.ql-disabled.ngx-quill-view {
+//   background-color: #18191B;
+// }
+
+/* Tell Quill not to scroll */
+// #quill-container {
+//   height: auto;
+//   min-height: 100%;
+// }
+// #quill-container .ql-editor {
+//   overflow: visible;
+//   display: table-row;
+//   width: auto;
+//   min-width: 100%;
+// }
+

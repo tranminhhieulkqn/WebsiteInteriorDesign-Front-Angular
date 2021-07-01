@@ -16,75 +16,25 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class PostDetailTabsComponent implements OnInit {
   @Input() currentPost: Post;
-  @Input() comments: IComment[];
+  @Input() postAuthor: User;
+  @Input() postComments: Comment[];
   @Input() questions: IQuestion[];
 
-  datetimeNow = new Date('2021-06-18T10:49:53.173Z');
-
-  rate_ = 0;
-  rateReadonly = 5;
-  content_ = '';
-
-  comments_: Comment[];
-  author: User;
+  newComment = {
+    authorID: this.authService.user.uid,
+    displayNameAuthor: this.authService.user.displayName,
+    authorAvatar: this.authService.user.photoURL,
+    content: '',
+    rated: 0,
+  } as Comment;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private commentService: CommentService,
   ) { }
 
   ngOnInit(): void {
-    if (!this.comments) this.comments = commentData;
     if (!this.questions) this.questions = questionData;
-    setTimeout(() => {
-
-      if (this.currentPost.id) {
-        this.commentService.getCommentsForPost(this.currentPost.id)
-          .subscribe(
-            (res) => {
-              this.comments_ = res['comments']
-              this.comments_ =  this.comments_.sort((a, b) => (a.dateCreated < b.dateCreated ? -1 : 1));
-            },
-            (err) => { },
-            () => { }
-          )
-        this.userService.getUser(this.currentPost.authorID)
-        .subscribe(
-          (res) => {
-            // console.log(res);
-
-            this.author = res['user']
-          },
-          (err) => { },
-          () => { }
-        )
-      }
-    }, 1000);
-
-  }
-
-  clickSubmitCommentButton(form: NgForm) {
-    let newComment = {
-      postID: this.currentPost.id,
-      authorID: this.authService.user.uid,
-      displayNameAuthor: this.authService.user.displayName,
-      authorAvatar: this.authService.user.photoURL,
-      content: form.value.content,
-      rated: form.value.rated,
-      dateCreated: new Date(),
-    } as Comment;
-    console.log(newComment);
-    this.commentService.addComment(newComment)
-      .subscribe(
-        (res) => {
-          console.log(res);
-        },
-        (err) => { },
-        () => {
-          this.comments_.push(newComment);
-        }
-      )
   }
 
   checkValidation(form: NgForm) {
@@ -92,9 +42,32 @@ export class PostDetailTabsComponent implements OnInit {
     return (String(value.content)).length > 0 && Number(value.rated) > 0;
   }
 
-  onDrag(event: any) {
-    console.log(event);
+  clickSubmitCommentButton(form: NgForm) {
+    this.newComment.postID = this.currentPost.id;
+    this.newComment.dateCreated = new Date();
+    console.log(this.newComment);
 
+    this.commentService.addComment(this.newComment)
+      .subscribe(
+        (next) => {
+          this.postComments.push(next['comment']);
+        },
+        (error) => console.log(error), // show message
+        () => { // complete
+          // reset data
+          this.newComment.content = "";
+          this.newComment.rated = 0;
+        }
+      )
+  }
+
+  clickDeleteComment(comment: Comment) {
+    this.commentService.deleteComment(comment.id)
+      .subscribe(
+        (next) => this.postComments.splice(this.postComments.indexOf(comment), 1),
+        (error) => console.log(error), // show message
+        () => { } // complete
+      )
   }
 
 }

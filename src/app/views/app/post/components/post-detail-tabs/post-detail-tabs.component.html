@@ -3,13 +3,15 @@
     <tab heading="{{'pages.details-title' | translate}}" class="card-body">
 
       <!-- Title -->
-      <div class="d-flex flex-row mb-3 border-bottom justify-content-between align-items-left">
-        <h2 class="mb-4">{{ currentPost?.title }} {{ currentPost?.title }}</h2>
+      <div class="d-flex flex-row border-bottom justify-content-between align-items-left">
+        <h2 class="mb-4">{{ currentPost?.title }}</h2>
       </div>
 
       <!-- Show content -->
       <br>
-      <div [innerHTML]="currentPost?.content"></div>
+      <!-- <div [innerHTML]="currentPost?.content"></div> -->
+      <quill-view id="quill-view-container" style="height: auto; min-height: 100%;"
+        [content]="currentPost?.content" format="html" theme="snow"></quill-view>
       <br>
 
       <!-- Post info -->
@@ -41,13 +43,13 @@
           <div class="d-flex flex-row mb-3 border-top justify-content-between align-items-center">
             <div style="margin: 75px 0px 0px 0px;"></div>
             <a href="#">
-              <img [src]="author?.avatarURL" [alt]="author?.displayName"
+              <img [src]="postAuthor?.avatarURL" [alt]="postAuthor?.displayName"
                 style="object-fit: cover; height: 40px; width: 40px;"
                 class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
             </a>
             <div class="pl-3 flex-fill">
               <a href="#">
-                <p class="font-weight-medium mb-0" ellipsis>{{ author?.displayName }}</p>
+                <p class="font-weight-medium mb-0" ellipsis>{{ postAuthor?.displayName }}</p>
                 <p class="text-muted mb-0 text-small" ellipsis>
                   {{ currentPost?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} |
                   {{ currentPost?.dateCreated | amTimeAgo }}
@@ -62,12 +64,12 @@
 
     </tab>
 
-    <tab heading="{{'pages.comments-title' | translate}} ({{ comments_?.length }})" class="card-body">
+    <tab heading="{{'pages.comments-title' | translate}} ({{ postComments?.length }})" class="card-body">
 
       <!-- Show all comments for post -->
       <div
-        [class]="i===comments_.length-1 ? 'd-flex flex-row mb-3 pb-3 justify-content-between': 'd-flex flex-row mb-3 pb-3 border-bottom justify-content-between'"
-        *ngFor="let comment of comments_; let i = index;" (drag)="onDrag($event)">
+        [class]="i===postComments.length-1 ? 'd-flex flex-row mb-3 pb-3 justify-content-between': 'd-flex flex-row mb-3 pb-3 border-bottom justify-content-between'"
+        *ngFor="let comment of postComments; let i = index;">
         <a href="javascript:;">
           <img [src]="comment.authorAvatar" [alt]="comment.content"
             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
@@ -92,7 +94,7 @@
           <br>
           <br>
           <div class="post-icon">
-            <i class="simple-icon-trash"></i>
+            <a href="javascript:;" (click)="clickDeleteComment(comment)"><i class="simple-icon-trash" ></i></a>
           </div>
         </div>
       </div>
@@ -105,7 +107,7 @@
         <div class="comment-contaiener">
           <div class="input-group">
             <!-- Input text content of comment -->
-            <input name="content" #content="ngModel" ngModel type="text" class="form-control"
+            <input name="content" [(ngModel)]="newComment.content" type="text" class="form-control"
               placeholder="Add a comment">
             <!-- Notify validation -->
             <!-- <div class="tooltip-center-bottom">
@@ -116,7 +118,7 @@
             <!-- Rating for post with comment -->
             <div class="input-group-append">
               <div class="input-group-text">
-                <rating name="rated" #rated="ngModel" ngModel [max]="5" [readonly]="false" [customTemplate]="t">
+                <rating name="rated" [(ngModel)]="newComment.rated" [max]="5" [readonly]="false" [customTemplate]="t">
                 </rating>
                 <ng-template #t let-index="index" let-value="value">{{index < value ? '' : '' }}</ng-template>
               </div>
