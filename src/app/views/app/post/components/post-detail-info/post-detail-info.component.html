@@ -1,36 +1,66 @@
 <div class="card mb-4">
   <div class="position-absolute card-top-buttons">
-      <button class="btn btn-header-light icon-button">
-          <i class="simple-icon-refresh"></i>
-      </button>
+    <button class="btn btn-header-light icon-button">
+      <i class="simple-icon-refresh"></i>
+    </button>
   </div>
   <div class="card-body">
-      <div class="mb-3">
-          <div class="post-icon mr-3 d-inline-block"><a href="#"><i
-                      class="simple-icon-heart mr-1"></i></a> <span>4
-                  Likes</span></div>
-          <div class="post-icon d-inline-block"><i class="simple-icon-bubble mr-1"></i> <span>1
-                  Comment</span></div>
+    <div class="mb-3">
+      <div class="post-icon mr-3 d-inline-block">
+        <!-- <a href="javascript:;"><i class="simple-icon-heart mr-1"></i></a> -->
+
+        <div *ngIf="currentPost?.liked?.includes(currentUserID); then liked else notLike"></div>
+        <ng-template #liked>
+          <a href="javascript:;">
+            <i style="color: pink;" class="simple-icon-heart ml-1" (click)="clickUnlikePost();"></i>
+          </a>
+        </ng-template>
+        <ng-template #notLike>
+          <a href="javascript:;">
+            <i class="simple-icon-heart ml-1" (click)="clickLikePost();"></i>
+          </a>
+        </ng-template>
+        <span>&nbsp; {{ currentPost?.liked?.length }} Likes</span>
+
+
+
       </div>
-      <p class="mb-3">
-          Vivamus ultricies augue vitae commodo condimentum. Nullam faucibus eros eu mauris
-          feugiat, eget consectetur tortor tempus.
-          <br /><br />
-          Sed volutpat mollis dui eget fringilla.
-          Vestibulum blandit urna ut tellus lobortis tristique. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque quis cursus
-          mauris.
-          <br /><br />
-          Nulla non purus fermentum, pulvinar dui condimentum, malesuada nibh. Sed
-          viverra quam urna, at condimentum ante viverra non. Mauris posuere erat sapien, a
-          convallis libero lobortis sit amet. Suspendisse in orci tellus.
-      </p>
-      <p class="text-muted text-small mb-2">Tags</p>
-      <p class="mb-3">
-        <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">{{'Flour' | uppercase}}</span>
-        <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">{{'Chocolate' | uppercase}}</span>
-        <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">{{'Caster Sugar' | uppercase}}</span>
-        <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">{{'Baking Powder' | uppercase}}</span>
-      </p>
+      <div class="post-icon d-inline-block">
+        <a href="javascript:;"><i class="simple-icon-bubble mr-1"></i></a>
+        <span>{{ noComment }} Comment</span>
+      </div>
+    </div>
+
+    <p class="text-muted text-small mb-2">Summary</p>
+    <p class="mb-3" ellipsis
+      style="display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical; overflow: hidden;">
+      {{ currentPost?.summary }}
+    </p>
+    <div class="row">
+
+      <div class="col-6">
+        <p class="text-muted text-small mb-2">Main Color</p>
+        <p class="mb-3">
+          <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">
+            {{ currentPost?.mainColor | uppercase}}
+          </span>
+        </p>
+      </div>
+
+      <div class="col-6">
+        <p class="text-muted text-small mb-2">Pattern</p>
+        <p class="mb-3">
+          <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">
+            {{ currentPost?.pattern | uppercase}}
+          </span>
+        </p>
+      </div>
+    </div>
+    <p class="text-muted text-small mb-2">Keywords</p>
+    <p class="mb-3">
+      <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill" *ngFor="let keyword of currentPost?.keywords">
+        {{ keyword | uppercase}}
+      </span>
+    </p>
   </div>
 </div>

@@ -12,7 +12,7 @@ export interface Post {
   category?: string;
   keywords?: string[];
   status: string;
-  likeCount: number;
+  liked: string[];
   dateCreated: Date;
   mainColor: string;
   pattern: string;

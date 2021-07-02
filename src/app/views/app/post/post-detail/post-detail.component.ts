@@ -7,6 +7,7 @@ import { Comment } from 'src/app/models/comment.model';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/shared/user.service';
 import { CommentService } from 'src/app/shared/comment.service';
+import { AuthService } from 'src/app/shared/auth.service';
 
 interface ICarouselImage {
   id: string;
@@ -28,16 +29,20 @@ export class PostDetailComponent implements OnInit {
   showGallery = false;
   detailImages: ICarouselImage[] = [];
 
+  currentUserID: string;
+
   //#endregion
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private postService: PostService,
     private userService: UserService,
     private commentService: CommentService,
   ) {
     this.getParamFromURL(); // get id post from url
+    this.currentUserID = authService.user.uid;
   }
 
   ngOnInit(): void {

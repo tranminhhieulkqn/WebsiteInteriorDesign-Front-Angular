@@ -26,11 +26,13 @@
       </div>
     </div>
 
-    <app-post-detail-tabs [currentPost]="currentPost" [postAuthor]="postAuthor" [postComments]="postComments"></app-post-detail-tabs>
+    <app-post-detail-tabs [currentPost]="currentPost" [postAuthor]="postAuthor" [postComments]="postComments">
+    </app-post-detail-tabs>
   </div>
 
   <div class="col-12 col-md-12 col-xl-4 col-right">
-    <app-post-detail-info></app-post-detail-info>
-    <!-- <app-profile-photos></app-profile-photos> -->
+    <app-post-detail-info [currentPost]="currentPost" [noComment]="postComments?.length"
+      [currentUserID]="currentUserID"></app-post-detail-info>
+    <app-post-recent></app-post-recent>
   </div>
 </div>

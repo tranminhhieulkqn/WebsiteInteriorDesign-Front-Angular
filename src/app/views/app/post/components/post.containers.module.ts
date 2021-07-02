@@ -57,6 +57,7 @@ import { PostRecentComponent } from './post-recent/post-recent.component';
     ProfileRecentPostsComponent,
     PostDetailInfoComponent,
     PostDetailTabsComponent,
+    PostRecentComponent
   ]
 })
 export class PostContainersModule { }

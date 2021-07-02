@@ -16,6 +16,8 @@ export class PostService {
   /** API URL */
   private urlAPI = `${environment.apiBackUrl}posts/`;
   private urlCreate = `${this.urlAPI}create`
+  private urlLike = `${this.urlAPI}like`
+  private urlUnlike = `${this.urlAPI}unlike`
   private urlGetAll = `${this.urlAPI}get`;
   private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
   private urlGetBy = `${this.urlAPI}getBy`;
@@ -118,6 +120,32 @@ export class PostService {
     return this.http.post<Post>(this.urlCreate, post, this.httpOptions).pipe(
       tap((newPost: Post) => this.log(`added post '${newPost['post'].title}'`)),
       catchError(this.handleError<Post>('addPost'))
+    );
+  }
+
+  /** POST: add a new like for post to the server */
+  addLike(postID: string, userID: string): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('postID', postID.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlLike}?${params.toString()}`;
+    return this.http.post<Post>(url, {}, this.httpOptions).pipe(
+      tap((post_: Post) => this.log(`user id = ${userID} added new like for post id = ${postID}`)),
+      catchError(this.handleError<Post>('addLike'))
+    );
+  }
+
+  /** DELETE: delete liked of post to the server */
+  deleteLike(postID: string, userID: string): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('postID', postID.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlUnlike}?${params.toString()}`;
+    return this.http.delete<Post>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`user id = ${userID} unlike for post id = ${postID}`)),
+      catchError(this.handleError<Post>('deleteLike'))
     );
   }
 
