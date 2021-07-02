@@ -24,11 +24,10 @@ export class PostCreateComponent implements OnInit {
   //#region /** Variable definition */
 
   userAuthorized: firebase.User;
-  newPost: Post;
+  newPost = {} as Post;
   postID?: string = "";
   publicPost: boolean = false;
   savedPost: boolean = false; // check post saved
-  quill: any;
 
   //#endregion
 
@@ -257,10 +256,11 @@ export class PostCreateComponent implements OnInit {
     return !this.newPost.thumbnail?.length && form.submitted;
   }
 
+  textPlainContent: string = "";
   // check event editor
-  onEditorChanged(quill: EditorChangeContent | EditorChangeSelection) {
+  onContentChanged(quill: EditorChangeContent) {
     // check editor changed
-    this.quill = quill;
+    this.textPlainContent = String(quill['text']);
   }
 
 
@@ -278,8 +278,8 @@ export class PostCreateComponent implements OnInit {
       this.newPost.status = form.value.status ? `public` : `private`;
       // add date created for post
       this.newPost.dateCreated = new Date();
-      if(this.newPost.summary?.length == 0){
-        this.newPost.summary = this.quill['text'];
+      if (!this.newPost.summary || this.newPost.summary?.length == 0) {
+        this.newPost.summary = this.textPlainContent;
       }
 
       delete this.newPost.author;
@@ -300,7 +300,9 @@ export class PostCreateComponent implements OnInit {
             { theClass: 'outline primary', timeOut: 3000, showProgressBar: true }
           );
           // set the time to turn pages
-          setTimeout(() => this.router.navigate([`app/home`]), 3000);
+          setTimeout(() => this.router.navigate([`/app/post/post-detail`], {
+            queryParams: { id: this.postID.toString() }
+          }), 3000);
         }
       );
     }
