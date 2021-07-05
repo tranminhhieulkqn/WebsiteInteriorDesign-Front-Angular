@@ -478,6 +478,8 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "mainColor": "Main Color",
+    "pattern": "Pattern",
     "avatar": "Avatar",
     "whoareyou": "Who are you?",
     "public": "Public",

@@ -1,18 +1,32 @@
-<p>post-list works!</p>
+<!-- <p>post-list works!</p> -->
 <div class="row">
-  <div class="col-12 col-lg-6 mb-5" *ngFor="let item of data">
-    <div class="card flex-row listing-card-container">
+  <div class="col-12 col-lg-6 mb-5" *ngFor="let post of listPost">
+    <div style="height: 210px;" class="card flex-row listing-card-container">
+      <span class="badge badge-pill badge-theme-2 position-absolute badge-top-right" *ngIf="post?.category !== ''">
+        {{ post?.category | uppercase }}</span>
+
+
       <div class="w-50 position-relative">
         <a routerLink="/app/pages/blog/blog-detail">
-          <img class="card-img-left" [src]="item.thumb" alt="Card image cap">
+          <img style="height: 100%;" class="card-img-left" [src]="post?.thumbnail" [alt]="post?.title">
         </a>
       </div>
+
+
       <div class="w-50 d-flex align-items-center">
         <div class="card-body">
+
           <a routerLink="/app/pages/blog/blog-detail">
-            <h5 class="mb-3 listing-heading" ellipsis>{{item.title}}</h5>
+            <h5 style="height: 25px; overflow: hidden;" class="listing-heading" ellipsis>{{ post?.title }}</h5>
           </a>
-          <p class="listing-desc text-muted" ellipsis>{{item.description}}</p>
+          <p style="height: 40px; margin-bottom: 8px;" class="listing-desc text-muted" ellipsis>{{ post?.summary }}</p>
+
+          <br>
+
+          <div aria-readonly="true">
+            <rating [readonly]="true" [max]="5" [(ngModel)]="post.averageRating" [customTemplate]="t2"></rating>
+            <ng-template #t2 let-index="index" let-value="value">{{index < value ? '' : '' }}</ng-template>
+          </div>
           <footer>
             <p class="text-muted text-small mb-0 font-weight-light">09.04.2020</p>
           </footer>

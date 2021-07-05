@@ -14,6 +14,8 @@ export interface Post {
   status: string;
   liked: string[];
   dateCreated: Date;
-  mainColor: string;
-  pattern: string;
+  mainColor: string[];
+  pattern: string[];
+  displayNameAuthor: string;
+  authorAvatar: string;
 }

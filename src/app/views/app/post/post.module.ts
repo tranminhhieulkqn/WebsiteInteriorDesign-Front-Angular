@@ -13,7 +13,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostContainersModule } from './components/post.containers.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
-import { BsDatepickerModule, BsDropdownModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsDropdownModule, RatingModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -40,6 +40,7 @@ import { PostList1Component } from './post-list1/post-list1.component';
     PaginationModule.forRoot(),
     BootstrapModule,
     FormsModule,
+    RatingModule.forRoot(),
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgSelectModule,

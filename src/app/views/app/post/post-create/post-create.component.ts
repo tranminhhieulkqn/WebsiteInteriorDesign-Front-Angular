@@ -110,7 +110,9 @@ export class PostCreateComponent implements OnInit {
     this.newPost = {
       authorID: this.authService.user.uid,
       title: "My Post",
-      content: ``
+      content: ``,
+      displayNameAuthor: this.userAuthorized.displayName,
+      authorAvatar: this.userAuthorized.photoURL,
     } as Post;
     // create new draft post to has postID and
     this.postService.addPost(this.newPost)

@@ -41,8 +41,8 @@
       <div class="col-6">
         <p class="text-muted text-small mb-2">Main Color</p>
         <p class="mb-3">
-          <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">
-            {{ currentPost?.mainColor | uppercase}}
+          <span *ngFor="let color of currentPost?.mainColor" class="badge mb-1 mr-1 badge-outline-secondary badge-pill">
+            {{ color | uppercase}}
           </span>
         </p>
       </div>
@@ -50,8 +50,8 @@
       <div class="col-6">
         <p class="text-muted text-small mb-2">Pattern</p>
         <p class="mb-3">
-          <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">
-            {{ currentPost?.pattern | uppercase}}
+          <span *ngFor="let pattern of currentPost?.pattern" class="badge mb-1 mr-1 badge-outline-secondary badge-pill">
+            {{ pattern | uppercase}}
           </span>
         </p>
       </div>

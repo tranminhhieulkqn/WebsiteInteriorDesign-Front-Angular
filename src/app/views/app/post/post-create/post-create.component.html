@@ -37,8 +37,9 @@
       <div class="card mb-4 tooltip-right-top" style="min-height: 500px; overflow: auto;">
         <div class="card-body" style="min-height: 500px; overflow: auto;">
           <h5 class="mb-4">{{'forms.content' | translate}}</h5>
-          <quill-editor  style="min-height: 400px;" format="html" name="content" #content="ngModel"
-            [(ngModel)]="newPost.content" [placeholder]="''" (onContentChanged)="onContentChanged($event)"></quill-editor>
+          <quill-editor style="min-height: 400px;" format="html" name="content" #content="ngModel"
+            [(ngModel)]="newPost.content" [placeholder]="''" (onContentChanged)="onContentChanged($event)">
+          </quill-editor>
 
           <!-- <input type="text" name="title" #title="ngModel" [(ngModel)]="newPost.title" class="form-control"
               aria-label="Large" aria-describedby="inputGroup-sizing-sm" required> -->
@@ -103,8 +104,9 @@
           <!-- Pattern -->
           <label class="form-group has-top-label tooltip-right-top">
             <ng-select name="pattern" #pattern="ngModel" [(ngModel)]="newPost.pattern"
-              [items]="['Interior Design', 'Hi-Tech', 'Indochina', 'Luxurious']" bindLabel="name" bindValue="name"
-              required>
+              [hideSelected]="true" multiple="true"
+              [items]="['Stripe', 'Polka Dot', 'Geometric', 'Floral', 'Classic', 'Ceiling', 'Neoclassical','Plaid', 'Organic']"
+              bindLabel="name" bindValue="name" required>
             </ng-select>
             <span>{{ 'forms.pattern' | translate | uppercase }}</span>
             <div *ngIf="checkValidation(pattern, inInputForm);" class="invalid-tooltip">
@@ -112,11 +114,12 @@
             </div>
           </label>
 
-          <!-- Category -->
+          <!-- Main color -->
           <label class="form-group has-top-label tooltip-right-top">
             <ng-select name="mainColor" #mainColor="ngModel" [(ngModel)]="newPost.mainColor"
-              [items]="['Interior Design', 'Hi-Tech', 'Indochina', 'Luxurious']" bindLabel="name" bindValue="name"
-              required>
+              [hideSelected]="true" multiple="true"
+              [items]="['Blue', 'Green', 'Red', 'Yellow', 'Brown', 'Beige-colored', 'Grey' , 'Pink', 'White', 'Black']"
+              bindLabel="name" bindValue="name" required>
             </ng-select>
             <span>{{ 'forms.mainColor' | translate | uppercase }}</span>
             <div *ngIf="checkValidation(mainColor, inInputForm);" class="invalid-tooltip">
