@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BlankPageComponent } from './blank-page/blank-page.component';
 import { HomeComponent } from "./home/home.component";
+import { PredictorComponent } from './predictor/predictor.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'menu', loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule) },
       { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
       { path: 'post', loadChildren: () => import('./post/post.module').then(m => m.PostModule)},
+      { path: 'predictor', loadChildren: () => import('./predictor/predictor.module').then(m => m.PredictorModule)},
       { path: 'blank-page', component: BlankPageComponent },
     ]
   }

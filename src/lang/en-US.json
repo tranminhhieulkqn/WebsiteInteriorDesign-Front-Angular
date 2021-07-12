@@ -19,6 +19,8 @@
     "code": "Reset Code"
   },
   "menu": {
+    "predict": "Predict",
+    "predictor": "Predictor",
     "post-manage": "Manage Posts",
     "my-post": "My Post",
     "new-post": "New Post",
