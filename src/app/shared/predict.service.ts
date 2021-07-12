@@ -10,7 +10,7 @@ import { MessageService } from './message.service';
 export class PredictService {
 
   /** API URL */
-  private urlAPI = `http://34.87.94.16/`;
+  private urlAPI = `https://34.87.94.16/`;
   private urlPredict = `${this.urlAPI}predict`
   private urlDetele = `${this.urlAPI}delete`
 
