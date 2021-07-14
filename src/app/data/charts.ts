@@ -119,19 +119,33 @@ export const barChartData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June'],
   datasets: [
     {
-      label: 'Cakes',
+      label: 'HiTech',
       borderColor: Colors.getColors().themeColor1,
       backgroundColor: Colors.getColors().themeColor1_10,
-      data: [456, 479, 324, 569, 702, 600],
+      data: [2],
       borderWidth: 2
     },
     {
-      label: 'Desserts',
-      borderColor: Colors.getColors().themeColor2,
-      backgroundColor: Colors.getColors().themeColor2_10,
-      data: [364, 504, 605, 400, 345, 320],
+      label: 'Hello',
+      borderColor: Colors.getColors().themeColor1,
+      backgroundColor: Colors.getColors().themeColor1_10,
+      data: [15],
       borderWidth: 2
-    }
+    },
+    {
+      label: 'Hello',
+      borderColor: Colors.getColors().themeColor1,
+      backgroundColor: Colors.getColors().themeColor1_10,
+      data: [95],
+      borderWidth: 2
+    },
+    // {
+    //   label: 'Desserts',
+    //   borderColor: Colors.getColors().themeColor2,
+    //   backgroundColor: Colors.getColors().themeColor2_10,
+    //   data: [364, 504, 605, 400, 345, 320],
+    //   borderWidth: 2
+    // }
   ]
 };
 

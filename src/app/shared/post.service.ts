@@ -16,7 +16,10 @@ export class PostService {
   /** API URL */
   private urlAPI = `${environment.apiBackUrl}posts/`;
   private urlCreate = `${this.urlAPI}create`
+  private urlLike = `${this.urlAPI}like`
+  private urlUnlike = `${this.urlAPI}unlike`
   private urlGetAll = `${this.urlAPI}get`;
+  private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
   private urlUpdate = `${this.urlAPI}update`
@@ -35,11 +38,30 @@ export class PostService {
   //////// Get methods //////////
 
   /** GET posts from the server */
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.urlGetAll)
+  getPosts(pageSize: number = 0, currentPage: number = 1, search: string = ''): Observable<Post[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('currentPage', currentPage.toString())
+      .set('search', search.toString());
+    const url = (pageSize) ? `${this.urlGetAll}?${params.toString()}` : this.urlGetAll;
+    return this.http.get<Post[]>(url)
       .pipe(
         tap(_ => this.log('fetched posts')),
         catchError(this.handleError<Post[]>('getPosts', []))
+      );
+  }
+
+  /** GET posts from the server */
+  getPostsByAuthor(auhtorID: string): Observable<Post[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('authorID', auhtorID.toString());
+    const url = `${this.urlGetAllByAuhtor}?${params.toString()}`;
+    return this.http.get<Post[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched posts by author id')),
+        catchError(this.handleError<Post[]>('getPostsByAuthor', []))
       );
   }
 
@@ -67,12 +89,12 @@ export class PostService {
       .set('id', id.toString());
     const url = `${this.urlGetBy}?${params.toString()}`;
     return this.http.get<Post>(url).pipe(
-      tap(_ => this.log(`fetched post id=${id}`)),
-      catchError(this.handleError<Post>(`getPost id=${id}`))
+      tap(_ => this.log(`fetched post id = ${id}.`)),
+      catchError(this.handleError<Post>(`getPost id = ${id}.`))
     );
   }
 
-  /** GET post by id. Will 404 if id not found */
+  /** GET lastest post by id. Will 404 if id not found */
   getLastPost(amount: number = 1): Observable<Post> {
     // define query parametters for request.
     let params = new HttpParams()
@@ -120,6 +142,32 @@ export class PostService {
     return this.http.post<Post>(this.urlCreate, post, this.httpOptions).pipe(
       tap((newPost: Post) => this.log(`added post '${newPost['post'].title}'`)),
       catchError(this.handleError<Post>('addPost'))
+    );
+  }
+
+  /** POST: add a new like for post to the server */
+  addLike(postID: string, userID: string): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('postID', postID.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlLike}?${params.toString()}`;
+    return this.http.post<Post>(url, {}, this.httpOptions).pipe(
+      tap((post_: Post) => this.log(`user id = ${userID} added new like for post id = ${postID}`)),
+      catchError(this.handleError<Post>('addLike'))
+    );
+  }
+
+  /** DELETE: delete liked of post to the server */
+  deleteLike(postID: string, userID: string): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('postID', postID.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlUnlike}?${params.toString()}`;
+    return this.http.delete<Post>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`user id = ${userID} unlike for post id = ${postID}`)),
+      catchError(this.handleError<Post>('deleteLike'))
     );
   }
 

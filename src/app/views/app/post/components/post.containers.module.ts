@@ -18,6 +18,7 @@ import { PostDetailInfoComponent } from './post-detail-info/post-detail-info.com
 import { PostDetailTabsComponent } from './post-detail-tabs/post-detail-tabs.component';
 import { QuillModule } from 'ngx-quill';
 import { MomentModule } from "ngx-moment";
+import { PostRecentComponent } from './post-recent/post-recent.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MomentModule } from "ngx-moment";
     ProfileRecentPostsComponent,
     PostDetailInfoComponent,
     PostDetailTabsComponent,
+    PostRecentComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +57,7 @@ import { MomentModule } from "ngx-moment";
     ProfileRecentPostsComponent,
     PostDetailInfoComponent,
     PostDetailTabsComponent,
+    PostRecentComponent
   ]
 })
 export class PostContainersModule { }

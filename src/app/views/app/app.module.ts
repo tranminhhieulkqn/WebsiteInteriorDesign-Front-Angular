@@ -11,10 +11,13 @@ import { BootstrapModule } from "../../components/bootstrap/bootstrap.module";
 import { UiCardsContainersModule } from 'src/app/containers/ui/cards/ui.cards.containers.module';
 import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
 import { MomentModule } from "ngx-moment";
+import { AboutUsComponent } from './about-us/about-us.component';
+import { LightboxModule } from 'ngx-lightbox';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 
 @NgModule({
-  declarations: [BlankPageComponent, AppComponent, HomeComponent],
+  declarations: [BlankPageComponent, AppComponent, HomeComponent, AboutUsComponent, ContactUsComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -25,7 +28,8 @@ import { MomentModule } from "ngx-moment";
     LayoutContainersModule,
     UiCardsContainersModule,
     ComponentsCarouselModule,
-    MomentModule
+    MomentModule,
+    LightboxModule
   ]
 })
 export class AppModule { }

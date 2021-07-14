@@ -19,6 +19,12 @@
     "code": "Reset Code"
   },
   "menu": {
+    "contact-us": "Contact Us",
+    "about-us": "About Us",
+    "designer": "Designer",
+    "results-manager": "Results Manager",
+    "predict": "Predict",
+    "predictor": "Predictor",
     "post-manage": "Manage Posts",
     "my-post": "My Post",
     "new-post": "New Post",
@@ -176,6 +182,7 @@
     "top-rated-items": "Top Rated Items"
   },
   "pages": {
+    "avatar": "Avatar",
     "add-new": "ADD NEW",
     "add-new-modal-title": "Add New Item",
     "display-options": "Display Options",
@@ -477,6 +484,10 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "mainColor": "Main Color",
+    "pattern": "Pattern",
+    "avatar": "Avatar",
+    "whoareyou": "Who are you?",
     "public": "Public",
     "private": "Private",
     "keywords": "Keywords",

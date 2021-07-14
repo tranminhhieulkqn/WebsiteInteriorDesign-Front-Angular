@@ -1,4 +1,4 @@
-<div class="row listing-card-container">
+<!-- <div class="row listing-card-container">
   <div class="col-sm-6 col-lg-6 col-xl-4 col-12 mb-4" *ngFor="let item of data">
     <div class="card">
       <div class="position-relative">
@@ -13,6 +13,36 @@
         </a>
         <footer>
           <p class="text-muted text-small mb-0 font-weight-light">{{item.date}}</p>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Test blog -->
+<div class="row listing-card-container">
+  <div class="col-sm-6 col-lg-6 col-xl-4 col-12 mb-4" *ngFor="let item of dataPosts">
+    <div class="card">
+      <div class="position-relative">
+        <a [routerLink]="['/app/post/post-detail']" [queryParams]="{id: item.pid}">
+          <img style="object-fit: cover; height: 200px;" class="card-img-top" [src]="item.thumbnail" alt="Card image cap"></a>
+        <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">{{ item.category | uppercase }}</span>
+      </div>
+      <div class="card-body">
+        <a [routerLink]="['/app/post/post-detail']" [queryParams]="{id: item.pid}">
+          <h6 class="mb-3 listing-heading"
+          style="display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;">
+            {{ item.title }}
+          </h6>
+        </a>
+        <footer>
+          <p class="text-muted text-small mb-0 font-weight-light">
+            {{ item.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD' }} | {{ item.dateCreated | amTimeAgo}}
+          </p>
         </footer>
       </div>
     </div>

@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { TabsetComponent } from 'ngx-bootstrap';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/shared/auth.service';
+import { UploadService } from 'src/app/shared/upload.service';
 import { UserService } from 'src/app/shared/user.service';
+import { environment } from 'src/environments/environment.prod';
 
 interface Social {
   facebook?: string;
@@ -18,29 +22,35 @@ interface Social {
   templateUrl: './profile-account.component.html'
 })
 export class ProfileAccountComponent implements OnInit {
+  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
 
   // the user needs to display
   userAuthorized: firebase.User;
   userAuthorizedInfo: User = {} as User;
-  userAuthorizedInfo_: User;
-  social = {} as Social;
+  userAuthorizedInfo_: User = {} as User;
+
+  tabset = [
+    { id: 0, name: "avatar" },
+    { id: 1, name: "avatar" },
+    { id: 2, name: "avatar" },
+  ]
 
   //
   isEditing = false;
 
-  onChange() {
-    console.log("Change");
+
+  selectTab(tabId: number) {
+    this.staticTabs.tabs[tabId].active = true;
   }
+
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private notifications: NotificationsService,
-  ) {
 
-  }
+  ) { }
 
   /** OnInit: get all the data needed for the page from the server  */
   ngOnInit() {
@@ -54,89 +64,12 @@ export class ProfileAccountComponent implements OnInit {
           if (res) {
             this.userAuthorizedInfo = res['user'];
             this.userAuthorizedInfo_ = Object.assign({}, this.userAuthorizedInfo);
-            console.log(this.userAuthorizedInfo);
           }
         },
         err => {
           // log to console
         }
       )
-  }
-
-  getUserAuthorizedInfo(uID: string | number) {
-    // get user ahthorized information
-    this.userService.getUser(uID)
-      .subscribe(
-        res => {
-          if (res) {
-            this.userAuthorizedInfo = res['user'];
-            this.userAuthorizedInfo_ = Object.assign({}, this.userAuthorizedInfo);
-            console.log(this.userAuthorizedInfo);
-          }
-        },
-        err => {
-          // log to console
-        }
-      )
-  }
-
-  addTagFn(addedName) {
-    return addedName;
-  }
-
-  onSearchChange(searchValue: string): void {
-    this.isEditing = !this.isEditing;
-    console.log(this.userAuthorizedInfo);
-  }
-
-  // All event click
-  clickEditButton() {
-    this.isEditing = true;
-  }
-
-  // submit to update
-  clickSubmitButton(form: NgForm) {
-    if (form.valid) {
-      let user = form.value as User;
-      user.birthDate = new Date(user.birthDate).toLocaleString().split(',')[0];
-      console.log(user)
-      this.userService.updateUser(user)
-        .subscribe(
-          () => {
-            this.notifications.create(
-              "Successfully updated",
-              `Your information has been successfully updated on the system.`,
-              NotificationType.Success,
-              {
-                theClass: 'primary',
-                timeOut: 2000,
-                pauseOnHover: true,
-                showProgressBar: true,
-                clickToClose: true
-              });
-          }
-        )
-    }
-  }
-
-  clickCancelButton() {
-    this.userAuthorizedInfo = Object.assign({}, this.userAuthorizedInfo_);
-    this.isEditing = false;
-    this.notifications.create(
-      "Cancel",
-      `Cancel successfully!`,
-      NotificationType.Bare,
-      {
-        theClass: 'primary',
-        timeOut: 1000,
-        showProgressBar: true,
-        clickToClose: true
-      });
-  }
-
-  // check validation
-  checkValidation(value: NgModel, form: NgForm) {
-    return (this.isEditing) ? !value.valid && form.submitted : this.isEditing;
   }
 
 }

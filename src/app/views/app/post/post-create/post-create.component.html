@@ -1,4 +1,7 @@
 <!-- <p>post-create works!</p> -->
+<app-heading></app-heading>
+<app-breadcrumb></app-breadcrumb>
+<div class="separator mb-5"></div>
 <form #inInputForm="ngForm" (ngSubmit)="clickSubmitButton(inInputForm)" novalidate>
   <div class="row">
     <div class="col-8 col-lg-8 mb-4">
@@ -34,11 +37,12 @@
 
 
       <!-- Editor -->
-      <div class="card mb-4 tooltip-right-top">
-        <div class="card-body">
+      <div class="card mb-4 tooltip-right-top" style="min-height: 500px; overflow: auto;">
+        <div class="card-body" style="min-height: 500px; overflow: auto;">
           <h5 class="mb-4">{{'forms.content' | translate}}</h5>
-          <quill-editor format="html" name="content" #content="ngModel" [(ngModel)]="newPost.content" [placeholder]="''"
-            (onEditorChanged)="onEditorChanged($event)"></quill-editor>
+          <quill-editor style="min-height: 400px;" format="html" name="content" #content="ngModel"
+            [(ngModel)]="newPost.content" [placeholder]="''" (onContentChanged)="onContentChanged($event)">
+          </quill-editor>
 
           <!-- <input type="text" name="title" #title="ngModel" [(ngModel)]="newPost.title" class="form-control"
               aria-label="Large" aria-describedby="inputGroup-sizing-sm" required> -->
@@ -97,6 +101,32 @@
             <span>{{ 'forms.category' | translate | uppercase }}</span>
             <div *ngIf="checkValidation(category, inInputForm);" class="invalid-tooltip">
               Category is required!
+            </div>
+          </label>
+
+          <!-- Pattern -->
+          <label class="form-group has-top-label tooltip-right-top">
+            <ng-select name="pattern" #pattern="ngModel" [(ngModel)]="newPost.pattern" [hideSelected]="true"
+              multiple="true"
+              [items]="['Stripe', 'Polka Dot', 'Geometric', 'Floral', 'Classic', 'Ceiling', 'Neoclassical','Plaid', 'Organic']"
+              bindLabel="name" bindValue="name" required>
+            </ng-select>
+            <span>{{ 'forms.pattern' | translate | uppercase }}</span>
+            <div *ngIf="checkValidation(pattern, inInputForm);" class="invalid-tooltip">
+              Pattern is required!
+            </div>
+          </label>
+
+          <!-- Main color -->
+          <label class="form-group has-top-label tooltip-right-top">
+            <ng-select name="mainColor" #mainColor="ngModel" [(ngModel)]="newPost.mainColor" [hideSelected]="true"
+              multiple="true"
+              [items]="['Blue', 'Green', 'Red', 'Yellow', 'Brown', 'Beige-colored', 'Grey' , 'Pink', 'White', 'Black']"
+              bindLabel="name" bindValue="name" required>
+            </ng-select>
+            <span>{{ 'forms.mainColor' | translate | uppercase }}</span>
+            <div *ngIf="checkValidation(mainColor, inInputForm);" class="invalid-tooltip">
+              Main Color is required!
             </div>
           </label>
 

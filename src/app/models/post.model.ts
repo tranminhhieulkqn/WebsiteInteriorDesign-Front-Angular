@@ -1,6 +1,7 @@
 import { User } from "./user.model";
 
 export interface Post {
+  id: string;
   authorID: string;
   author?: User;
   title: string;
@@ -11,6 +12,10 @@ export interface Post {
   category?: string;
   keywords?: string[];
   status: string;
-  likeCount: number;
+  liked: string[];
   dateCreated: Date;
+  mainColor: string[];
+  pattern: string[];
+  displayNameAuthor: string;
+  authorAvatar: string;
 }

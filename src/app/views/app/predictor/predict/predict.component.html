@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-12 col-xl-7 mb-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="mb-4">{{ 'Uploaded Image' | translate }}</h5>
+        <hr>
+        <img *ngIf="predictImage" class="card-img" style="width: 100%; min-height: 500px; object-fit: cover;"
+          [src]="predictImage" alt="Card image">
+        <img *ngIf="!predictImage" class="card-img" style="width: 100%; min-height: 500px; object-fit: cover;"
+          src="/assets/loading/loading.gif" alt="Card image">
+        <hr>
+        <!-- <br>
+        <button type="submit" [style.margin-right]="'10px'" class="btn btn-primary mb-0">
+          {{ 'forms.save' | translate }}
+        </button> -->
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-xl-5 mb-4">
+
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+
+          <div class="col-8">
+            <h5 class="mb-4">{{ 'Upload' | translate }}</h5>
+            <dropzone [config]="configAvatar" #nationalDropZone
+              [message]="'form-components.dropzone-message' | translate" (sending)="onSending($event)"
+              (error)="onUploadError($event)" (success)="onUploadSuccessAvatar($event)"
+              (removedFile)="onRemovedFileAvatar($event)">
+              <input type="hidden" name="bucketPath" value="{{ this.bucketPath }}">
+            </dropzone>
+            <div *ngIf="false" class="invalid-tooltip">
+              Avatar is required!
+            </div>
+          </div>
+
+          <div class="col-4">
+            <h5 class="mb-4">{{ 'Control' | translate }}</h5>
+            <div style="padding: 7px;"></div>
+            <button [disabled]="!predictImage" type="button" style="width: 100px;" (click)="predictEvent();"
+              class="btn btn-primary mb-0">
+              {{ 'Predict' | translate }}
+            </button>
+            <div style="padding: 7px;"></div>
+            <button [disabled]="!predictImage || !predictedResults" type="button" style="width: 100px;"
+              class="btn btn-primary mb-0">
+              {{ 'forms.save' | translate }}
+            </button>
+            <div style="padding: 7px;"></div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <!--
+      <div class="col-7">
+
+      </div>
+
+      <div class="col-5">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-4">{{ 'form-components.embedded' | translate }}</h5>
+
+          </div>
+        </div>
+      </div> -->
+    <!-- </div> -->
+
+    <br>
+    <div *ngIf="isLoading || (predictImage && predictedResults)" class="card">
+      <div class="card-body">
+        <h5 class="mb-4">{{ isLoading ? 'Analyzing...' : 'Predicted results: ' + predictedLabel }}</h5>
+        <div *ngIf="isLoading" style="position: relative;" class="loading"></div>
+
+        <div *ngIf="predictImage && predictedResults">
+          <div class="chart-container chart">
+            <app-bar-chart [shadow]="true" [options]="barChartOptions" [data]="barChartData">
+            </app-bar-chart>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

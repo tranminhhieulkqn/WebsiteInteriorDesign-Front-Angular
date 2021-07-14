@@ -1,61 +1,154 @@
 <div class="card">
   <tabset class="card-tabs">
     <tab heading="{{'pages.details-title' | translate}}" class="card-body">
+
+      <!-- Title -->
+      <div class="d-flex flex-row border-bottom justify-content-between align-items-left">
+        <h2 class="mb-4">{{ currentPost?.title }}</h2>
+      </div>
+
       <!-- Show content -->
-      <div [innerHTML]="currentPost?.content"></div>
-      {{ datetimeNow | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} | {{ datetimeNow | amTimeAgo }}
+      <br>
+      <!-- <div [innerHTML]="currentPost?.content"></div> -->
+      <quill-view id="quill-view-container" style="height: auto; min-height: 100%;" [content]="currentPost?.content"
+        format="html" theme="snow"></quill-view>
+      <br>
+
+      <!-- Post info -->
+      <div class="row">
+
+        <!-- Post info left -->
+        <div class="col-6">
+          <!-- <div class="d-flex flex-row mb-3 border-top justify-content-between align-items-center">
+            <div style="margin: 75px 0px 0px 0px;"></div>
+            <a href="#">
+              <img [src]="author?.avatarURL" [alt]="author?.displayName"
+                style="object-fit: cover; height: 40px; width: 40px;"
+                class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
+            </a>
+            <div class="pl-3 flex-fill">
+              <a href="#">
+                <p class="font-weight-medium mb-0" ellipsis>{{ author?.displayName }}</p>
+                <p class="text-muted mb-0 text-small" ellipsis>
+                  {{ currentPost?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} |
+                  {{ currentPost?.dateCreated | amTimeAgo }}
+                </p>
+              </a>
+            </div>
+          </div> -->
+        </div>
+
+        <!-- Post info right -->
+        <div class="col-6">
+          <div class="d-flex flex-row mb-3 border-top justify-content-between align-items-center">
+            <div style="margin: 75px 0px 0px 0px;"></div>
+            <a href="#">
+              <img [src]="postAuthor?.avatarURL" [alt]="postAuthor?.displayName"
+                style="object-fit: cover; height: 40px; width: 40px;"
+                class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
+            </a>
+            <div class="pl-3 flex-fill">
+              <a href="#">
+                <p class="font-weight-medium mb-0" ellipsis>{{ postAuthor?.displayName }}</p>
+                <p class="text-muted mb-0 text-small" ellipsis>
+                  {{ currentPost?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} |
+                  {{ currentPost?.dateCreated | amTimeAgo }}
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin: 0px 0px -35px 0px;"></div>
+
     </tab>
 
-    <tab heading="{{'pages.comments-title' | translate}} (19)" class="card-body">
-      <!-- Show comment -->
+    <tab heading="{{'pages.comments-title' | translate}} ({{ postComments?.length }})" class="card-body">
+
+      <!-- Show all comments for post -->
       <div
-        [class]="i===comments.length-1 ? 'd-flex flex-row mb-3 pb-3 justify-content-between': 'd-flex flex-row mb-3 pb-3 border-bottom justify-content-between'"
-        *ngFor="let comment of comments; let i = index;">
+        [class]="i===postComments.length-1 ? 'd-flex flex-row mb-3 pb-3 justify-content-between': 'd-flex flex-row mb-3 pb-3 border-bottom justify-content-between'"
+        *ngFor="let comment of postComments; let i = index;">
         <a href="javascript:;">
-          <img [src]="comment.thumb" [alt]="comment.title"
+          <img [src]="comment.authorAvatar" [alt]="comment.content"
             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
         </a>
         <div class="pl-3 flex-grow-1">
           <a href="javascript:;">
-            <p class="font-weight-medium mb-0 ">{{ comment.title }}</p>
-            <p class="text-muted mb-1 text-small">{{ comment.detail }}</p>
-            <div>
-              <rating [readonly]="true" [max]="5" [(ngModel)]="comment.rate" [customTemplate]="t2"></rating>
+            <p class="font-weight-medium mb-0 ">{{ comment.displayNameAuthor }}</p>
+            <p class="text-muted mb-1 text-small">{{ comment.content }}</p>
+            <p class="text-muted mb-1 text-small">
+              {{ comment.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} | {{ comment.dateCreated |
+              amTimeAgo }}
+            </p>
+            <div aria-readonly="true">
+              <rating [readonly]="true" [max]="5" [(ngModel)]="comment.rated" [customTemplate]="t2"></rating>
               <ng-template #t2 let-index="index" let-value="value">{{index < value ? '' : '' }}</ng-template>
             </div>
           </a>
         </div>
+        <!-- Show like commnent and remove if your -->
         <div class="comment-likes">
-          <span class="post-icon"><a href="#"><span>12 Likes</span> <i class="simple-icon-heart ml-2"></i></a></span>
+          <span class="post-icon">
+            <!-- (click)="clickLikeComment(comment)" -->
+            <a href="javascript:;">
+              <span>{{ comment.liked?.length || '0' }} Likes</span>
+              <div *ngIf="comment.liked?.includes(currentUserID); then liked else notLike"></div>
+              <ng-template #liked>
+                <i style="color: pink;" class="simple-icon-heart ml-2" (click)="clickUnlikeComment(comment);"></i>
+              </ng-template>
+              <ng-template #notLike>
+                <i class="simple-icon-heart ml-2" (click)="clickLikeComment(comment);"></i>
+              </ng-template>
+              <!-- <div *ngIf="comment.liked?.includes(currentUserID) ">
+                {{ currentUserID }}
+              </div>
+              <i class="simple-icon-heart ml-2"></i> -->
+            </a>
+          </span>
+          <br>
+          <br>
+          <div class="post-icon">
+            <a href="javascript:;" (click)="clickDeleteComment(comment)">
+              <i class="simple-icon-trash"></i>
+            </a>
+          </div>
         </div>
       </div>
 
       <hr>
       <br>
 
+      <!-- NgForm for new comment -->
       <form #commentInputForm="ngForm" (ngSubmit)="clickSubmitCommentButton(commentInputForm)" novalidate>
         <div class="comment-contaiener">
           <div class="input-group">
-            <!-- <div class="input-group-prepend tooltip-right-top">
-              <input type="text" name="content" #content="ngModel" [(ngModel)]="a" class="form-control"
-                placeholder="Add a comment">
-              <div *ngIf="checkValidation(content, inInputForm);" class="invalid-tooltip">
+            <!-- Input text content of comment -->
+            <input name="content" [(ngModel)]="newComment.content" type="text" class="form-control"
+              placeholder="Add a comment">
+            <!-- Notify validation -->
+            <!-- <div class="tooltip-center-bottom">
+              <div *ngIf="!checkValidation(commentInputForm)" class="invalid-tooltip">
                 Title is required!
               </div>
             </div> -->
+            <!-- Rating for post with comment -->
             <div class="input-group-append">
-              <!-- <span class="input-group-text">{{'input-groups.first-and-last-name' | translate}}</span> -->
               <div class="input-group-text">
-                <rating [max]="5" [(ngModel)]="rate" [customTemplate]="t"></rating>
+                <rating name="rated" [(ngModel)]="newComment.rated" [max]="5" [readonly]="false" [customTemplate]="t">
+                </rating>
                 <ng-template #t let-index="index" let-value="value">{{index < value ? '' : '' }}</ng-template>
               </div>
             </div>
+            <!-- Button submit new comment -->
             <div class="input-group-append">
-              <button class="btn btn-secondary" type="button"><span class="d-inline-block">Send</span> <i
-                  class="simple-icon-arrow-right ml-2"></i></button>
+              <button [disabled]="!checkValidation(commentInputForm)" class="btn btn-secondary" type="submit"><span
+                  class="d-inline-block">Send</span> <i class="simple-icon-arrow-right ml-2"></i></button>
             </div>
           </div>
         </div>
+
       </form>
     </tab>
 

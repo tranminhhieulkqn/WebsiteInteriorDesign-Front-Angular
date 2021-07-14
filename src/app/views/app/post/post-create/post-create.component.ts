@@ -24,7 +24,7 @@ export class PostCreateComponent implements OnInit {
   //#region /** Variable definition */
 
   userAuthorized: firebase.User;
-  newPost: Post;
+  newPost = {} as Post;
   postID?: string = "";
   publicPost: boolean = false;
   savedPost: boolean = false; // check post saved
@@ -110,14 +110,16 @@ export class PostCreateComponent implements OnInit {
     this.newPost = {
       authorID: this.authService.user.uid,
       title: "My Post",
-      content: ``
+      content: ``,
+      displayNameAuthor: this.userAuthorized.displayName,
+      authorAvatar: this.userAuthorized.photoURL,
     } as Post;
     // create new draft post to has postID and
     this.postService.addPost(this.newPost)
       .subscribe(
         res => {
           this.newPost = res['post'] as Post;
-          this.postID = res['post'].pid;
+          this.postID = res['post'].id;
           // after has postID, define the bucketPath
           this.bucketPath = `posts/${this.postID}/`
         },
@@ -256,10 +258,11 @@ export class PostCreateComponent implements OnInit {
     return !this.newPost.thumbnail?.length && form.submitted;
   }
 
+  textPlainContent: string = "";
   // check event editor
-  onEditorChanged(quill: EditorChangeContent | EditorChangeSelection) {
+  onContentChanged(quill: EditorChangeContent) {
     // check editor changed
-    // console.log(quill);
+    this.textPlainContent = String(quill['text']);
   }
 
 
@@ -277,7 +280,9 @@ export class PostCreateComponent implements OnInit {
       this.newPost.status = form.value.status ? `public` : `private`;
       // add date created for post
       this.newPost.dateCreated = new Date();
-      console.log(this.newPost.dateCreated);
+      if (!this.newPost.summary || this.newPost.summary?.length == 0) {
+        this.newPost.summary = this.textPlainContent;
+      }
 
       delete this.newPost.author;
       delete this.newPost['pid']
@@ -297,7 +302,9 @@ export class PostCreateComponent implements OnInit {
             { theClass: 'outline primary', timeOut: 3000, showProgressBar: true }
           );
           // set the time to turn pages
-          setTimeout(() => this.router.navigate([`app/home`]), 3000);
+          setTimeout(() => this.router.navigate([`/app/post/post-detail`], {
+            queryParams: { id: this.postID.toString() }
+          }), 3000);
         }
       );
     }

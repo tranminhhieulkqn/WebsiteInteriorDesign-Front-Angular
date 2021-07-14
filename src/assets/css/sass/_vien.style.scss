@@ -9620,3 +9620,49 @@ textarea.form-control.ng-pristine.ng-valid.ng-touched {
 input.form-control.ng-dirty.ng-invalid.ng-touched {
   background-color: $input-background;
 }
+textarea.form-control.ng-valid.ng-touched.ng-dirty {
+  background-color: $input-background;
+}
+input.form-control.ng-touched.ng-dirty.ng-valid {
+  background-color: $input-background;
+}
+input.form-control.ng-touched.ng-dirty {
+  background-color: $input-background;
+}
+
+.ql-editor {
+  height: auto;
+  min-height: 400px;
+}
+
+.ql-editor.ql-blank {
+  min-height: 400px;
+}
+
+#quill-view-container .ql-editor {
+  height: auto;
+  // min-height: 50px;
+  background: #1E2022;
+  overflow: visible;
+  display: table-cell;
+}
+
+// .ql-container.ql-snow.ql-disabled.ngx-quill-view {
+//   background-color: #18191B;
+// }
+
+/* Tell Quill not to scroll */
+// #quill-container {
+//   height: auto;
+//   min-height: 100%;
+// }
+// #quill-container .ql-editor {
+//   overflow: visible;
+//   display: table-row;
+//   width: auto;
+//   min-width: 100%;
+// }
+.ql-editor .ql-video {
+  width: 100%;
+  height: 100%;
+}

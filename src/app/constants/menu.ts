@@ -56,11 +56,6 @@ const data: IMenuItem[] = [
       to: '/app/post/post-list'
     },
     {
-      icon: 'simple-icon-layers',
-      label: 'menu.post-list1',
-      to: '/app/post/post-list1'
-    },
-    {
       icon: 'simple-icon-book-open',
       label: 'menu.post-detail',
       to: '/app/post/post-detail'
@@ -74,6 +69,24 @@ const data: IMenuItem[] = [
       icon: 'simple-icon-docs',
       label: 'menu.my-post',
       to: '/app/post/post-manage'
+    },
+    ]
+  },
+  // Predict
+  {
+    id: 'predictor',
+    icon: 'simple-icon-magic-wand',
+    label: 'menu.predictor',
+    to: '/app/predictor',
+    subs: [{
+      icon: 'simple-icon-chart',
+      label: 'menu.predict',
+      to: '/app/predictor/predict'
+    },
+    {
+      icon: 'simple-icon-briefcase',
+      label: 'menu.results-manager',
+      to: '/app/predictor/results-manager'
     },
     ]
   },
@@ -106,6 +119,7 @@ const data: IMenuItem[] = [
       }
       ]
   },
+
   {
     id: 'pages',
     icon: 'iconsminds-digital-drawing',
@@ -278,6 +292,18 @@ const data: IMenuItem[] = [
       to: '/app/applications/chat'
     }
     ]
+  },
+  {
+    id: 'about-us',
+    icon: 'simple-icon-people',
+    label: 'menu.about-us',
+    to: '/app/about-us'
+  },
+  {
+    id: 'contact-us',
+    icon: 'simple-icon-support',
+    label: 'menu.contact-us',
+    to: '/app/contact-us'
   },
   {
     id: 'ui',

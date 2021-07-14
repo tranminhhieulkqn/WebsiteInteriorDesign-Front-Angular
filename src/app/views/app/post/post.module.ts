@@ -4,7 +4,7 @@ import { PostRoutingModule } from './post.routing';
 
 import { EllipsisModule } from 'ngx-ellipsis';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-// import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
+import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
 
 import { PostComponent } from './post.component';
@@ -13,7 +13,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostContainersModule } from './components/post.containers.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
-import { BsDatepickerModule, BsDropdownModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsDropdownModule, RatingModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -25,10 +25,12 @@ import { PostCreateComponent } from './post-create/post-create.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { QuillModule } from 'ngx-quill';
 import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
-import { PostList1Component } from './post-list1/post-list1.component';
+import { HotkeyModule } from 'angular2-hotkeys';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
-  declarations: [PostComponent, PostListComponent, PostDetailComponent, PostManageComponent, PostCreateComponent, PostList1Component],
+  declarations: [PostComponent, PostListComponent, PostDetailComponent, PostManageComponent, PostCreateComponent],
   imports: [
     CommonModule,
     PostRoutingModule,
@@ -40,6 +42,7 @@ import { PostList1Component } from './post-list1/post-list1.component';
     PaginationModule.forRoot(),
     BootstrapModule,
     FormsModule,
+    RatingModule.forRoot(),
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgSelectModule,
@@ -47,6 +50,12 @@ import { PostList1Component } from './post-list1/post-list1.component';
     DropzoneModule,
     QuillModule.forRoot(),
     ComponentsCarouselModule,
+    HotkeyModule.forRoot(),
+    ContextMenuModule.forRoot({
+      useBootstrap4: true,
+    }),
+    PagesContainersModule,
+    MomentModule
   ]
 })
 export class PostModule { }
