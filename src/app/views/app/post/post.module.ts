@@ -28,9 +28,16 @@ import { ComponentsCarouselModule } from 'src/app/components/carousel/components
 import { HotkeyModule } from 'angular2-hotkeys';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { MomentModule } from 'ngx-moment';
+import { PostEditComponent } from './post-edit/post-edit.component';
 
 @NgModule({
-  declarations: [PostComponent, PostListComponent, PostDetailComponent, PostManageComponent, PostCreateComponent],
+  declarations: [
+    PostComponent,
+    PostListComponent,
+    PostDetailComponent,
+    PostManageComponent,
+    PostCreateComponent,
+    PostEditComponent],
   imports: [
     CommonModule,
     PostRoutingModule,
