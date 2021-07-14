@@ -27,6 +27,7 @@ import { QuillModule } from 'ngx-quill';
 import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [PostComponent, PostListComponent, PostDetailComponent, PostManageComponent, PostCreateComponent],
@@ -53,7 +54,8 @@ import { ContextMenuModule } from 'ngx-contextmenu';
     ContextMenuModule.forRoot({
       useBootstrap4: true,
     }),
-    PagesContainersModule
+    PagesContainersModule,
+    MomentModule
   ]
 })
 export class PostModule { }

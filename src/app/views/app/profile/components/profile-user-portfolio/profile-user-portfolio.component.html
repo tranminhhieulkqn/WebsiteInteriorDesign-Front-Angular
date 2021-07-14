@@ -11,7 +11,7 @@
 
   <div class="card-body">
     <p class="text-muted text-small mb-2">{{'menu.about' | translate}}</p>
-    <p *ngIf="user.about" class="mb-3">
+    <p *ngIf="user?.about" class="mb-3">
       {{ user.about }}
       <!-- I’m a web developer. I spend my whole day, practically every day,
       experimenting with HTML, CSS, and JavaScript; dabbling with Python and

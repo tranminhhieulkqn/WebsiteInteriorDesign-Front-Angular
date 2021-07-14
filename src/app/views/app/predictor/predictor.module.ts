@@ -12,10 +12,11 @@ import { WizardsContainersModule } from 'src/app/containers/wizard/wizards.conta
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { ComponentsChartModule } from 'src/app/components/charts/components.charts.module';
+import { ResultsManagerComponent } from './results-manager/results-manager.component';
 
 
 @NgModule({
-  declarations: [PredictorComponent, PredictComponent],
+  declarations: [PredictorComponent, PredictComponent, ResultsManagerComponent],
   imports: [
     CommonModule,
     FormsModule,

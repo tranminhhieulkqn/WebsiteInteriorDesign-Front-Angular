@@ -9,8 +9,6 @@ import { User } from 'src/app/models/user.model';
 export class ProfileUserPortfolioComponent implements OnInit {
   @Input() user = {} as User;
 
-  social = this.user.social;
-
   constructor(private lightbox: Lightbox) {
 
   }

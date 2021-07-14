@@ -1,34 +1,36 @@
-<img alt="Profile" src="/assets/img/profile-pic-l.jpg" (click)="openLightbox('/assets/img/profile-pic.jpg')"
-  class="img-thumbnail card-img social-profile-img c-pointer">
+<img alt="Profile" style="width: 120px; height: 120px; object-fit: cover;" [src]="user.avatarURL"
+  (click)="openLightbox('/assets/img/profile-pic.jpg')" class="img-thumbnail card-img social-profile-img c-pointer">
 <div class="card mb-4">
   <div class="card-body">
     <div class="text-center pt-4">
-      <p class="list-item-heading pt-2">Sarah Cortney</p>
+      <p class="list-item-heading pt-2">{{ user?.displayName }}</p>
     </div>
-    <p class="mb-3">
-      I’m a web developer. I spend my whole day, practically every day,
+    <p class="text-muted text-small mb-2">{{'menu.about' | translate}}</p>
+    <p *ngIf="user?.about" class="mb-3">
+      {{ user.about }}
+      <!-- I’m a web developer. I spend my whole day, practically every day,
       experimenting with HTML, CSS, and JavaScript; dabbling with Python and
       Ruby; and inhaling a wide variety of potentially useless information
       through a few hundred RSS feeds. I build websites that delight and
-      inform. I do it well.
+      inform. I do it well. -->
+    </p>
+    <p *ngIf="!user?.about" class="mb-3">
+      {{ 'No Infomation' }}
     </p>
 
     <p class="text-muted text-small mb-2">{{'pages.location' | translate}}</p>
-    <p class="mb-3">Nairobi, Kenya</p>
+    <p *ngIf="user?.address" class="mb-3">{{ user.address }}</p>
+    <p *ngIf="!user?.address" class="mb-3">{{ 'No Infomation' }}</p>
 
     <p class="text-muted text-small mb-2">{{'pages.responsibilities' | translate}}</p>
     <p class="mb-3">
-      <a href="#">
-        <span class="badge badge-pill badge-outline-theme-2 mb-1">FRONTEND</span>
-      </a>{{" "}}
-      <a href="#">
-        <span class="badge badge-pill badge-outline-theme-2 mb-1">JAVASCRIPT</span>
-      </a>{{" "}}
-      <a href="#">
-        <span class="badge badge-pill badge-outline-theme-2 mb-1">SECURITY</span>
-      </a>{{" "}}
-      <a href="#">
-        <span class="badge badge-pill badge-outline-theme-2 mb-1">DESIGN</span>
+      <a *ngFor="let tag of user.tags" href="#">
+        <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ tag | uppercase }}</span>
+        {{" "}}
+      </a>
+      <a *ngIf="!user.tags" href="#">
+        <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ 'No Tag' | uppercase }}</span>
+        {{" "}}
       </a>
     </p>
 

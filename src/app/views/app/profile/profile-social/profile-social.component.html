@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div>
-      <h1>Sarah Kortney</h1>
+      <h1>{{ userAuthorized?.displayName }}</h1>
       <div class="text-zero top-right-button-container">
         <div dropdown>
           <button id="button-basic" dropdownToggle type="button" placement="bottom right"
@@ -13,8 +13,10 @@
             <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.action' | translate }}</a></li>
             <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.another-action' | translate
                 }}</a></li>
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'social']">Socical</a></li>
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/', 'app', 'profile', 'social']">Socical</a>
+            </li>
+            <li role="menuitem"><a class="dropdown-item"
+                [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a></li>
           </ul>
         </div>
       </div>
@@ -30,7 +32,7 @@
               <img class="social-header card-img" src="/assets/img/social-header.jpg" />
             </div>
             <div class="col-12 col-lg-5 col-xl-4 col-left">
-              <app-profile-user-social></app-profile-user-social>
+              <app-profile-user-social [user]="userAuthorizedInfo"></app-profile-user-social>
               <app-profile-photos></app-profile-photos>
               <app-profile-who-to-follow></app-profile-who-to-follow>
               <app-profile-recent-posts></app-profile-recent-posts>

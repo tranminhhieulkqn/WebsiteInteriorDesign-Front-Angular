@@ -84,9 +84,9 @@ const data: IMenuItem[] = [
       to: '/app/predictor/predict'
     },
     {
-      icon: 'simple-icon-chart',
-      label: 'menu.predict',
-      to: '/app/predictor/predict'
+      icon: 'simple-icon-briefcase',
+      label: 'menu.results-manager',
+      to: '/app/predictor/results-manager'
     },
     ]
   },
@@ -119,6 +119,7 @@ const data: IMenuItem[] = [
       }
       ]
   },
+
   {
     id: 'pages',
     icon: 'iconsminds-digital-drawing',
@@ -291,6 +292,18 @@ const data: IMenuItem[] = [
       to: '/app/applications/chat'
     }
     ]
+  },
+  {
+    id: 'about-us',
+    icon: 'simple-icon-people',
+    label: 'menu.about-us',
+    to: '/app/about-us'
+  },
+  {
+    id: 'contact-us',
+    icon: 'simple-icon-support',
+    label: 'menu.contact-us',
+    to: '/app/contact-us'
   },
   {
     id: 'ui',

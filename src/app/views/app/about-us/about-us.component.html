@@ -1,0 +1,255 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div style="size : 100%;">
+          <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
+            <slide *ngFor="let slide of slides; let index=index">
+              <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;
+                   border-radius: 0.25rem; filter:brightness(80%); object-fit: cover; height: 80vh;">
+              <div class="carousel-caption">
+                <h2 style=" font-size: 80px; opacity : 0.8;">About Us</h2>
+                <img src="https://jobseekers.vn/wp-content/uploads/2017/12/logo_HBBS-300x122.png"
+                  style="margin-bottom: 15vh; filter:brightness(120%);" />
+              </div>
+            </slide>
+          </carousel>
+          <br />
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Information about project members -->
+    <div class="col-12" style="padding: 35px;"></div>
+    <div class="row">
+      <div *ngFor="let member of members" class="col-4">
+        <img alt="Profile" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;"
+          [src]="member.avatarURL"
+          (click)="openLightbox(member.avatarURL)" class="img-thumbnail card-img social-profile-img c-pointer">
+        <div class="card mb-4">
+          <div class="card-body">
+            <br>
+            <br>
+            <div class="text-center pt-4">
+              <h2>{{ member.displayName }}</h2>
+            </div>
+            <p class="text-muted text-small mb-2">{{'menu.about' | translate}}</p>
+            <div [innerHTML]="member?.about"></div>
+
+            <p class="text-muted text-small mb-2">{{'pages.responsibilities' | translate}}</p>
+            <p class="mb-3">
+              <a *ngFor="let tag of member.tags" href="#">
+                <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ tag | uppercase }}</span>
+                {{" "}}
+              </a>
+              <a *ngIf="!member.tags" href="#">
+                <span class="badge badge-pill badge-outline-theme-2 mb-1">{{ 'No Tag' | uppercase }}</span>
+                {{" "}}
+              </a>
+            </p>
+
+            <p class="text-muted text-small mb-2">{{'pages.contact' | translate}}</p>
+            <div class="social-icons">
+              <ul class="list-unstyled list-inline">
+                <li class="list-inline-item">
+                  <a href="javascript:;"><i class="simple-icon-social-facebook"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="javascript:;"><i class="simple-icon-social-twitter"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="javascript:;"><i class="simple-icon-social-instagram"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- <div class="card mb-4">
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div style="margin-top :27px;">
+                <div class="position-relative">
+                  <div class="zoom">
+                    <img class="card-img-top" style="border-radius: 50%;size: 20%;"
+                      src="https://scontent.fhan14-2.fna.fbcdn.net/v/t1.6435-9/43951057_10156388635096928_6643572477081419776_n.jpg?_nc_cat=104&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=TD4Dj0ooFuYAX9thLVy&_nc_ht=scontent.fhan14-2.fna&oh=74848522aee04f9a036241efbebc5f39&oe=60F3E5ED">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body" style="margin-top: 66px;">
+                <h5 class="card-title" style="font-size: 25px; text-align: center;">Ph.D BAO NGUYEN THIEN </h5>
+                <h3 style="font-size: 20px; ">- Lecturer to guide the implementation of the project</h3>
+                <h4 style="font-size: 20px; ">- Lecturer at Ho Chi Minh City University of Technology and Education</h4>
+                <h4 style="font-size: 20px; ">- CEO of HBB Solution</h4>
+                <h4 style="font-size: 20px; ">- FACEBOOK : <a href="https://www.facebook.com/ntbaovn"> nguyenthien.bao
+                  </a></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div style="margin-top :27px;">
+                <div class="position-relative">
+                  <div class="zoom">
+                    <img class="card-img-top" style="border-radius: 50%;size: 20%;"
+                      src="https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/70450238_2159526671011456_6313593760387170304_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=174925&_nc_ohc=w5G7IpINmX8AX-wRVCv&_nc_ht=scontent-xsp1-1.xx&oh=80945e6d2892144e95c00c0090090b7a&oe=60D1381E">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body" style="margin-top: 66px;">
+                <h5 class="card-title" style="font-size: 25px; text-align: center;">HIEU TRAN MINH</h5>
+                <h3 style="font-size: 20px;">- Student' ID : 17110135</h3>
+                <h4 style="font-size: 20px; ">- Student at Ho Chi Minh City University of Technology and Education</h4>
+                <h4 style="font-size: 20px; ">- Student doing this project</h4>
+                <h4 style="font-size: 20px; ">- FACEBOOK : <a
+                    href="https://www.facebook.com/profile.php?id=100008624324959"> tranminh.hieu </a></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div style="margin-top :27px;">
+                <div class="position-relative">
+                  <div class="zoom">
+                    <img class="card-img-top" style="border-radius: 50%;size: 20%;"
+                      src="https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/32326700_792243917642445_8897950718548246528_n.jpg?_nc_cat=108&ccb=1-3&_nc_sid=174925&_nc_ohc=fKrFx2UoUbsAX-QdFfK&_nc_ht=scontent-xsp1-1.xx&oh=4c36bdc8fc6fe8417bbb550fe75d75db&oe=60CFABEC">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body" style="margin-top: 66px;">
+                <h5 class="card-title" style="font-size: 25px; text-align: center;">VIET PHAM QUOC</h5>
+                <h3 style="font-size: 20px; ">- Student'ID : 17110254</h3>
+                <h4 style="font-size: 20px; ">- Student at Ho Chi Minh City University of Technology and Education</h4>
+                <h4 style="font-size: 20px; ">- Student doing this project</h4>
+                <h4 style="font-size: 20px; ">- FACEBOOK : <a href="https://www.facebook.com/quocviet.pham.39395/">
+                    phamquoc.viet </a></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title" style="font-size: 25px; text-align: center;">Technology Used In The Project</h5>
+        <div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card" style="margin-top :27px;">
+                  <div class="position-relative">
+                    <div class="zoom">
+                      <img class="card-img-top"
+                        style="height: 220px ; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem;"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiTFWXmU9WD93gHspzPyu1yfN7rAhRqFZFTQ&usqp=CAU">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card" style="margin-top :27px;">
+                  <div class="position-relative">
+                    <div class="zoom">
+                      <img class="card-img-top"
+                        style="height: 220px; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem;"
+                        src="https://trungquandev.com/wp-content/uploads/2018/04/tong-quan-nodejs-trungquandev-02.jpg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card" style="margin-top :27px;">
+                  <div class="position-relative">
+                    <div class="zoom">
+                      <img class="card-img-top"
+                        style="height: 220px; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem;"
+                        src="https://itguru.vn/blog/wp-content/uploads/2020/06/Express-JS-logo.jpg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card" style="margin-top :27px;">
+                <div class="position-relative">
+                  <div class="zoom">
+                    <img class="card-img-top"
+                      style=" height: 220px ; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem;"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuRMKYKGDtqrKBFpPY24QbYHXWqwQPN-ILAca9BFoPamxjAUGm0RYRlhUPi27FJT5kaVo&usqp=CAU">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card" style="margin-top :27px;">
+                <div class="position-relative">
+                  <div class="zoom">
+                    <img class="card-img-top"
+                      style=" height: 220px; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem;"
+                      src="https://logovectorseek.com/wp-content/uploads/2019/10/bootstrap-logo-vector.png">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card" style="margin-top :27px;">
+                <div class="position-relative">
+                  <div class="zoom">
+                    <img class="card-img-top"
+                      style=" height: 220px; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem;"
+                      src="https://rapidapi.com/blog/wp-content/uploads/2020/06/Python-REST-API-Framework-components-1280x720.png">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+

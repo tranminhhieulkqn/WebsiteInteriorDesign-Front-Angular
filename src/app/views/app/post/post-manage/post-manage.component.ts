@@ -4,16 +4,22 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ApiService } from 'src/app/data/api.service';
 import { IProduct } from 'src/app/data/api.service';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { AuthService } from 'src/app/shared/auth.service';
+import { PostService } from 'src/app/shared/post.service';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-post-manage',
   templateUrl: './post-manage.component.html',
 })
 export class PostManageComponent implements OnInit {
+  userAuthorized: firebase.User;
   displayMode = 'list';
   selectAllState = '';
-  selected: IProduct[] = [];
-  data: IProduct[] = [];
+  selected: Post[] = [];
+  data: Post[] = [];
+  selected_: IProduct[] = [];
+  data_: IProduct[] = [];
   currentPage = 1;
   itemsPerPage = 10;
   search = '';
@@ -26,7 +32,16 @@ export class PostManageComponent implements OnInit {
   @ViewChild('basicMenu') public basicMenu: ContextMenuComponent;
   @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewProductModalComponent;
 
-  constructor(private hotkeysService: HotkeysService, private apiService: ApiService) {
+  constructor(
+    private authService: AuthService,
+    private hotkeysService: HotkeysService,
+    private apiService: ApiService,
+    private postService: PostService,
+  ) {
+    // get user authorized
+    this.userAuthorized = this.authService.user;
+    this.getData();
+
     this.hotkeysService.add(new Hotkey('ctrl+a', (event: KeyboardEvent): boolean => {
       this.selected = [...this.data];
       return false;
@@ -37,24 +52,56 @@ export class PostManageComponent implements OnInit {
     }));
   }
 
+  getData() {
+    this.postService.getPostsByAuthor(this.userAuthorized.uid)
+      .subscribe(
+        (next) => console.log(next),
+        (error) => console.log(error), // show message
+        () => { } // complete
+      )
+  }
+
 
   ngOnInit() {
     this.loadData(this.itemsPerPage, this.currentPage, this.search, this.orderBy);
   }
 
+  // loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = '') {
+  //   this.itemsPerPage = pageSize;
+  //   this.currentPage = currentPage;
+  //   this.search = search;
+  //   this.orderBy = orderBy;
+
+  //   this.apiService.getProducts(pageSize, currentPage, search, orderBy).subscribe(
+  //     data => {
+  //       if (data.status) {
+  //         this.isLoading = false;
+  //         this.data = data.data;
+  //         this.totalItem = data.totalItem;
+  //         this.totalPage = data.totalPage;
+  //         this.setSelectAllState();
+  //       } else {
+  //         this.endOfTheList = true;
+  //       }
+  //     },
+  //     error => {
+  //       this.isLoading = false;
+  //     }
+  //   );
+  // }
   loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = '') {
     this.itemsPerPage = pageSize;
     this.currentPage = currentPage;
     this.search = search;
     this.orderBy = orderBy;
 
-    this.apiService.getProducts(pageSize, currentPage, search, orderBy).subscribe(
+    this.postService.getPosts(pageSize, currentPage, search).subscribe(
       data => {
-        if (data.status) {
+        if (true) {
           this.isLoading = false;
-          this.data = data.data;
-          this.totalItem = data.totalItem;
-          this.totalPage = data.totalPage;
+          this.data = data['posts'];
+          this.totalItem = data['totalItem'] | 0;
+          this.totalPage = data['totalPage'] | 0;
           this.setSelectAllState();
         } else {
           this.endOfTheList = true;
@@ -74,10 +121,10 @@ export class PostManageComponent implements OnInit {
     this.addNewModalRef.show();
   }
 
-  isSelected(p: IProduct) {
+  isSelected(p: Post) {
     return this.selected.findIndex(x => x.id === p.id) > -1;
   }
-  onSelect(item: IProduct) {
+  onSelect(item: Post) {
     if (this.isSelected(item)) {
       this.selected = this.selected.filter(x => x.id !== item.id);
     } else {

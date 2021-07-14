@@ -37,8 +37,14 @@ export class PostService {
   //////// Get methods //////////
 
   /** GET posts from the server */
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.urlGetAll)
+  getPosts(pageSize: number = 0, currentPage: number = 1, search: string = ''): Observable<Post[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('currentPage', currentPage.toString())
+      .set('search', search.toString());
+    const url = (pageSize) ? `${this.urlGetAll}?${params.toString()}` : this.urlGetAll;
+    return this.http.get<Post[]>(url)
       .pipe(
         tap(_ => this.log('fetched posts')),
         catchError(this.handleError<Post[]>('getPosts', []))

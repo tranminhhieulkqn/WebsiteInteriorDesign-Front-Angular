@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PredictComponent } from './predict/predict.component';
 import { PredictorComponent } from './predictor.component';
+import { ResultsManagerComponent } from './results-manager/results-manager.component';
 
 
 const routes: Routes = [
@@ -10,7 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'predict', pathMatch: 'full' },
       { path: 'predict', component: PredictComponent },
-      // { path: 'social', component: ProfileSocialComponent },
+      { path: 'results-manager', component: ResultsManagerComponent },
     ]
   }
 ];

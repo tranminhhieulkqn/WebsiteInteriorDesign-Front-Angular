@@ -19,6 +19,10 @@
     "code": "Reset Code"
   },
   "menu": {
+    "contact-us": "Contact Us",
+    "about-us": "About Us",
+    "designer": "Designer",
+    "results-manager": "Results Manager",
     "predict": "Predict",
     "predictor": "Predictor",
     "post-manage": "Manage Posts",

@@ -1,4 +1,7 @@
 <!-- <p>post-create works!</p> -->
+<app-heading></app-heading>
+<app-breadcrumb></app-breadcrumb>
+<div class="separator mb-5"></div>
 <form #inInputForm="ngForm" (ngSubmit)="clickSubmitButton(inInputForm)" novalidate>
   <div class="row">
     <div class="col-8 col-lg-8 mb-4">
@@ -103,8 +106,8 @@
 
           <!-- Pattern -->
           <label class="form-group has-top-label tooltip-right-top">
-            <ng-select name="pattern" #pattern="ngModel" [(ngModel)]="newPost.pattern"
-              [hideSelected]="true" multiple="true"
+            <ng-select name="pattern" #pattern="ngModel" [(ngModel)]="newPost.pattern" [hideSelected]="true"
+              multiple="true"
               [items]="['Stripe', 'Polka Dot', 'Geometric', 'Floral', 'Classic', 'Ceiling', 'Neoclassical','Plaid', 'Organic']"
               bindLabel="name" bindValue="name" required>
             </ng-select>
@@ -116,8 +119,8 @@
 
           <!-- Main color -->
           <label class="form-group has-top-label tooltip-right-top">
-            <ng-select name="mainColor" #mainColor="ngModel" [(ngModel)]="newPost.mainColor"
-              [hideSelected]="true" multiple="true"
+            <ng-select name="mainColor" #mainColor="ngModel" [(ngModel)]="newPost.mainColor" [hideSelected]="true"
+              multiple="true"
               [items]="['Blue', 'Green', 'Red', 'Yellow', 'Brown', 'Beige-colored', 'Grey' , 'Pink', 'White', 'Black']"
               bindLabel="name" bindValue="name" required>
             </ng-select>
