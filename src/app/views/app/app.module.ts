@@ -14,10 +14,11 @@ import { MomentModule } from "ngx-moment";
 import { AboutUsComponent } from './about-us/about-us.component';
 import { LightboxModule } from 'ngx-lightbox';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
 
 
 @NgModule({
-  declarations: [BlankPageComponent, AppComponent, HomeComponent, AboutUsComponent, ContactUsComponent],
+  declarations: [BlankPageComponent, AppComponent, HomeComponent, AboutUsComponent, ContactUsComponent, MakeAppointmentComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

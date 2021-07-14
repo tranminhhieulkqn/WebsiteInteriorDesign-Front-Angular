@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BlankPageComponent } from './blank-page/blank-page.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from "./home/home.component";
+import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
 import { PredictorComponent } from './predictor/predictor.component';
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
       { path: 'post', loadChildren: () => import('./post/post.module').then(m => m.PostModule) },
       { path: 'predictor', loadChildren: () => import('./predictor/predictor.module').then(m => m.PredictorModule) },
+      { path: 'make-appointment', component: MakeAppointmentComponent },
       { path: 'about-us', component: AboutUsComponent },
       { path: 'contact-us', component: ContactUsComponent },
       { path: 'blank-page', component: BlankPageComponent },
