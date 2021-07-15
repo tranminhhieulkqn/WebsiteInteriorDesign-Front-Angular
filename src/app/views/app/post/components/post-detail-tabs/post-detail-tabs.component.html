@@ -44,7 +44,7 @@
             <div style="margin: 75px 0px 0px 0px;"></div>
             <a href="#">
               <img [src]="postAuthor?.avatarURL" [alt]="postAuthor?.displayName"
-                style="object-fit: cover; height: 40px; width: 40px;"
+                style="height: 40px; width: 40px; object-fit: cover;"
                 class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
             </a>
             <div class="pl-3 flex-fill">
@@ -72,6 +72,7 @@
         *ngFor="let comment of postComments; let i = index;">
         <a href="javascript:;">
           <img [src]="comment.authorAvatar" [alt]="comment.content"
+            style="height: 40px; width: 40px; object-fit: cover;"
             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
         </a>
         <div class="pl-3 flex-grow-1">

@@ -1,15 +1,11 @@
-
 .zoom:hover {
-    transform: scale(1.2); 
-    transition: transform 1s, filter 3s ease-in-out;
-    filter: brightness(150%);
-    
-  }
+  transform: scale(1.05);
+  transition: transform 1s, filter 3s ease-in-out;
+  filter: brightness(150%);
+}
 
-  .zoom1:hover {
-    transform: scale(1.05); 
-    transition: transform 1s, filter 3s ease-in-out;
-    filter: brightness(150%);
-    
-  }
-
+.zoom1:hover {
+  transform: scale(1.05);
+  transition: transform 1s, filter 3s ease-in-out;
+  filter: brightness(150%);
+}

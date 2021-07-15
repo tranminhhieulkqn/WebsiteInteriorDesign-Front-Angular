@@ -22,6 +22,7 @@ export class PostService {
   private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
+  private urlGetFeatured = `${this.urlAPI}getFeatured`;
   private urlUpdate = `${this.urlAPI}update`
   private urlDetele = `${this.urlAPI}delete`
 
@@ -102,6 +103,19 @@ export class PostService {
     return this.http.get<Post>(url).pipe(
       tap(_ => this.log(`fetched ${amount} lastest post.`)),
       catchError(this.handleError<Post>(`getLastPost`))
+    );
+  }
+
+  /** GET lastest post by id. Will 404 if id not found */
+  getFeaturedPost(amount: number = 1, monthago: number = 1): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('amount', amount.toString())
+      .set('monthago', monthago.toString());
+    const url = `${this.urlGetFeatured}?${params.toString()}`;
+    return this.http.get<Post>(url).pipe(
+      tap(_ => this.log(`fetched ${amount} featured post.`)),
+      catchError(this.handleError<Post>(`getFeaturedPost`))
     );
   }
 

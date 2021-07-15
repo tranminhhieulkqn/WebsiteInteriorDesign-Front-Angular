@@ -19,7 +19,7 @@
       <div class="w-50 d-flex align-items-center">
         <div class="card-body">
 
-          <a routerLink="/app/pages/blog/blog-detail">
+          <a [routerLink]="['/app/post/post-detail']" [queryParams]="{id: post?.id}">
             <h5 style="height: 25px; overflow: hidden;" class="listing-heading" ellipsis>{{ post?.title }}</h5>
           </a>
           <p style="height: 40px; margin-bottom: 8px;" class="listing-desc text-muted" ellipsis>{{ post?.summary }}</p>

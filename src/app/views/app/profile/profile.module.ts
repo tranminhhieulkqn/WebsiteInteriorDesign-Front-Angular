@@ -21,6 +21,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
 import { ProfileDesignerComponent } from './profile-designer/profile-designer.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { PostContainersModule } from '../post/components/post.containers.module';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
     SimpleNotificationsModule.forRoot(),
     BootstrapModule,
     DropzoneModule,
+    PostContainersModule
   ]
 })
 export class ProfileModule { }

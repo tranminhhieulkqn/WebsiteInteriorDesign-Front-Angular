@@ -1,4 +1,5 @@
 import { Component, OnInit, Renderer2, AfterViewInit } from '@angular/core';
+import { Title } from "@angular/platform-browser";
 import { LangService } from './shared/lang.service';
 import { environment } from '../environments/environment';
 import { Injectable } from '@angular/core';
@@ -11,8 +12,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AppComponent implements OnInit, AfterViewInit {
   isMultiColorActive = environment.isMultiColorActive;
-  constructor(private langService: LangService, private renderer: Renderer2) {
-
+  constructor(
+    private langService: LangService,
+    private renderer: Renderer2,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle("Interior Design Website");
   }
 
   ngOnInit() {
