@@ -504,6 +504,8 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "phone": "Phone",
+    "location":"Location",
+    "time":"Time",
     "birthDate": "BirthDate",
     "edit": "Edit",
     "save": "Save",
