@@ -19,6 +19,7 @@
     "code": "Reset Code"
   },
   "menu": {
+    "post-edit": "Edit Post",
     "make-appointment": "Make Appointment",
     "contact-us": "Contact Us",
     "about-us": "About Us",
@@ -183,6 +184,7 @@
     "top-rated-items": "Top Rated Items"
   },
   "pages": {
+    "featured-posts": "Featured Posts",
     "avatar": "Avatar",
     "add-new": "ADD NEW",
     "add-new-modal-title": "Add New Item",

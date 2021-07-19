@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { EditorChangeContent } from 'ngx-quill';
@@ -17,14 +17,17 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class PostEditComponent implements OnInit {
 
-
   //#region /** Variable definition */
 
   userAuthorized: firebase.User;
-  newPost = {} as Post;
+  updatePost = {} as Post;
   postID?: string = "";
   publicPost: boolean = false;
   savedPost: boolean = false; // check post saved
+  isRemoveOldThumbnail = false;
+  isRemoveOldGallery = false;
+  newImageThumbnail: string = '';
+  newImageGallery: string[] = [];
 
   //#endregion
 
@@ -95,48 +98,53 @@ export class PostEditComponent implements OnInit {
 
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private postService: PostService,
     private notifications: NotificationsService,
     private localStorageService: LocalStorageService,
     private uploadService: UploadService,
-    private router: Router,
   ) {
     // get user authorized
     this.userAuthorized = this.authService.user;
-    // define new post local
-    this.newPost = {
-      authorID: this.authService.user.uid,
-      title: "My Post",
-      content: ``,
-      displayNameAuthor: this.userAuthorized.displayName,
-      authorAvatar: this.userAuthorized.photoURL,
-    } as Post;
-    // create new draft post to has postID and
-    this.postService.addPost(this.newPost)
-      .subscribe(
-        res => {
-          this.newPost = res['post'] as Post;
-          this.postID = res['post'].id;
-          // after has postID, define the bucketPath
-          this.bucketPath = `posts/${this.postID}/`
-        },
-        er => {
-          // Error
-        }
-      )
+    this.getParamFromURL(); // get update post id
+  }
+
+  getParamFromURL() {
+    this.route.queryParams.subscribe(
+      params => {
+        this.postID = params['id'];
+        this.bucketPath = `posts/${this.postID}/`;
+      },
+      (error) => console.log(error),
+      () => { } // complete
+    );
   }
 
   //#region /** Lifecycle Hooks: define all needed lifecycle hooks */
 
   // ngOnInit
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.getUpdatePost()
+  }
+
+  getUpdatePost() {
+    this.postService.getPost(this.postID.toString())
+      .subscribe(
+        (next) => {
+          this.updatePost = next['post']
+          this.publicPost = (this.updatePost.status == 'public')
+        },
+        (error) => console.log(error),
+        () => { } // complete
+      )
   }
 
   // ngOnDestroy
   ngOnDestroy() {
-    this.removePostIfNotSaved()
+    // this.removePostIfNotSaved()
   }
 
   //#endregion
@@ -198,14 +206,14 @@ export class PostEditComponent implements OnInit {
   onUploadSuccessGallery(event) {
     this.onUploadSuccess(event);
     // append link image to gallary
-    this.newPost.gallery.push(event[1].imageURL);
+    this.newImageGallery.push(event[1].imageURL);
   }
 
   // onUploadSuccess for thumbnail
   onUploadSuccessThumbnail(event) {
     this.onUploadSuccess(event);
     // get link image for thumbnail
-    this.newPost.thumbnail = event[1].imageURL;
+    this.newImageThumbnail = event[1].imageURL;
   }
 
   // onRemovedFile with gallery
@@ -217,7 +225,7 @@ export class PostEditComponent implements OnInit {
       this.uploadService.deleteFile(response.imageURL).subscribe();
     // remove file on gallery
     try {
-      this.newPost.gallery.slice(this.newPost.gallery.indexOf(response.imageURL), 1);
+      this.newImageGallery.slice(this.newImageGallery.indexOf(response.imageURL), 1);
     } catch (error) { }
   }
 
@@ -229,8 +237,8 @@ export class PostEditComponent implements OnInit {
     if (!this.savedPost)
       this.uploadService.deleteFile(response.imageURL).subscribe();
     // remove file on thumbnail
-    if (this.newPost.thumbnail == response.imageURL) {
-      this.newPost.thumbnail = "";
+    if (this.newImageThumbnail == response.imageURL) {
+      this.newImageThumbnail = "";
     }
   }
 
@@ -245,15 +253,15 @@ export class PostEditComponent implements OnInit {
   }
   // check validation editor
   checkEditor(form: NgForm) {
-    return !this.newPost.content?.length && form.submitted;
+    return !this.updatePost.content?.length && form.submitted;
   }
 
   checkGallery(form: NgForm) {
-    return !this.newPost.gallery?.length && form.submitted;
+    return !this.updatePost.gallery?.length && form.submitted;
   }
 
   checkThumbnail(form: NgForm) {
-    return !this.newPost.thumbnail?.length && form.submitted;
+    return !this.updatePost.thumbnail?.length && form.submitted;
   }
 
   textPlainContent: string = "";
@@ -263,31 +271,53 @@ export class PostEditComponent implements OnInit {
     this.textPlainContent = String(quill['text']);
   }
 
-
+  deleteOldThumbnail() {
+    if (this.newImageThumbnail) {
+      this.uploadService.deleteFile(this.updatePost.thumbnail).subscribe();
+      this.updatePost.thumbnail = this.newImageThumbnail;
+    }
+  }
+  deleteOldGallery() {
+    if (this.newImageGallery.length > 0) {
+      this.updatePost.gallery.forEach(element => {
+        this.uploadService.deleteFile(element).subscribe();
+      });
+      this.updatePost.gallery = this.updatePost.gallery.concat(this.newImageGallery)
+    }
+  }
 
   clickSubmitButton(form: NgForm) {
+    if (this.isRemoveOldThumbnail) {
+      this.deleteOldThumbnail()
+    }
+    if (this.isRemoveOldGallery) {
+      this.deleteOldGallery()
+    } else {
+      this.updatePost.gallery = this.updatePost.gallery.concat(this.newImageGallery);
+    }
+
     if (
-      this.newPost.title?.length > 0 &&
-      this.newPost.category?.length > 0 &&
-      this.newPost.keywords?.length > 0 &&
-      this.newPost.content?.length > 0 &&
-      this.newPost.thumbnail?.length > 0 &&
-      this.newPost.gallery?.length > 0
+      this.updatePost.title?.length > 0 &&
+      this.updatePost.category?.length > 0 &&
+      this.updatePost.keywords?.length > 0 &&
+      this.updatePost.content?.length > 0 &&
+      this.updatePost.thumbnail?.length > 0 &&
+      this.updatePost.gallery?.length > 0
     ) {
       // change and delete needed value
-      this.newPost.status = form.value.status ? `public` : `private`;
+      this.updatePost.status = form.value.status ? `public` : `private`;
       // add date created for post
-      this.newPost.dateCreated = new Date();
-      if (!this.newPost.summary || this.newPost.summary?.length == 0) {
-        this.newPost.summary = this.textPlainContent;
+      // this.updatePost.dateCreated = new Date();
+      if (!this.updatePost.summary || this.updatePost.summary?.length == 0) {
+        this.updatePost.summary = this.textPlainContent;
       }
 
-      delete this.newPost.author;
-      delete this.newPost['pid']
-      delete this.newPost['createdAt'];
-      delete this.newPost['updatedAt'];
+      delete this.updatePost.author;
+      delete this.updatePost['pid']
+      delete this.updatePost['createdAt'];
+      delete this.updatePost['updatedAt'];
       // update post to server
-      this.postService.updatePost(this.postID, this.newPost).subscribe(
+      this.postService.updatePost(this.postID, this.updatePost).subscribe(
         res => { },
         err => { },
         () => {
@@ -325,31 +355,31 @@ export class PostEditComponent implements OnInit {
   //#region /** Handling exceptions */
 
   // function remove all image anh post
-  removePostIfNotSaved() {
-    if (!this.savedPost) { // if flag savedPost not true
-      // delete all image to upload
-      if (this.newPost.thumbnail) {
-        this.uploadService.deleteFile(this.newPost.thumbnail).subscribe();
-      }
-      this.newPost.gallery.forEach(image => {
-        this.uploadService.deleteFile(image).subscribe();
-      });
-      // delete draft post
-      this.postService.deletePost(this.postID.toString()).subscribe()
-    }
-  }
+  // removePostIfNotSaved() {
+  //   if (!this.savedPost) { // if flag savedPost not true
+  //     // delete all image to upload
+  //     if (this.updatePost.thumbnail) {
+  //       this.uploadService.deleteFile(this.updatePost.thumbnail).subscribe();
+  //     }
+  //     this.updatePost.gallery.forEach(image => {
+  //       this.uploadService.deleteFile(image).subscribe();
+  //     });
+  //     // delete draft post
+  //     this.postService.deletePost(this.postID.toString()).subscribe()
+  //   }
+  // }
 
   // handle with reload page
-  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void {
-    console.log("Processing beforeunload...");
-    this.removePostIfNotSaved()
-  }
+  // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event): void {
+  //   console.log("Processing beforeunload...");
+  //   this.removePostIfNotSaved()
+  // }
 
   // handle with close page
-  @HostListener('window:beforeunload', ['$event']) onWindowClose(event: Event): void {
-    console.log("Processing beforeunload...");
-    this.removePostIfNotSaved()
-  }
+  // @HostListener('window:beforeunload', ['$event']) onWindowClose(event: Event): void {
+  //   console.log("Processing beforeunload...");
+  //   this.removePostIfNotSaved()
+  // }
 
   //#endregion
 

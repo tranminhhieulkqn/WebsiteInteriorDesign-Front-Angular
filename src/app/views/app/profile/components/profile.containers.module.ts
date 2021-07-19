@@ -14,7 +14,7 @@ import { LayoutContainersModule } from 'src/app/containers/layout/layout.contain
 import { ProfileUserSocialComponent } from './profile-user-social/profile-user-social.component';
 import { ProfilePhotosComponent } from './profile-photos/profile-photos.component';
 import { ProfileWhoToFollowComponent } from './profile-who-to-follow/profile-who-to-follow.component';
-import { ProfileRecentPostsComponent } from './profile-recent-posts/profile-recent-posts.component';
+// import { ProfileRecentPostsComponent } from './profile-recent-posts/profile-recent-posts.component';
 import { ProfilePostsComponent } from './profile-posts/profile-posts.component';
 import { ProfileGalleryComponent } from './profile-gallery/profile-gallery.component';
 import { ProfileFriendsComponent } from './profile-friends/profile-friends.component';
@@ -26,13 +26,14 @@ import { ProfileAccountInforComponent } from './profile-account-infor/profile-ac
 import { ProfileAccountAvatarComponent } from './profile-account-avatar/profile-account-avatar.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { MomentModule } from "ngx-moment";
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
     ProfileUserSocialComponent,
     ProfilePhotosComponent,
     ProfileWhoToFollowComponent,
-    ProfileRecentPostsComponent,
+    // ProfileRecentPostsComponent,
     ProfilePostsComponent,
     ProfileGalleryComponent,
     ProfileFriendsComponent,
@@ -62,12 +63,13 @@ import { MomentModule } from "ngx-moment";
     BootstrapModule,
     DropzoneModule,
     MomentModule,
+    TranslateModule
   ],
   exports: [
     ProfileUserSocialComponent,
     ProfilePhotosComponent,
     ProfileWhoToFollowComponent,
-    ProfileRecentPostsComponent,
+    // ProfileRecentPostsComponent,
     ProfilePostsComponent,
     ProfileGalleryComponent,
     ProfileFriendsComponent,

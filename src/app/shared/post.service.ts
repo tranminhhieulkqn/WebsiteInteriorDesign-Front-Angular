@@ -22,6 +22,7 @@ export class PostService {
   private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
+  private urlGetFeatured = `${this.urlAPI}getFeatured`;
   private urlUpdate = `${this.urlAPI}update`
   private urlDetele = `${this.urlAPI}delete`
   private urlGetFeature = `${this.urlAPI}getFeatured`;
@@ -106,20 +107,18 @@ export class PostService {
     );
   }
 
-
- /** GET post feature. Will 404 if id not found */
- getFeaturePost(amount: number = 0): Observable<Post> {
-  // define query parametters for request.
-  let params = new HttpParams()
-    .set('amount', amount.toString());
-  const url = `${this.urlGetFeature}?${params.toString()}`;
-  return this.http.get<Post>(url).pipe(
-    tap(_ => this.log(`fetched ${amount} feature post.`)),
-    catchError(this.handleError<Post>(`getFeaturePost`))
-  );
-}
-
-
+  /** GET lastest post by id. Will 404 if id not found */
+  getFeaturedPost(amount: number = 1, monthago: number = 1): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('amount', amount.toString())
+      .set('monthago', monthago.toString());
+    const url = `${this.urlGetFeatured}?${params.toString()}`;
+    return this.http.get<Post>(url).pipe(
+      tap(_ => this.log(`fetched ${amount} featured post.`)),
+      catchError(this.handleError<Post>(`getFeaturedPost`))
+    );
+  }
 
   /* GET heroes whose name contains search term */
   // searchHeroes(term: string): Observable<Hero[]> {

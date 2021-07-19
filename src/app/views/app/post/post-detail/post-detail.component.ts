@@ -55,7 +55,11 @@ export class PostDetailComponent implements OnInit {
   }
 
   getParamFromURL() {
-    this.route.queryParams.subscribe(params => this.currentPostID = params['id']);
+    this.route.queryParams.subscribe(
+      params => {
+        this.currentPostID = params['id'];
+        console.log(this.currentPostID);
+      });
   }
 
   //#region /** Get data (post) for page */

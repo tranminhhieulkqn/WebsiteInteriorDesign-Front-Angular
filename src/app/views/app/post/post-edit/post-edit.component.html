@@ -15,7 +15,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-lg">{{ 'forms.title' | translate }}</span>
             </div>
-            <input type="text" name="title" #title="ngModel" [(ngModel)]="newPost.title" class="form-control"
+            <input type="text" name="title" #title="ngModel" [(ngModel)]="updatePost.title" class="form-control"
               aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
             <div *ngIf="checkValidation(title, inInputForm);" class="invalid-tooltip">
               Title is required!
@@ -28,7 +28,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">{{'forms.summary' | translate}}</span>
             </div>
-            <input type="text" name="summary" #summary="ngModel" [(ngModel)]="newPost.summary" class="form-control"
+            <input type="text" name="summary" #summary="ngModel" [(ngModel)]="updatePost.summary" class="form-control"
               aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
 
@@ -41,10 +41,10 @@
         <div class="card-body" style="min-height: 500px; overflow: auto;">
           <h5 class="mb-4">{{'forms.content' | translate}}</h5>
           <quill-editor style="min-height: 400px;" format="html" name="content" #content="ngModel"
-            [(ngModel)]="newPost.content" [placeholder]="''" (onContentChanged)="onContentChanged($event)">
+            [(ngModel)]="updatePost.content" [placeholder]="''" (onContentChanged)="onContentChanged($event)">
           </quill-editor>
 
-          <!-- <input type="text" name="title" #title="ngModel" [(ngModel)]="newPost.title" class="form-control"
+          <!-- <input type="text" name="title" #title="ngModel" [(ngModel)]="updatePost.title" class="form-control"
               aria-label="Large" aria-describedby="inputGroup-sizing-sm" required> -->
 
           <div *ngIf="checkEditor(inInputForm);" class="invalid-tooltip">
@@ -56,7 +56,16 @@
       <!-- Upload image for Gallery -->
       <div class="card mb-4 tooltip-right-top">
         <div class="card-body">
-          <h5 class="mb-4">{{ 'forms.gallery' | translate }}</h5>
+          <div class="row mb-4">
+            <h5 class="col-5">{{ 'forms.gallery' | translate }}</h5>
+
+            <div *ngIf="newImageGallery?.length > 0" class="col-7 custom-control custom-checkbox" style="text-align: end;">
+              <input type="checkbox" class="custom-control-input" id="isRemoveOldGallery" name="isRemoveOldGallery"
+                [(ngModel)]="isRemoveOldGallery" required>
+              <label class="custom-control-label" for="isRemoveOldGallery">Remove old</label>
+            </div>
+          </div>
+
           <dropzone [config]="configGallery" [message]="'form-components.dropzone-message' | translate"
             (sending)="onSending($event)" (error)="onUploadError($event)" (success)="onUploadSuccessGallery($event)"
             (removedFile)="onRemovedFileGallery($event)">
@@ -75,7 +84,15 @@
       <!-- Upload image thumbnail for post -->
       <div class="card mb-4 tooltip-right-top">
         <div class="card-body">
-          <h5 class="mb-4">{{ 'forms.thumbnail' | translate }}</h5>
+          <div class="row mb-4">
+            <h5 class="col-5">{{ 'forms.thumbnail' | translate }}</h5>
+
+            <div *ngIf="newImageThumbnail" class="col-7 custom-control custom-checkbox" style="text-align: end;">
+              <input type="checkbox" class="custom-control-input" id="isRemoveOldThumbnail" name="isRemoveOldThumbnail"
+                [(ngModel)]="isRemoveOldThumbnail" required>
+              <label class="custom-control-label" for="isRemoveOldThumbnail">Remove old</label>
+            </div>
+          </div>
           <dropzone [config]="configThumbnail" [message]="'form-components.dropzone-message' | translate"
             (sending)="onSending($event)" (error)="onUploadError($event)" (success)="onUploadSuccessThumbnail($event)"
             (removedFile)="onRemovedFileThumbnail($event)">
@@ -94,7 +111,7 @@
 
           <!-- Category -->
           <label class="form-group has-top-label tooltip-right-top">
-            <ng-select name="category" #category="ngModel" [(ngModel)]="newPost.category"
+            <ng-select name="category" #category="ngModel" [(ngModel)]="updatePost.category"
               [items]="['Interior Design', 'Hi-Tech', 'Indochina', 'Luxurious']" bindLabel="name" bindValue="name"
               required>
             </ng-select>
@@ -106,7 +123,7 @@
 
           <!-- Pattern -->
           <label class="form-group has-top-label tooltip-right-top">
-            <ng-select name="pattern" #pattern="ngModel" [(ngModel)]="newPost.pattern" [hideSelected]="true"
+            <ng-select name="pattern" #pattern="ngModel" [(ngModel)]="updatePost.pattern" [hideSelected]="true"
               multiple="true"
               [items]="['Stripe', 'Polka Dot', 'Geometric', 'Floral', 'Classic', 'Ceiling', 'Neoclassical','Plaid', 'Organic']"
               bindLabel="name" bindValue="name" required>
@@ -119,7 +136,7 @@
 
           <!-- Main color -->
           <label class="form-group has-top-label tooltip-right-top">
-            <ng-select name="mainColor" #mainColor="ngModel" [(ngModel)]="newPost.mainColor" [hideSelected]="true"
+            <ng-select name="mainColor" #mainColor="ngModel" [(ngModel)]="updatePost.mainColor" [hideSelected]="true"
               multiple="true"
               [items]="['Blue', 'Green', 'Red', 'Yellow', 'Brown', 'Beige-colored', 'Grey' , 'Pink', 'White', 'Black']"
               bindLabel="name" bindValue="name" required>
@@ -133,8 +150,8 @@
           <!-- Keywords -->
           <label class="form-group has-top-label tooltip-right-top">
             <ng-select name='keywords' [items]="['Hi-Tech', 'Indochina', 'Luxurious']" [addTag]="addTagFn"
-              [(ngModel)]="newPost.keywords" #keywords="ngModel" [hideSelected]="true" multiple="true" bindLabel="name"
-              appendTo="body" required>
+              [(ngModel)]="updatePost.keywords" #keywords="ngModel" [hideSelected]="true" multiple="true"
+              bindLabel="name" appendTo="body" required>
             </ng-select>
             <span>{{ 'forms.keywords' | translate | uppercase }}</span>
             <div *ngIf="checkValidation(keywords, inInputForm);" class="invalid-tooltip">

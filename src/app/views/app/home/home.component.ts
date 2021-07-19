@@ -37,6 +37,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   des: string;
   postID: string;
   currentPost: Post;
+
+
+  featuredPosts = [] as Post[];
+  recentPosts = [] as Post[];
+
+
+
   constructor(
     private authService: AuthService,
     private notifications: NotificationsService,
@@ -46,62 +53,60 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
 
-  getRecentPost() {
-    // get post info from server
+  // getRecentPosts() {
+  //   // get post info from server
+  //   this.postService.getLastPost(7)
+  //     .subscribe(
+  //       res => {
+  //         this.currentPost = res['posts'] as Post;
+  //         this.postID = res['posts'].id;
+  //         for (let index = 0; index < 5; index++) {
+  //           try { this.des = res['posts'][index].summary.toString() } catch (error) { this.des = ' '; }
+  //           this.recentPost.push({
+  //             id: res['posts'][index].id.toString(),
+  //             title: res['posts'][index].title.toString(),
+  //             detail: this.des,
+  //             img: res['posts'][index].thumbnail.toString(),
+  //             badges: ['NEW'],
+  //             category: res['posts'][index].category.toString(),
+  //           } as IPostItem)
+
+  //         }
+  //         for (let i = 0; i < 5; i++) {
+  //           console.log(this.recentPost[i])
+  //         }
+  //       },
+  //       err => console.log(err),
+  //       () => this.showrecent = true,
+  //     )
+  // }
+
+  getRecentPosts() {
+    this.showrecent = false;
     this.postService.getLastPost(7)
       .subscribe(
-        res => {
-          this.currentPost = res['posts'] as Post;
-          this.postID = res['posts'].id;
-          for (let index = 0; index < 5; index++) {
-            try { this.des = res['posts'][index].summary.toString() } catch (error) { this.des = ' '; }
-            this.recentPost.push({
-              id: res['posts'][index].id.toString(),
-              title: res['posts'][index].title.toString(),
-              detail: this.des,
-              img: res['posts'][index].thumbnail.toString(),
-              badges: ['NEW'],
-              category: res['posts'][index].category.toString(),
-            } as IPostItem)
-
-          }
-          for (let i = 0; i < 5; i++) {
-            console.log(this.recentPost[i])
-          }
+        (next) => {
+          this.recentPosts = next['posts']
         },
-        err => console.log(err),
-        () => this.showrecent = true,
+        (error) => console.log(error),
+        () => this.showrecent = true // complate
       )
   }
 
-  getFeaturetPost() {
-    // get post info from server
-    this.postService.getFeaturePost(2)
-      .subscribe(
-        res => {
-          this.currentPost = res['posts'] as Post;
-          this.postID = res['posts'].id;
-          for (let index = 0; index < 2; index++) {
-            try { this.des = res['posts'][index].summary.toString() } catch (error) { this.des = ' '; }
-            this.featurePost.push({
-              id: res['posts'][index].id.toString(),
-              title: res['posts'][index].title.toString(),
-              detail: this.des,
-              img: res['posts'][index].thumbnail.toString(),
-              badges: ['NEW'],
-              category: res['posts'][index].category.toString(),
-            } as IPostItem)
-
-          }
-          for (let i = 0; i < 2; i++) {
-            console.log(this.featurePost[i])
-          }
-        },
-        err => console.log(err),
-        () => this.showfeature = true,
-      )
+  getFeaturedPosts() {
+    this.showfeature = false
+    this.postService.getFeaturedPost(7, 1)
+    .subscribe(
+      (next) => {
+        this.featuredPosts = next['posts']
+      },
+      (error) => console.log(error),
+      () => this.showfeature = true // complete
+    )
   }
-  
+
+
+
 
 
   ngAfterViewInit(): void {
@@ -120,8 +125,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.getRecentPost()
-this.getFeaturetPost()
+    this.getRecentPosts()
+    this.getFeaturedPosts()
     if (this.authService.user) {
       this.displayName = this.authService.user.displayName;
     }
@@ -133,22 +138,22 @@ this.getFeaturetPost()
       });
   }
 
-  onTest(user: User) {
-    try {
-      this.notifications.create(
-        user.displayName,
-        `Email: ${user.email}`,
-        NotificationType.Success,
-        {
-          theClass: 'primary',
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: true,
-          clickToClose: true
-        });
-    } catch (error) {
-      console.error(error);
-    }
+  // onTest(user: User) {
+  //   try {
+  //     this.notifications.create(
+  //       user.displayName,
+  //       `Email: ${user.email}`,
+  //       NotificationType.Success,
+  //       {
+  //         theClass: 'primary',
+  //         timeOut: 3000,
+  //         showProgressBar: true,
+  //         pauseOnHover: true,
+  //         clickToClose: true
+  //       });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
 
-  }
+  // }
 }

@@ -29,6 +29,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { MomentModule } from 'ngx-moment';
 import { PostEditComponent } from './post-edit/post-edit.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { PostEditComponent } from './post-edit/post-edit.component';
   imports: [
     CommonModule,
     PostRoutingModule,
+    RouterModule,
     LayoutContainersModule,
     EllipsisModule,
     PaginationModule,
