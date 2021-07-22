@@ -19,6 +19,8 @@
     "code": "Reset Code"
   },
   "menu": {
+    "management": "Management",
+    "user": "User",
     "post-edit": "Edit Post",
     "make-appointment": "Make Appointment",
     "contact-us": "Contact Us",

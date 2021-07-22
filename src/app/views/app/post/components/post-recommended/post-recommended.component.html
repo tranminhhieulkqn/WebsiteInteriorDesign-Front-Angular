@@ -1,0 +1,27 @@
+<div class="card mb-4 d-none d-lg-block">
+  <div class="position-absolute card-top-buttons">
+    <button class="btn btn-header-light icon-button">
+      <i class="simple-icon-refresh"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{'pages.recent-posts' | translate}}</h5>
+    <div>
+      <!-- For  -->
+      <div *ngFor="let post of recommendedPosts" class="d-flex flex-row mb-3">
+        <a href="/app/post/post-detail?id={{post?.id}}" class="d-block position-relative">
+          <img [src]="post.thumbnail" style="width: 115px;" [alt]="post.thumbnail" class="list-thumbnail border-0" />
+          <span class="badge badge-pill badge-theme-2 position-absolute badge-top-right" *ngIf="post.category !== ''">{{
+            post.category }}</span>
+        </a>
+        <div class="pl-3 pt-2 pr-2 pb-2">
+          <a style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"
+            [routerLink]="['/app/post/post-detail']" [queryParams]="{id: post?.id}">
+            <p class="list-item-heading">{{ post.title }}</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

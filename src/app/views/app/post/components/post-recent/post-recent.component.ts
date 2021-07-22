@@ -8,7 +8,7 @@ import { PostService } from 'src/app/shared/post.service';
 })
 export class PostRecentComponent implements OnInit {
   @Input() noRecentPost: number; // number of recent posts will get
-  maxRecentPosts: number = 5; // max number of recent posts will get
+  maxRecentPosts: number = 3; // max number of recent posts will get
 
   recentPosts: Post[];
 

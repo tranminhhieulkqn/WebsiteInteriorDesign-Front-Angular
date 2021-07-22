@@ -23,6 +23,7 @@ export class PostService {
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
   private urlGetFeatured = `${this.urlAPI}getFeatured`;
+  private urlGetRecommended = `${this.urlAPI}getRecommended`;
   private urlUpdate = `${this.urlAPI}update`
   private urlDetele = `${this.urlAPI}delete`
 
@@ -116,6 +117,19 @@ export class PostService {
     return this.http.get<Post>(url).pipe(
       tap(_ => this.log(`fetched ${amount} featured post.`)),
       catchError(this.handleError<Post>(`getFeaturedPost`))
+    );
+  }
+
+  /** GET recommended post by id. Will 404 if id not found */
+  getRecommendedPost(amount: number = 1, userID: string): Observable<Post> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('amount', amount.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlGetRecommended}?${params.toString()}`;
+    return this.http.get<Post>(url).pipe(
+      tap(_ => this.log(`fetched ${amount} recommended post.`)),
+      catchError(this.handleError<Post>(`getRecommendedPost`))
     );
   }
 

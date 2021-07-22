@@ -15,10 +15,22 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { LightboxModule } from 'ngx-lightbox';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+import { WizardsContainersModule } from 'src/app/containers/wizard/wizards.containers.module';
+import { FormValidationsContainersModule } from 'src/app/containers/form-validations/form.validations.containers.module';
+import { ArchwizardModule } from 'angular-archwizard';
+import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 
 
 @NgModule({
-  declarations: [BlankPageComponent, AppComponent, HomeComponent, AboutUsComponent, ContactUsComponent, MakeAppointmentComponent],
+  declarations: [
+    BlankPageComponent,
+    AppComponent,
+    HomeComponent,
+    AboutUsComponent,
+    ContactUsComponent,
+    MakeAppointmentComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -30,7 +42,14 @@ import { MakeAppointmentComponent } from './make-appointment/make-appointment.co
     UiCardsContainersModule,
     ComponentsCarouselModule,
     MomentModule,
-    LightboxModule
+    LightboxModule,
+    WizardsContainersModule,
+    FormValidationsContainersModule,
+    ArchwizardModule,
+    FormsModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
   ]
 })
 export class AppModule { }
