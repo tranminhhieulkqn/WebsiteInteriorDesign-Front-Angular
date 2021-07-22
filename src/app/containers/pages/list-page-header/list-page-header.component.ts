@@ -11,12 +11,13 @@ export class ListPageHeaderComponent implements OnInit {
   @Input() showSearch = true;
   @Input() showItemsPerPage = true;
   @Input() showDisplayMode = true;
+  @Input() showAddNewButton = true;
   @Input() displayMode = 'list';
   @Input() selectAllState = '';
   @Input() itemsPerPage = 10;
   @Input() itemOptionsPerPage = [5, 10, 20];
   @Input() itemOrder = { label: 'Product Name', value: 'title' };
-  @Input()  itemOptionsOrders = [{ label: 'Product Name', value: 'title' }, { label: 'Category', value: 'category' }, { label: 'Status', value: 'status' }];
+  @Input() itemOptionsOrders = [{ label: 'Product Name', value: 'title' }, { label: 'Category', value: 'category' }, { label: 'Status', value: 'status' }];
 
   @Output() changeDisplayMode: EventEmitter<string> = new EventEmitter<string>();
   @Output() addNewItem: EventEmitter<any> = new EventEmitter();
@@ -49,7 +50,7 @@ export class ListPageHeaderComponent implements OnInit {
     this.changeOrderBy.emit(item);
   }
 
-  onSearchKeyUp($event){
+  onSearchKeyUp($event) {
     this.searchKeyUp.emit($event);
   }
 }

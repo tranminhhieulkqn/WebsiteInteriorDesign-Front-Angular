@@ -15,6 +15,7 @@ export class UserService {
   // url to web api
   private urlAPI = `${environment.apiBackUrl}users/`;
   private urlGetAll = `${this.urlAPI}get`;
+  private urlGetWithPagination = `${this.urlAPI}getWithPagination`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlRegister = `${this.urlAPI}register`
   private urlUpdate = `${this.urlAPI}update`
@@ -35,6 +36,22 @@ export class UserService {
       .pipe(
         tap(_ => this.log('fetched users.')),
         catchError(this.handleError<User[]>('get all user.', []))
+      );
+  }
+
+  /** GET users from the server */
+  getUsers(pageSize: number = 0, currentPage: number = 1, search: string = '', orderBy = 'displayName'): Observable<User[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('currentPage', currentPage.toString())
+      .set('search', search.toString())
+      .set('orderBy', orderBy.toString());
+    const url = (pageSize) ? `${this.urlGetWithPagination}?${params.toString()}` : this.urlGetAll;
+    return this.http.get<User[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched user')),
+        catchError(this.handleError<User[]>('getUsers', []))
       );
   }
 
