@@ -28,6 +28,13 @@ export class PostManageComponent implements OnInit {
   endOfTheList = false;
   totalItem = 0;
   totalPage = 0;
+  itemOptionsPerPage = [5, 10, 20]
+  itemOrder = { label: 'Title Name', value: 'title' };
+  itemOptionsOrders = [
+    { label: 'Title Name', value: 'title' },
+    { label: 'Category', value: 'category' },
+    { label: 'Status', value: 'status' }
+  ];
 
   @ViewChild('basicMenu') public basicMenu: ContextMenuComponent;
   @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewProductModalComponent;
@@ -66,36 +73,14 @@ export class PostManageComponent implements OnInit {
     this.loadData(this.itemsPerPage, this.currentPage, this.search, this.orderBy);
   }
 
-  // loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = '') {
-  //   this.itemsPerPage = pageSize;
-  //   this.currentPage = currentPage;
-  //   this.search = search;
-  //   this.orderBy = orderBy;
-
-  //   this.apiService.getProducts(pageSize, currentPage, search, orderBy).subscribe(
-  //     data => {
-  //       if (data.status) {
-  //         this.isLoading = false;
-  //         this.data = data.data;
-  //         this.totalItem = data.totalItem;
-  //         this.totalPage = data.totalPage;
-  //         this.setSelectAllState();
-  //       } else {
-  //         this.endOfTheList = true;
-  //       }
-  //     },
-  //     error => {
-  //       this.isLoading = false;
-  //     }
-  //   );
-  // }
-  loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = '') {
+  loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = '', authorID: string = '') {
     this.itemsPerPage = pageSize;
     this.currentPage = currentPage;
     this.search = search;
     this.orderBy = orderBy;
+    authorID = this.authService.user.uid
 
-    this.postService.getPosts(pageSize, currentPage, search).subscribe(
+    this.postService.getPostsByAuthor_(pageSize, currentPage, search, orderBy, authorID).subscribe(
       data => {
         if (true) {
           this.isLoading = false;

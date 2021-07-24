@@ -42,6 +42,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
   featuredPosts = [] as Post[];
   recentPosts = [] as Post[];
 
+  private mywindow;
+  openWindow() {
+    if (this.mywindow) {
+      console.log(this.mywindow);
+      this.mywindow.close();
+    }
+    this.mywindow = window.open('http://localhost:4200/app/home', "_blank", "resizable=no, toolbar=no, scrollbars=no, menubar=no, status=no, directories=no, location=no, width=1000, height=600, left=100, top=100 ");
+
+  }
+
 
 
   constructor(
@@ -52,34 +62,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) {
 
   }
-
-  // getRecentPosts() {
-  //   // get post info from server
-  //   this.postService.getLastPost(7)
-  //     .subscribe(
-  //       res => {
-  //         this.currentPost = res['posts'] as Post;
-  //         this.postID = res['posts'].id;
-  //         for (let index = 0; index < 5; index++) {
-  //           try { this.des = res['posts'][index].summary.toString() } catch (error) { this.des = ' '; }
-  //           this.recentPost.push({
-  //             id: res['posts'][index].id.toString(),
-  //             title: res['posts'][index].title.toString(),
-  //             detail: this.des,
-  //             img: res['posts'][index].thumbnail.toString(),
-  //             badges: ['NEW'],
-  //             category: res['posts'][index].category.toString(),
-  //           } as IPostItem)
-
-  //         }
-  //         for (let i = 0; i < 5; i++) {
-  //           console.log(this.recentPost[i])
-  //         }
-  //       },
-  //       err => console.log(err),
-  //       () => this.showrecent = true,
-  //     )
-  // }
 
   getRecentPosts() {
     this.showrecent = false;
@@ -96,18 +78,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   getFeaturedPosts() {
     this.showfeature = false
     this.postService.getFeaturedPost(7, 1)
-    .subscribe(
-      (next) => {
-        this.featuredPosts = next['posts']
-      },
-      (error) => console.log(error),
-      () => this.showfeature = true // complete
-    )
+      .subscribe(
+        (next) => {
+          this.featuredPosts = next['posts']
+        },
+        (error) => console.log(error),
+        () => this.showfeature = true // complete
+      )
   }
-
-
-
-
 
   ngAfterViewInit(): void {
     this.notifications.create(
@@ -138,22 +116,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
-  // onTest(user: User) {
-  //   try {
-  //     this.notifications.create(
-  //       user.displayName,
-  //       `Email: ${user.email}`,
-  //       NotificationType.Success,
-  //       {
-  //         theClass: 'primary',
-  //         timeOut: 3000,
-  //         showProgressBar: true,
-  //         pauseOnHover: true,
-  //         clickToClose: true
-  //       });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-
-  // }
 }

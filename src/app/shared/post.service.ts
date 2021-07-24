@@ -21,6 +21,7 @@ export class PostService {
   private urlGetAll = `${this.urlAPI}get`;
   private urlGetAllPublic = `${this.urlAPI}getPublic`
   private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
+  private urlGetAllByAuhtor_ = `${this.urlAPI}getByAuthorID`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
   private urlGetFeatured = `${this.urlAPI}getFeatured`;
@@ -77,6 +78,23 @@ export class PostService {
     let params = new HttpParams()
       .set('authorID', auhtorID.toString());
     const url = `${this.urlGetAllByAuhtor}?${params.toString()}`;
+    return this.http.get<Post[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched posts by author id')),
+        catchError(this.handleError<Post[]>('getPostsByAuthor', []))
+      );
+  }
+
+  /** GET posts from the server */
+  getPostsByAuthor_(pageSize: number = 1, currentPage: number = 1, search: string = '', orderBy = 'title', auhtorID: string): Observable<Post[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('currentPage', currentPage.toString())
+      .set('search', search.toString())
+      .set('orderBy', orderBy.toString())
+      .set('authorID', auhtorID.toString());
+    const url = `${this.urlGetAllByAuhtor_}?${params.toString()}`;
     return this.http.get<Post[]>(url)
       .pipe(
         tap(_ => this.log('fetched posts by author id')),

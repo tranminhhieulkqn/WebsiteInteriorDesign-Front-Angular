@@ -1,10 +1,10 @@
 <!-- <p>post-manage works!</p> -->
-<app-list-page-header [displayMode]="displayMode" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
-  [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
+<app-list-page-header [displayMode]="displayMode" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder"
+  [itemOptionsPerPage]="itemOptionsPerPage" [itemsPerPage]="itemsPerPage" [selectAllState]="selectAllState"
+  (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
   (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)"
   (changeOrderBy)="changeOrderBy($event)" (searchKeyUp)="searchKeyUp($event)">
 </app-list-page-header>
-<app-add-new-product-modal #addNewModalRef></app-add-new-product-modal>
 
 <context-menu #basicMenu>
   <ng-template contextMenuItem let-item (execute)="onContextMenuClick('copy',$event.item)">
@@ -25,7 +25,7 @@
       <div class="d-flex flex-grow-1 min-width-zero">
         <div
           class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-          <a class="list-item-heading mb-0 truncate w-40 w-xs-100" href="javascript:;">
+          <a class="list-item-heading mb-0 truncate w-40 w-xs-100" href="/app/post/post-edit?id={{ p?.id }}">
             {{p.title}}
           </a>
           <!-- <p class="mb-0 text-muted text-small w-15 w-xs-100">{{p.category}}</p> -->
