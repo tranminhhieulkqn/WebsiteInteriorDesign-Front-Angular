@@ -19,6 +19,7 @@ export class PostService {
   private urlLike = `${this.urlAPI}like`
   private urlUnlike = `${this.urlAPI}unlike`
   private urlGetAll = `${this.urlAPI}get`;
+  private urlGetAllPublic = `${this.urlAPI}getPublic`
   private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
@@ -39,13 +40,30 @@ export class PostService {
   //////// Get methods //////////
 
   /** GET posts from the server */
-  getPosts(pageSize: number = 0, currentPage: number = 1, search: string = ''): Observable<Post[]> {
+  getPosts(pageSize: number = 0, currentPage: number = 1, search: string = '', orderBy = 'title'): Observable<Post[]> {
     // define query parametters for request.
     let params = new HttpParams()
       .set('pageSize', pageSize.toString())
       .set('currentPage', currentPage.toString())
-      .set('search', search.toString());
+      .set('search', search.toString())
+      .set('orderBy', orderBy.toString());
     const url = (pageSize) ? `${this.urlGetAll}?${params.toString()}` : this.urlGetAll;
+    return this.http.get<Post[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched posts')),
+        catchError(this.handleError<Post[]>('getPosts', []))
+      );
+  }
+
+  /** GET posts public from the server */
+  getPostsPublic(pageSize: number = 1, currentPage: number = 1, search: string = '', orderBy = 'title'): Observable<Post[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('currentPage', currentPage.toString())
+      .set('search', search.toString())
+      .set('orderBy', orderBy.toString());
+    const url = `${this.urlGetAllPublic}?${params.toString()}`
     return this.http.get<Post[]>(url)
       .pipe(
         tap(_ => this.log('fetched posts')),

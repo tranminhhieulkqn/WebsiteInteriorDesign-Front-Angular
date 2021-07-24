@@ -21,7 +21,11 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
 import { ProfileDesignerComponent } from './profile-designer/profile-designer.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
-import { PostContainersModule } from '../post/components/post.containers.module';
+import { EllipsisModule } from 'ngx-ellipsis';
+import { PaginationModule, RatingModule } from 'ngx-bootstrap';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { MomentModule } from 'ngx-moment';
+import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 
 
 @NgModule({
@@ -48,7 +52,13 @@ import { PostContainersModule } from '../post/components/post.containers.module'
     SimpleNotificationsModule.forRoot(),
     BootstrapModule,
     DropzoneModule,
-    PostContainersModule
+    EllipsisModule,
+    PaginationModule.forRoot(),
+    RatingModule.forRoot(),
+    ContextMenuModule.forRoot({
+      useBootstrap4: true,
+    }),
+    MomentModule
   ]
 })
 export class ProfileModule { }

@@ -1,9 +1,14 @@
 <!-- <p>post-list works!</p> -->
-<app-heading></app-heading>
-<app-breadcrumb></app-breadcrumb>
-<div class="separator mb-5"></div>
+
+<app-list-page-header [itemOptionsPerPage]="itemOptionsPerPage" [itemsPerPage]="itemsPerPage"
+  [selectAllState]="selectAllState" (itemsPerPageChange)="itemsPerPageChange($event)"
+  (changeOrderBy)="changeOrderBy($event)" (searchKeyUp)="searchKeyUp($event)" [showDisplayMode]="false"
+  [showAddNewButton]="false" [showSelectedOption]="false" [itemOptionsOrders]="itemOptionsOrders"
+  [itemOrder]="itemOrder">
+</app-list-page-header>
+
 <div class="row">
-  <div class="col-12 col-lg-6 mb-5" *ngFor="let post of listPost">
+  <div class="col-12 col-lg-6 mb-5" *ngFor="let post of data">
     <div style="height: 210px;" class="card flex-row listing-card-container">
       <span class="badge badge-pill badge-theme-2 position-absolute badge-top-right" *ngIf="post?.category !== ''">
         {{ post?.category | uppercase }}</span>
@@ -31,14 +36,24 @@
             <ng-template #t2 let-index="index" let-value="value">{{index < value ? '' : '' }}</ng-template>
           </div>
           <footer>
-            <p class="text-muted text-small mb-0 font-weight-light">09.04.2020</p>
+            <p class="text-muted text-small mb-0 font-weight-light">
+              {{ post?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD' }} |
+              {{ post?.dateCreated | amTimeAgo }}
+            </p>
+            <p class="text-muted text-small mb-0 font-weight-light">
+              {{ 'Created by: ' + post?.displayNameAuthor }}
+            </p>
           </footer>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-12">
-    <pagination class="justify-content-center" [totalItems]="30" previousText="<i class='simple-icon-arrow-left'></i>"
-      nextText="<i class='simple-icon-arrow-right'></i>"></pagination>
+
+  <div *ngIf="data" class="col-12">
+    <pagination [totalItems]="totalItem" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="520"
+      [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center"
+      previousText="<i class='simple-icon-arrow-left'></i>" nextText="<i class='simple-icon-arrow-right'></i>">
+    </pagination>
   </div>
+
 </div>

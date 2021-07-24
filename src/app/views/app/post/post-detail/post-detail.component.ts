@@ -54,15 +54,12 @@ export class PostDetailComponent implements OnInit {
     else { // if not, get lastest post.
       this.getLastestPost();
     }
-    setTimeout(() => {
-      this.postsHistoryService.addViewed(this.currentUserID.toString(), this.currentPostID)
-        .subscribe()
-    }, 3000);
+    this.postsHistoryService.addViewed(this.currentUserID.toString(), this.currentPostID)
+      .subscribe()
   }
 
   ngOnDestroy() {
-    this.postsHistoryService.addViewed(this.currentUserID.toString(), this.currentPostID)
-      .subscribe()
+
   }
 
   getParamFromURL() {

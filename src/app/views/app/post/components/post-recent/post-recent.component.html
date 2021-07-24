@@ -9,8 +9,8 @@
     <div>
       <!-- For  -->
       <div *ngFor="let post of recentPosts" class="d-flex flex-row mb-3">
-        <a class="d-block position-relative" href="#">
-          <img [src]="post.thumbnail" style="width: 115px;" [alt]="post.thumbnail" class="list-thumbnail border-0" />
+        <a class="d-block position-relative" href="/app/post/post-detail?id={{post?.id}}">
+          <img [src]="post?.thumbnail" style="width: 115px;" [alt]="post.thumbnail" class="list-thumbnail border-0" />
           <span class="badge badge-pill badge-theme-2 position-absolute badge-top-right" *ngIf="post.category !== ''">{{
             post.category }}</span>
         </a>
@@ -19,8 +19,8 @@
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
-          text-overflow: ellipsis;" href="#">
-            <p class="list-item-heading">{{ post.title }}</p>
+          text-overflow: ellipsis;" href="/app/post/post-detail?id={{post?.id}}">
+            <p class="list-item-heading">{{ post?.title }}</p>
           </a>
         </div>
       </div>

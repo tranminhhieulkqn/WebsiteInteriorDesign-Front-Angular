@@ -17,6 +17,7 @@ export class UserService {
   private urlGetAll = `${this.urlAPI}get`;
   private urlGetWithPagination = `${this.urlAPI}getWithPagination`;
   private urlGetBy = `${this.urlAPI}getBy`;
+  private urlGetByRole = `${this.urlAPI}getByRole`;
   private urlRegister = `${this.urlAPI}register`
   private urlUpdate = `${this.urlAPI}update`
 
@@ -36,6 +37,23 @@ export class UserService {
       .pipe(
         tap(_ => this.log('fetched users.')),
         catchError(this.handleError<User[]>('get all user.', []))
+      );
+  }
+
+  /** GET users from the server */
+  getAllByRole(pageSize: number = 1, currentPage: number = 1, search: string = '', orderBy = 'displayName', role = 'admin'): Observable<User[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('currentPage', currentPage.toString())
+      .set('search', search.toString())
+      .set('orderBy', orderBy.toString())
+      .set('role', role.toString());
+    const url = `${this.urlGetByRole}?${params.toString()}`;
+    return this.http.get<User[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched user')),
+        catchError(this.handleError<User[]>('getUsers', []))
       );
   }
 
@@ -120,6 +138,7 @@ export class UserService {
 
   /** PUT: update the user on the server */
   updateUser(user: User): Observable<any> {
+
     return this.http.put(this.urlUpdate, user, this.httpOptions).pipe(
       tap(_ => this.log(`updated user ${user.displayName}.`)),
       catchError(this.handleError<any>('updateHero'))

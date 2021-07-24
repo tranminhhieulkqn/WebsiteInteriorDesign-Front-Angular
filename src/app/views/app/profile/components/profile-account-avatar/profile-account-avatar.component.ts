@@ -5,6 +5,7 @@ import { DropzoneComponent, DropzoneConfigInterface } from 'ngx-dropzone-wrapper
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { UploadService } from 'src/app/shared/upload.service';
+import { UserService } from 'src/app/shared/user.service';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -33,6 +34,7 @@ export class ProfileAccountAvatarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private uploadService: UploadService,
     private notifications: NotificationsService,
   ) { }
@@ -191,9 +193,15 @@ export class ProfileAccountAvatarComponent implements OnInit {
   // event submit new avartar
   clickSubmitButton(form: NgForm) {
     if (this.newAvatar?.length && this.newAvatar != this.oldAvatar) {
-      this.authService.updateAvatar(this.newAvatar)
+      this.authService.updateProfile(this.newAvatar, this.authService.user.displayName)
         .subscribe(
-          (res) => { },
+          (res) => {
+            this.userService.updateUser({
+              avatarURL: this.newAvatar,
+              email: this.authService.user.email
+            } as User)
+              .subscribe()
+          },
           (err) => { },
           () => {
             if (this.oldAvatar != this.defaultAvatarProfile)

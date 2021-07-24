@@ -209,18 +209,19 @@ export class AuthService {
     }
   }
 
-  updateAvatar(avatarURL) {
+  updateProfile(avatarURL, displayName) {
     try { // try
       return from(
         // create new account with email and password
         this.afAuth.auth.currentUser.updateProfile({
-          photoURL: avatarURL
+          photoURL: avatarURL,
+          displayName: displayName
         }).then(
           () => {
             // get user ref from firestore
             const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${this.user.uid}`);
             // update user data
-            userRef.set({ avatarURL: avatarURL }, { merge: true })
+            userRef.set({ avatarURL: avatarURL, displayName: displayName }, { merge: true })
             // show message in log
             this.log(`updated ${this.user.displayName}'s infor to firestore database successfully!`);
           }

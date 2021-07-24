@@ -38,7 +38,7 @@ const data: IMenuItem[] = [
       to: '/app/profile/portfolio'
     },
     {
-      icon: 'simple-icon-link',
+      icon: 'simple-icon-people',
       label: 'menu.designer',
       to: '/app/profile/designer'
     },

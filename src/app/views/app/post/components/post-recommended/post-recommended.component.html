@@ -5,7 +5,7 @@
     </button>
   </div>
   <div class="card-body">
-    <h5 class="card-title">{{'pages.recent-posts' | translate}}</h5>
+    <h5 class="card-title">{{'pages.recommended-posts' | translate}}</h5>
     <div>
       <!-- For  -->
       <div *ngFor="let post of recommendedPosts" class="d-flex flex-row mb-3">
@@ -16,7 +16,7 @@
         </a>
         <div class="pl-3 pt-2 pr-2 pb-2">
           <a style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"
-            [routerLink]="['/app/post/post-detail']" [queryParams]="{id: post?.id}">
+            href="/app/post/post-detail?id={{post?.id}}">
             <p class="list-item-heading">{{ post.title }}</p>
           </a>
         </div>

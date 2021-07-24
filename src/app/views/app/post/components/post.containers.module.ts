@@ -33,7 +33,7 @@ import { PostRecommendedComponent } from './post-recommended/post-recommended.co
     PostDetailTabsComponent,
     PostRecentComponent,
     PostFeaturedComponent,
-    PostRecommendedComponent,
+    PostRecommendedComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +63,7 @@ import { PostRecommendedComponent } from './post-recommended/post-recommended.co
     PostDetailTabsComponent,
     PostRecentComponent,
     PostFeaturedComponent,
-    PostRecommendedComponent,
+    PostRecommendedComponent
   ]
 })
 export class PostContainersModule { }

@@ -14,7 +14,7 @@ import { Post } from 'src/app/models/post.model';
 })
 export class PostManagementComponent implements OnInit {
   userAuthorized: firebase.User;
-  displayMode = 'list';
+  displayMode = 'thumb';
   selectAllState = '';
   selected: Post[] = [];
   data: Post[] = [];
@@ -23,11 +23,17 @@ export class PostManagementComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 10;
   search = '';
-  orderBy = '';
+  orderBy = 'title';
   isLoading: boolean;
   endOfTheList = false;
   totalItem = 0;
   totalPage = 0;
+  itemOrder = { label: 'Title Name', value: 'title' };
+  itemOptionsOrders = [
+    { label: 'Title Name', value: 'title' },
+    { label: 'Category', value: 'category' },
+    { label: 'Status', value: 'status' }
+  ];
 
   @ViewChild('basicMenu') public basicMenu: ContextMenuComponent;
   @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewProductModalComponent;
@@ -40,7 +46,6 @@ export class PostManagementComponent implements OnInit {
   ) {
     // get user authorized
     this.userAuthorized = this.authService.user;
-    this.getData();
 
     this.hotkeysService.add(new Hotkey('ctrl+a', (event: KeyboardEvent): boolean => {
       this.selected = [...this.data];
@@ -52,50 +57,17 @@ export class PostManagementComponent implements OnInit {
     }));
   }
 
-  getData() {
-    this.postService.getPostsByAuthor(this.userAuthorized.uid)
-      .subscribe(
-        (next) => console.log(next),
-        (error) => console.log(error), // show message
-        () => { } // complete
-      )
-  }
-
-
   ngOnInit() {
     this.loadData(this.itemsPerPage, this.currentPage, this.search, this.orderBy);
   }
 
-  // loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = '') {
-  //   this.itemsPerPage = pageSize;
-  //   this.currentPage = currentPage;
-  //   this.search = search;
-  //   this.orderBy = orderBy;
-
-  //   this.apiService.getProducts(pageSize, currentPage, search, orderBy).subscribe(
-  //     data => {
-  //       if (data.status) {
-  //         this.isLoading = false;
-  //         this.data = data.data;
-  //         this.totalItem = data.totalItem;
-  //         this.totalPage = data.totalPage;
-  //         this.setSelectAllState();
-  //       } else {
-  //         this.endOfTheList = true;
-  //       }
-  //     },
-  //     error => {
-  //       this.isLoading = false;
-  //     }
-  //   );
-  // }
-  loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = '') {
+  loadData(pageSize: number = 10, currentPage: number = 1, search: string = '', orderBy: string = 'title') {
     this.itemsPerPage = pageSize;
     this.currentPage = currentPage;
     this.search = search;
     this.orderBy = orderBy;
 
-    this.postService.getPosts(pageSize, currentPage, search).subscribe(
+    this.postService.getPosts(pageSize, currentPage, search, orderBy).subscribe(
       data => {
         if (true) {
           this.isLoading = false;
@@ -165,7 +137,8 @@ export class PostManagementComponent implements OnInit {
   }
 
   searchKeyUp(event) {
-    const val = event.target.value.toLowerCase().trim();
+    // const val = event.target.value.toLowerCase().trim();
+    const val = event.target.value.trim();
     this.loadData(this.itemsPerPage, 1, val, this.orderBy);
   }
 

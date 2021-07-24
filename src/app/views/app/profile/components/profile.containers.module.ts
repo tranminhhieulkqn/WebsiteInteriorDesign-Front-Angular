@@ -27,13 +27,13 @@ import { ProfileAccountAvatarComponent } from './profile-account-avatar/profile-
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { MomentModule } from "ngx-moment";
 import { TranslateModule } from '@ngx-translate/core';
+import { ListPageHeaderComponent } from './list-page-header/list-page-header.component';
 
 @NgModule({
   declarations: [
     ProfileUserSocialComponent,
     ProfilePhotosComponent,
     ProfileWhoToFollowComponent,
-    // ProfileRecentPostsComponent,
     ProfilePostsComponent,
     ProfileGalleryComponent,
     ProfileFriendsComponent,
@@ -41,7 +41,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ProfileProcessComponent,
     ProfilePortfolioItemsComponent,
     ProfileAccountInforComponent,
-    ProfileAccountAvatarComponent
+    ProfileAccountAvatarComponent,
+    ListPageHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +70,6 @@ import { TranslateModule } from '@ngx-translate/core';
     ProfileUserSocialComponent,
     ProfilePhotosComponent,
     ProfileWhoToFollowComponent,
-    // ProfileRecentPostsComponent,
     ProfilePostsComponent,
     ProfileGalleryComponent,
     ProfileFriendsComponent,
@@ -77,7 +77,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ProfileProcessComponent,
     ProfilePortfolioItemsComponent,
     ProfileAccountInforComponent,
-    ProfileAccountAvatarComponent
+    ProfileAccountAvatarComponent,
+    ListPageHeaderComponent
   ]
 })
 export class ProfileContainersModule { }
