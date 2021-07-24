@@ -95,8 +95,8 @@
           <!-- Category -->
           <label class="form-group has-top-label tooltip-right-top">
             <ng-select name="category" #category="ngModel" [(ngModel)]="newPost.category"
-              [items]="['Interior Design', 'Hi-Tech', 'Indochina', 'Luxurious']" bindLabel="name" bindValue="name"
-              required>
+              [items]="['Interior Design', 'ArtDecor', 'HiTech', 'Indochina', 'Industrial', 'Scandinavian']"
+              bindLabel="name" bindValue="name" required>
             </ng-select>
             <span>{{ 'forms.category' | translate | uppercase }}</span>
             <div *ngIf="checkValidation(category, inInputForm);" class="invalid-tooltip">
