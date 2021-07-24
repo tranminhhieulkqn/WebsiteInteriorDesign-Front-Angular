@@ -12,8 +12,8 @@ import { MessageService } from './message.service';
 export class PredictResultService {
 
   /** API URL */
-  private urlAPI = `${environment.apiBackUrl}postsHistory/`;
-  private urlCreate = `${this.urlAPI}view`
+  private urlAPI = `${environment.apiBackUrl}predictResult/`;
+  private urlCreate = `${this.urlAPI}create`
 
 
   httpOptions = {
@@ -26,15 +26,10 @@ export class PredictResultService {
   ) { }
 
   /** POST: add a new viewed post to the server */
-  addPredictResult(userID: string, postID: string): Observable<PredictResult> {
-    // define query parametters for request.
-    let params = new HttpParams()
-      .set('postID', postID.toString())
-      .set('userID', userID.toString());
-    const url = `${this.urlCreate}?${params.toString()}`;
-    return this.http.post<PredictResult>(url, this.httpOptions).pipe(
-      tap((newViewed: PredictResult) => this.log(`added viewed post for user id : ${userID}`)),
-      catchError(this.handleError<PredictResult>('addViewed'))
+  addPredictResult(predictResult: PredictResult): Observable<PredictResult> {
+    return this.http.post<PredictResult>(this.urlCreate, predictResult, this.httpOptions).pipe(
+      tap((newViewed: PredictResult) => this.log(`added new predict result.`)),
+      catchError(this.handleError<PredictResult>('addPredictResult'))
     );
   }
 

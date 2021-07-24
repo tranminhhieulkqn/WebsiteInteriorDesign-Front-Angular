@@ -119,7 +119,8 @@ export class AuthService {
                 password: credentials.password,
                 displayName: credentials.displayName,
                 avatarURL: this.defaultAvatarProfile,
-                role: credentials.role.toLowerCase()
+                role: credentials.role.toLowerCase(),
+                status: 'using'
               }
               // define query parametters for request.
               let params = new HttpParams()

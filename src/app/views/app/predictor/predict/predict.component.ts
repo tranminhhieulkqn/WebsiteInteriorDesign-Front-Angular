@@ -6,6 +6,7 @@ import { UploadService } from 'src/app/shared/upload.service';
 import { environment } from 'src/environments/environment.prod';
 import { Colors } from 'src/app/constants/colors.service';
 import { PredictService } from 'src/app/shared/predict.service';
+import { PredictResultService } from 'src/app/shared/predict-result.service';
 
 @Component({
   selector: 'app-predict',
@@ -28,7 +29,8 @@ export class PredictComponent implements OnInit {
   constructor(
     private uploadService: UploadService,
     private notifications: NotificationsService,
-    private predictService: PredictService
+    private predictService: PredictService,
+    private predictResultService: PredictResultService
   ) { }
 
   ngOnInit(): void {
@@ -150,7 +152,6 @@ export class PredictComponent implements OnInit {
     // get link image for thumbnail
     // try change avatar to demo for user
     this.predictImage = event[1].imageURL;
-
   }
 
   // onRemovedFile with thumbnail
