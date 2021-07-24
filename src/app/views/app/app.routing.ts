@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
       { path: 'post', loadChildren: () => import('./post/post.module').then(m => m.PostModule) },
       { path: 'predictor', loadChildren: () => import('./predictor/predictor.module').then(m => m.PredictorModule) },
+      { path: 'management', loadChildren: () => import('./management/management.module').then(m => m.ManageModule) },
       { path: 'make-appointment', component: MakeAppointmentComponent },
       { path: 'about-us', component: AboutUsComponent },
       { path: 'contact-us', component: ContactUsComponent },

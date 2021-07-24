@@ -20,6 +20,7 @@ import { QuillModule } from 'ngx-quill';
 import { MomentModule } from "ngx-moment";
 import { PostRecentComponent } from './post-recent/post-recent.component';
 import { PostFeaturedComponent } from './post-featured/post-featured.component';
+import { PostRecommendedComponent } from './post-recommended/post-recommended.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { PostFeaturedComponent } from './post-featured/post-featured.component';
     PostDetailTabsComponent,
     PostRecentComponent,
     PostFeaturedComponent,
+    PostRecommendedComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { PostFeaturedComponent } from './post-featured/post-featured.component';
     PostDetailTabsComponent,
     PostRecentComponent,
     PostFeaturedComponent,
+    PostRecommendedComponent,
   ]
 })
 export class PostContainersModule { }

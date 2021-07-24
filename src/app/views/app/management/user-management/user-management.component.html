@@ -1,0 +1,178 @@
+<!-- <p>user-management works!</p> -->
+<app-list-page-header [displayMode]="displayMode" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
+  [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)"
+  (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)"
+  (changeOrderBy)="changeOrderBy($event)" (searchKeyUp)="searchKeyUp($event)" (addNewItem)="showAddNewModal()"
+  [showAddNewButton]="false" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder">
+</app-list-page-header>
+<!-- <app-add-new-product-modal #addNewModalRef></app-add-new-product-modal> -->
+
+<context-menu #basicMenu>
+  <ng-template contextMenuItem let-item (execute)="onContextMenuClick('copy',$event.item)">
+    <i class="simple-icon-docs mr-1"></i> <span>Copy</span>
+  </ng-template>
+  <ng-template contextMenuItem let-item (execute)="onContextMenuClick('move-to-archive',$event.item)">
+    <i class="simple-icon-drawer mr-1"></i> <span>Move to archive</span>
+  </ng-template>
+  <ng-template contextMenuItem let-item (execute)="onContextMenuClick('delete',$event.item)">
+    <i class="simple-icon-trash mr-1"></i><span>Delete</span>
+  </ng-template>
+</context-menu>
+
+<div class="row">
+  <div class="col-12 list" *ngIf="displayMode==='list'">
+    <div [ngClass]="{'card d-flex flex-row mb-3': true, 'active':isSelected(u)}" *ngFor="let u of data; let i=index"
+      [contextMenu]="basicMenu" [contextMenuSubject]="u">
+      <div class="d-flex flex-grow-1 min-width-zero">
+        <div
+          class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+          <a class="list-item-heading mb-0 truncate w-20 w-xs-100" href="javascript:;">
+            {{u?.displayName}}
+          </a>
+          <!-- <p class="mb-0 text-muted text-small w-15 w-xs-100">{{p.category}}</p> -->
+          <p class="mb-0 text-muted w-25 w-xs-100">
+            <!-- {{ u?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD' }} | {{ u?.dateCreated | amTimeAgo }} -->
+            {{ u?.email }}
+          </p>
+          <div class="w-10 w-xs-100">
+            <span style="width: 65px;" class="badge badge-pill badge-{{(u?.role.toLowerCase() === 'admin') ? 'light' :
+              (u?.role.toLowerCase() === 'designer') ? 'dark' : 'info'}}">
+              {{u?.role.toUpperCase()}}
+            </span>
+          </div>
+
+          <div class="w-10 w-xs-100">
+            <span style="width: 65px;"
+              class="badge badge-pill badge-{{(u?.gender.toLowerCase() === 'male') ? 'primary' : 'secondary'}}">
+              {{u?.gender.toUpperCase()}}
+            </span>
+          </div>
+
+          <div class="w-10 w-xs-100">
+            <span style="width: 65px;"
+              class="badge badge-pill badge-{{(u?.status.toLowerCase() === 'using') ? 'success' : 'danger'}}">
+              {{u?.status.toUpperCase()}}
+            </span>
+          </div>
+
+        </div>
+        <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+          <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(u)"
+            (change)="onSelect(u)">
+          <label class="custom-control-label" [for]="'customCheck'+i"></label>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 list" *ngIf="displayMode==='thumb'">
+    <div [ngClass]="{'card d-flex flex-row mb-3': true, 'active':isSelected(u)}" *ngFor="let u of data; let i=index"
+      [contextMenu]="basicMenu" [contextMenuSubject]="u">
+      <a class="d-flex" href="javascript:;">
+        <img [src]="u?.avatarURL" style="width: 90px; object-fit: cover;" [alt]="u?.displayName"
+          class="list-thumbnail responsive border-0 card-img-left" />
+      </a>
+      <div class="pl-2 d-flex flex-grow-1 min-width-zero">
+        <div
+          class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+          <a href="javascript:;" class="w-20 w-sm-100">
+            <p class="list-item-heading mb-0 truncate">{{u?.displayName}}</p>
+          </a>
+
+          <p class="mb-0 text-muted w-25 w-xs-100">
+            <!-- {{ u?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD' }} | {{ u?.dateCreated | amTimeAgo }} -->
+            {{ u?.email }}
+          </p>
+
+          <div class="w-10 w-xs-100">
+            <span style="width: 65px;" class="badge badge-pill badge-{{(u?.role.toLowerCase() === 'admin') ? 'light' :
+              (u?.role.toLowerCase() === 'designer') ? 'dark' : 'info'}}">
+              {{u?.role.toUpperCase()}}
+            </span>
+          </div>
+
+          <div class="w-10 w-xs-100">
+            <span style="width: 65px;"
+              class="badge badge-pill badge-{{(u?.gender.toLowerCase() === 'male') ? 'primary' : 'secondary'}}">
+              {{u?.gender.toUpperCase()}}
+            </span>
+          </div>
+
+          <div class="w-10 w-xs-100">
+            <span style="width: 65px;"
+              class="badge badge-pill badge-{{(u?.status.toLowerCase() === 'using') ? 'success' : 'danger'}}">
+              {{u?.status.toUpperCase()}}
+            </span>
+          </div>
+
+        </div>
+        <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+          <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(u)"
+            (change)="onSelect(u)">
+          <label class="custom-control-label" [for]="'customCheck'+i"></label>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 list" *ngIf="displayMode==='image'">
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let u of data; let i=index" [contextMenu]="basicMenu"
+        [contextMenuSubject]="u">
+        <div [ngClass]="{'card': true, 'active':isSelected(u)}">
+          <div class="position-relative">
+            <a href="javascript:;"><img class="card-img-top" style="height: 200px; object-fit: cover;"
+                [src]="u?.avatarURL" [alt]="u?.displayName"></a>
+            <span class="badge badge-pill position-absolute badge-top-left badge-{{(u?.role.toLowerCase() === 'admin') ? 'light' :
+            (u?.role.toLowerCase() === 'designer') ? 'dark' : 'info'}}">
+              {{u?.role.toUpperCase()}}
+            </span>
+
+            <span class="badge badge-pill position-absolute badge-top-left-2
+              badge-{{(u?.status.toLowerCase() === 'using') ? 'success' : 'danger'}}">
+              {{u?.status.toUpperCase()}}
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-2">
+                <div class="custom-control custom-checkbox pl-1">
+                  <label class="custom-control custom-checkbox  mb-0">
+                    <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(u)"
+                      (change)="onSelect(u)">
+                    <label class="custom-control-label" [for]="'customCheck'+i"></label>
+                  </label>
+                </div>
+              </div>
+              <div class="col-10">
+                <a href="javascript:;">
+                  <p style="display: -webkit-box;
+                  height: 20px;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;" class="list-item-heading mb-4 pt-1">{{u?.displayName}}</p>
+                </a>
+
+              </div>
+            </div>
+
+            <footer>
+              <p style="font-size: unset;" class="text-muted mb-0 font-weight-light">
+                {{ u?.email }}
+              </p>
+            </footer>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <pagination [totalItems]="totalItem" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="520"
+      [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center"
+      previousText="<i class='simple-icon-arrow-left'></i>" nextText="<i class='simple-icon-arrow-right'></i>">
+    </pagination>
+  </div>
+</div>

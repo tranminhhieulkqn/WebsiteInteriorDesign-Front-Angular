@@ -1,4 +1,4 @@
-<!-- <p>post-manage works!</p> -->
+<!-- <p>post-management works!</p> -->
 <app-list-page-header [displayMode]="displayMode" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
   [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
   (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)"
@@ -121,6 +121,7 @@
               <div class="col-10">
                 <a href="javascript:;">
                   <p style="display: -webkit-box;
+                  height: 45px;
                   -webkit-line-clamp: 2;
                   -webkit-box-orient: vertical;
                   overflow: hidden;

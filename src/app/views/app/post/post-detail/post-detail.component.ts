@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/shared/user.service';
 import { CommentService } from 'src/app/shared/comment.service';
 import { AuthService } from 'src/app/shared/auth.service';
+import { PostsHistoryService } from 'src/app/shared/posts-history.service';
 
 interface ICarouselImage {
   id: string;
@@ -40,6 +41,7 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private userService: UserService,
     private commentService: CommentService,
+    private postsHistoryService: PostsHistoryService
   ) {
     this.getParamFromURL(); // get id post from url
     this.currentUserID = authService.user.uid;
@@ -52,6 +54,15 @@ export class PostDetailComponent implements OnInit {
     else { // if not, get lastest post.
       this.getLastestPost();
     }
+    setTimeout(() => {
+      this.postsHistoryService.addViewed(this.currentUserID.toString(), this.currentPostID)
+        .subscribe()
+    }, 3000);
+  }
+
+  ngOnDestroy() {
+    this.postsHistoryService.addViewed(this.currentUserID.toString(), this.currentPostID)
+      .subscribe()
   }
 
   getParamFromURL() {

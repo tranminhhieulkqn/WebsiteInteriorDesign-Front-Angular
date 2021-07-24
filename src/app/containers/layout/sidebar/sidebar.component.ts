@@ -1,9 +1,13 @@
-import { Component, OnInit, OnDestroy, HostListener} from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { SidebarService, ISidebar } from './sidebar.service';
 import menuItems, { IMenuItem } from 'src/app/constants/menu';
+import menuAdmin from 'src/app/constants/menuAdmin'
+import menuDesigner from 'src/app/constants/menuDesigner'
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/shared/auth.service';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +22,34 @@ export class SidebarComponent implements OnInit, OnDestroy {
   sidebar: ISidebar;
   subscription: Subscription;
 
-  constructor(private router: Router, private sidebarService: SidebarService, private activatedRoute: ActivatedRoute) {
+  getMenu(role: string) {
+    switch (role.toLowerCase()) {
+      case "admin":
+        this.menuItems = menuAdmin;
+        break;
+
+      case "designer":
+        this.menuItems = menuDesigner;
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  constructor(
+    private router: Router,
+    private sidebarService: SidebarService,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
+    private userService: UserService
+  ) {
+    this.userService.getUser(this.authService.user.uid.toString())
+      .subscribe(
+        (next) => {
+          // this.getMenu(next['user'].role)
+        }
+      )
     this.subscription = this.sidebarService.getSidebar().subscribe(
       res => {
         this.sidebar = res;

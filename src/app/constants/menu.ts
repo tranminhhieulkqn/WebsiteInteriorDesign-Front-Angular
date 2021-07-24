@@ -90,6 +90,24 @@ const data: IMenuItem[] = [
     },
     ]
   },
+  // Management
+  {
+    id: 'management',
+    icon: 'simple-icon-screen-desktop',
+    label: 'menu.management',
+    to: '/app/management',
+    subs: [{
+      icon: 'simple-icon-people',
+      label: 'menu.user',
+      to: '/app/management/user'
+    },
+    {
+      icon: 'simple-icon-layers',
+      label: 'menu.post',
+      to: '/app/management/post'
+    },
+    ]
+  },
   // Dashboards
   {
     id: 'dashboards',

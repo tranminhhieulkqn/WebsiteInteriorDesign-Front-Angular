@@ -20,11 +20,17 @@ import { FormValidationsContainersModule } from 'src/app/containers/form-validat
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+
 
 @NgModule({
-  declarations: [BlankPageComponent, AppComponent, HomeComponent, AboutUsComponent, ContactUsComponent, MakeAppointmentComponent],
+  declarations: [
+    BlankPageComponent,
+    AppComponent,
+    HomeComponent,
+    AboutUsComponent,
+    ContactUsComponent,
+    MakeAppointmentComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
