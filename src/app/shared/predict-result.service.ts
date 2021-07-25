@@ -13,7 +13,9 @@ export class PredictResultService {
 
   /** API URL */
   private urlAPI = `${environment.apiBackUrl}predictResult/`;
+  private urlGetByUser = `${this.urlAPI}getByUser`
   private urlCreate = `${this.urlAPI}create`
+  private urlUpdate = `${this.urlAPI}update`
 
 
   httpOptions = {
@@ -25,11 +27,40 @@ export class PredictResultService {
     private messageService: MessageService
   ) { }
 
-  /** POST: add a new viewed post to the server */
+  //////// Get methods //////////
+
+  /** GET predict results by user from the server */
+  getPredictResultByUser(pageSize: number = 1, currentPage: number = 1, userID: string): Observable<PredictResult[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('currentPage', currentPage.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlGetByUser}?${params.toString()}`;
+    return this.http.get<PredictResult[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched predict results by user')),
+        catchError(this.handleError<PredictResult[]>('getPredictResult', []))
+      );
+  }
+
+  /** POST: add a new predict result to the server */
   addPredictResult(predictResult: PredictResult): Observable<PredictResult> {
     return this.http.post<PredictResult>(this.urlCreate, predictResult, this.httpOptions).pipe(
       tap((newViewed: PredictResult) => this.log(`added new predict result.`)),
       catchError(this.handleError<PredictResult>('addPredictResult'))
+    );
+  }
+
+  /** PUT: update a predict result on the server */
+  updatePredictResult(id: string | number, predictResult: PredictResult): Observable<PredictResult> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('id', id.toString());
+    const url = `${this.urlUpdate}?${params.toString()}`;
+    return this.http.put(url, predictResult, this.httpOptions).pipe(
+      tap(_ => this.log(`updated predict result`)),
+      catchError(this.handleError<any>('updatePredictResult'))
     );
   }
 

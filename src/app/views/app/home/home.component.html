@@ -55,7 +55,7 @@
           <div *ngFor="let item of recentPosts" class="glide__slide">
             <div class="card flex-row">
               <div class="w-50 position-relative">
-                <img class="card-img-left" [src]="item.thumbnail" [alt]="item.title">
+                <img class="card-img-left" style="height: 175px;" [src]="item.thumbnail" [alt]="item.title">
                 <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">
                   {{ item.category | uppercase}}
                 </span>

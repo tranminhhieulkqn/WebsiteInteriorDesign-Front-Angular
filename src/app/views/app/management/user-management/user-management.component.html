@@ -43,8 +43,8 @@
 
           <div class="w-10 w-xs-100">
             <span style="width: 65px;"
-              class="badge badge-pill badge-{{(u?.gender.toLowerCase() === 'male') ? 'primary' : 'secondary'}}">
-              {{u?.gender.toUpperCase()}}
+              class="badge badge-pill badge-{{((u?.gender && u?.gender.toLowerCase()) === 'male') ? 'primary' : 'secondary'}}">
+              {{ (u?.gender) ? u?.gender.toUpperCase() : 'No Info'.toUpperCase() }}
             </span>
           </div>
 
@@ -93,8 +93,8 @@
 
           <div class="w-10 w-xs-100">
             <span style="width: 65px;"
-              class="badge badge-pill badge-{{(u?.gender.toLowerCase() === 'male') ? 'primary' : 'secondary'}}">
-              {{u?.gender.toUpperCase()}}
+              class="badge badge-pill badge-{{((u?.gender && u?.gender.toLowerCase()) === 'male') ? 'primary' : 'secondary'}}">
+              {{ (u?.gender) ? u?.gender.toUpperCase() : 'No Info'.toUpperCase() }}
             </span>
           </div>
 

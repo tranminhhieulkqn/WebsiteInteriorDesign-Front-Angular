@@ -1,1 +1,58 @@
-<p>results-manager works!</p>
+<app-list-page-header [itemOptionsPerPage]="itemOptionsPerPage" [itemsPerPage]="itemsPerPage"
+  (itemsPerPageChange)="itemsPerPageChange($event)" [showOrderBy]="false" [showDisplayMode]="false"
+  [showAddNewButton]="false" [showSelectedOption]="false">
+</app-list-page-header>
+
+<div class="row">
+  <div class="col-12 list">
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let u of data; let i=index" [contextMenu]="basicMenu"
+        [contextMenuSubject]="u">
+        <div class="card">
+          <div class="position-relative">
+            <a href="javascript:;"><img class="card-img-top" style="height: 200px; object-fit: cover;"
+                [src]="u?.imageURL" (click)="openLightbox(u?.imageURL)" [alt]="u?.labelPredict"></a>
+            <span class="badge badge-pill position-absolute badge-top-left badge-light">
+              {{u?.labelPredict.toUpperCase()}}
+            </span>
+
+            <!-- <span class="badge badge-pill position-absolute badge-top-left-2
+              badge-{{(u?.status.toLowerCase() === 'using') ? 'success' : 'danger'}}">
+              {{u?.status.toUpperCase()}}
+            </span> -->
+          </div>
+          <div class="card-body">
+            <!-- <div class="row">
+              <div class="col-10">
+                <a href="javascript:;">
+                  <p style="display: -webkit-box;
+                  height: 20px;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;" class="list-item-heading mb-4 pt-1">{{u?.labelPredict}}</p>
+                </a>
+
+              </div>
+            </div> -->
+
+            <footer>
+              <p style="font-size: unset;" class="text-muted mb-0 font-weight-light">
+                {{ u?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD' }} |
+                {{ u?.dateCreated | amTimeAgo }}
+              </p>
+            </footer>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <pagination [totalItems]="totalItem" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="520"
+      [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center"
+      previousText="<i class='simple-icon-arrow-left'></i>" nextText="<i class='simple-icon-arrow-right'></i>">
+    </pagination>
+  </div>
+</div>

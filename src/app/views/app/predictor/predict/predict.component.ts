@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment.prod';
 import { Colors } from 'src/app/constants/colors.service';
 import { PredictService } from 'src/app/shared/predict.service';
 import { PredictResultService } from 'src/app/shared/predict-result.service';
+import { PredictResult } from 'src/app/models/predictResult.model';
+import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
   selector: 'app-predict',
@@ -27,6 +29,7 @@ export class PredictComponent implements OnInit {
   }
 
   constructor(
+    private authService: AuthService,
     private uploadService: UploadService,
     private notifications: NotificationsService,
     private predictService: PredictService,
@@ -41,6 +44,11 @@ export class PredictComponent implements OnInit {
   predictedLabel = ''
   isLoading = false
   barChartData = null
+  predictResultID = ''
+  predictResult = {
+    userID: this.authService.user.uid,
+    status: 'private',
+  } as PredictResult
 
   //#region /** Configuration for dropzone: apiUrl, tempplate,... */
 
@@ -158,7 +166,7 @@ export class PredictComponent implements OnInit {
   onRemovedFileAvatar(event) {
     try {
       // if avatar new exists, remove and give value = null
-      if (this.predictImage.length) {
+      if (this.predictImage.length && !this.predictedResults && !this.predictedLabel) {
         // get response
         let response = JSON.parse(event.xhr.response);
         // delete image on database
@@ -238,7 +246,43 @@ export class PredictComponent implements OnInit {
     }
   };
 
-  predictEvent() {
+  savePredictResult() {
+    this.predictResult.dateCreated = new Date();
+    this.predictResult.imageURL = this.predictImage;
+    this.predictResult.labelPredict = this.predictedLabel;
+    this.predictResult.probability = this.predictedResults;
+
+    this.predictResultService.addPredictResult(this.predictResult)
+      .subscribe(
+        (next) => {
+          this.predictResultID = next["predictResult"].id
+        }
+      )
+  }
+
+  saveByUser() {
+    this.predictResult.status = 'public';
+    this.predictResultService.updatePredictResult(this.predictResultID, this.predictResult)
+      .subscribe(
+        (next) => { },
+        (error) => { },
+        () => {
+          this.notifications.create(
+            `Save result successfully!`,
+            ``,
+            NotificationType.Success,
+            {
+              theClass: 'success',
+              timeOut: 3000,
+              pauseOnHover: true,
+              showProgressBar: true,
+              clickToClose: true
+            });
+        }
+      )
+  }
+
+  predict() {
     this.isLoading = true
     if (this.predictImage) {
       this.predictService.predictImage(this.predictImage)
@@ -249,8 +293,11 @@ export class PredictComponent implements OnInit {
             this.predictedResults = next['result'].map(function (each_element) {
               return Number(each_element.toFixed(2));
             });
+            // Save predict result
+            this.savePredictResult();
+
             this.barChartData = {
-              labels: ['Art Decor', 'Hi-Tech', 'IndoChinese', 'Industrial', 'Scandinavian'],
+              labels: ['ArtDecor', 'HiTech', 'Indochina', 'Industrial', 'Scandinavian'],
               datasets: [
                 {
                   borderColor: Colors.getColors().themeColor1,
@@ -278,6 +325,10 @@ export class PredictComponent implements OnInit {
           clickToClose: true
         });
     }
+  }
+
+  predictEvent() {
+    this.predict();
   }
 
 }

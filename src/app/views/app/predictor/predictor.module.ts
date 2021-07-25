@@ -13,6 +13,10 @@ import { LayoutContainersModule } from 'src/app/containers/layout/layout.contain
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { ComponentsChartModule } from 'src/app/components/charts/components.charts.module';
 import { ResultsManagerComponent } from './results-manager/results-manager.component';
+import { HotkeyModule } from 'angular2-hotkeys';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
+import { MomentModule } from 'ngx-moment';
 
 
 @NgModule({
@@ -26,7 +30,13 @@ import { ResultsManagerComponent } from './results-manager/results-manager.compo
     SimpleNotificationsModule.forRoot(),
     TranslateModule,
     DropzoneModule,
-    ComponentsChartModule
+    ComponentsChartModule,
+    HotkeyModule.forRoot(),
+    ContextMenuModule.forRoot({
+      useBootstrap4: true,
+    }),
+    PagesContainersModule,
+    MomentModule
   ]
 })
 export class PredictorModule { }
