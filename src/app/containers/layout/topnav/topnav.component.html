@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div class="position-relative d-none d-sm-inline-block">
+      <!-- <div class="position-relative d-none d-sm-inline-block">
         <div dropdown>
           <button dropdownToggle type="button" class="header-icon btn btn-empty">
             <i class="simple-icon-grid"></i>
@@ -99,9 +99,9 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="position-relative d-inline-block">
+      <!-- <div class="position-relative d-inline-block">
 
         <div dropdown>
           <button id="button-basic" dropdownToggle type="button" id="notificationButton"
@@ -164,7 +164,7 @@
             </perfect-scrollbar>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton"
         (click)="fullScreenClick()">
@@ -178,15 +178,16 @@
       <button class="btn btn-empty p-0" type="button" dropdownToggle>
         <span class="name">{{ userCurrent.displayName }}</span>
         <span>
-          <img style="object-fit: cover; height: 40px; width: 40px;" alt="Profile Picture" [src]="userCurrent.photoURL" />
+          <img style="object-fit: cover; height: 40px; width: 40px;" alt="Profile Picture"
+            [src]="userCurrent.photoURL" />
         </span>
       </button>
 
       <div class="dropdown-menu dropdown-menu-right mt-3" *dropdownMenu role="menu">
-        <a class="dropdown-item c-pointer">Account</a>
-        <a class="dropdown-item c-pointer">Features</a>
+        <a class="dropdown-item c-pointer" href="/app/profile/account">Account</a>
+        <a class="dropdown-item c-pointer" href="/app/appointment/my-appointment">Appointments</a>
         <a class="dropdown-item c-pointer">History</a>
-        <a class="dropdown-item c-pointer">Support</a>
+        <a class="dropdown-item c-pointer" href="/app/contact-us">Support</a>
         <li class="divider dropdown-divider"></li>
         <a class="dropdown-item c-pointer" (click)="onSignOut()">Sign out</a>
       </div>

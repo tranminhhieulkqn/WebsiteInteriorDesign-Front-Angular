@@ -36,6 +36,12 @@
       style="display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical; overflow: hidden;">
       {{ currentPost?.summary }}
     </p>
+    <p class="text-muted text-small mb-2">Catergory</p>
+    <p class="mb-3">
+      <span class="badge mb-1 mr-1 badge-outline-secondary badge-pill">
+        {{ currentPost?.category | uppercase}}
+      </span>
+    </p>
     <div class="row">
 
       <div class="col-6">

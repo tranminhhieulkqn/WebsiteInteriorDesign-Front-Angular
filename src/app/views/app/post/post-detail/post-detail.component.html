@@ -37,11 +37,12 @@
     <app-post-detail-info [currentPost]="currentPost" [noComment]="postComments?.length"
       [currentUserID]="currentUserID"></app-post-detail-info>
 
-    <div class="card mb-4 d-none d-lg-block">
+    <div *ngIf="currentUser?.role === 'user'" class="card mb-4 d-none d-lg-block">
       <div style="text-align: center;" class="card-body">
-        <!-- <button type="button" class="btn btn-dark mb-1">{{'button.dark' | translate}}</button>{{" "}} -->
-        <button style="font-size: large; min-height: 50px;" type="button"
-          class="btn btn-outline-light mb-1">{{'button.booking-me' | translate}}</button>
+        <button (click)="makeAppointment(currentPost?.authorID);" style="font-size: large; min-height: 50px;"
+          type="button" class="btn btn-outline-light mb-1">
+          {{'button.booking-me' | translate}}
+        </button>
       </div>
     </div>
 

@@ -5,6 +5,7 @@ import { SidebarService, ISidebar } from './sidebar.service';
 import menuItems, { IMenuItem } from 'src/app/constants/menu';
 import menuAdmin from 'src/app/constants/menuAdmin'
 import menuDesigner from 'src/app/constants/menuDesigner'
+import menuUser from 'src/app/constants/menuUser'
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { UserService } from 'src/app/shared/user.service';
@@ -32,6 +33,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.menuItems = menuDesigner;
         break;
 
+      case "user":
+        this.menuItems = menuUser;
+        break;
+
       default:
         break;
     }
@@ -47,7 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.userService.getUser(this.authService.user.uid.toString())
       .subscribe(
         (next) => {
-          // this.getMenu(next['user'].role)
+          this.getMenu(next['user'].role)
         }
       )
     this.subscription = this.sidebarService.getSidebar().subscribe(

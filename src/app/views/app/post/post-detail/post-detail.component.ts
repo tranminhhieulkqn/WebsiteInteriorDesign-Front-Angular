@@ -22,6 +22,7 @@ interface ICarouselImage {
 export class PostDetailComponent implements OnInit {
   //#region /** Variable definition */
 
+  currentUser = {} as User;
   currentPostID: string;
   currentPost: Post;
   postAuthor: User;
@@ -45,6 +46,7 @@ export class PostDetailComponent implements OnInit {
   ) {
     this.getParamFromURL(); // get id post from url
     this.currentUserID = authService.user.uid;
+    this.getCurrentUser()
   }
 
   ngOnInit(): void {
@@ -81,6 +83,17 @@ export class PostDetailComponent implements OnInit {
       } as ICarouselImage)
     });
     this.showGallery = true; // show element gallery on html
+  }
+
+  getCurrentUser() {
+    this.userService.getUser(this.currentUserID)
+      .subscribe(
+        (next) => {
+          this.currentUser = next['user']
+        },
+        (error) => console.log(error),
+        () => { } // complete
+      )
   }
 
   getAuthor() {
@@ -129,5 +142,10 @@ export class PostDetailComponent implements OnInit {
   }
 
   //#endregion
+
+
+  makeAppointment(id: string) {
+    this.router.navigate(['/app/appointment/make-appointment'], { queryParams: { id: id } });
+  }
 
 }

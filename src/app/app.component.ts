@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private titleService: Title
   ) {
-    this.titleService.setTitle("Interior Design Website");
+    // this.titleService.setTitle("Interior Design Website");
   }
 
   ngOnInit() {

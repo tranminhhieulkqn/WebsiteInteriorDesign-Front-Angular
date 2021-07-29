@@ -30,7 +30,7 @@ const data: IMenuItem[] = [
       to: '/app/profile/portfolio'
     },
     {
-      icon: 'simple-icon-link',
+      icon: 'simple-icon-people',
       label: 'menu.designer',
       to: '/app/profile/designer'
     },
@@ -82,34 +82,18 @@ const data: IMenuItem[] = [
     },
     ]
   },
-  // Dashboards
+
   {
-    id: 'dashboards',
-    icon: 'iconsminds-shop-4',
-    label: 'menu.dashboards',
-    to: '/app/dashboards',
-    subs:
-      [{
-        icon: 'simple-icon-briefcase',
-        label: 'menu.default',
-        to: '/app/dashboards/default'
-      },
-      {
-        icon: 'simple-icon-pie-chart',
-        label: 'menu.analytics',
-        to: '/app/dashboards/analytics'
-      },
-      {
-        icon: 'simple-icon-basket-loaded',
-        label: 'menu.ecommerce',
-        to: '/app/dashboards/ecommerce'
-      },
-      {
-        icon: 'simple-icon-doc',
-        label: 'menu.content',
-        to: '/app/dashboards/content'
-      }
-      ]
+    id: 'about-us',
+    icon: 'simple-icon-people',
+    label: 'menu.about-us',
+    to: '/app/about-us'
+  },
+  {
+    id: 'contact-us',
+    icon: 'simple-icon-support',
+    label: 'menu.contact-us',
+    to: '/app/contact-us'
   },
 ];
 export default data;

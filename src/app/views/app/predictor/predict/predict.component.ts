@@ -9,6 +9,8 @@ import { PredictService } from 'src/app/shared/predict.service';
 import { PredictResultService } from 'src/app/shared/predict-result.service';
 import { PredictResult } from 'src/app/models/predictResult.model';
 import { AuthService } from 'src/app/shared/auth.service';
+import { PostService } from 'src/app/shared/post.service';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-predict',
@@ -33,7 +35,8 @@ export class PredictComponent implements OnInit {
     private uploadService: UploadService,
     private notifications: NotificationsService,
     private predictService: PredictService,
-    private predictResultService: PredictResultService
+    private predictResultService: PredictResultService,
+    private postService: PostService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +52,8 @@ export class PredictComponent implements OnInit {
     userID: this.authService.user.uid,
     status: 'private',
   } as PredictResult
+
+  recommentedPost = [] as Post[];
 
   //#region /** Configuration for dropzone: apiUrl, tempplate,... */
 
@@ -176,6 +181,7 @@ export class PredictComponent implements OnInit {
       this.predictImage = ''
       this.predictedResults = null
       this.predictedLabel = ''
+      this.showRecommented = false
 
     } catch (error) { }
     // show message
@@ -290,6 +296,9 @@ export class PredictComponent implements OnInit {
           (next) => {
             this.isLoading = false
             this.predictedLabel = next['label']
+
+            this.getRecommentedPostByCatergory();
+
             this.predictedResults = next['result'].map(function (each_element) {
               return Number(each_element.toFixed(2));
             });
@@ -325,6 +334,24 @@ export class PredictComponent implements OnInit {
           clickToClose: true
         });
     }
+  }
+
+  showRecommented = false;
+  getRecommentedPostByCatergory() {
+    this.showRecommented = false;
+    this.postService.getPostsByCategory(this.predictedLabel, 7)
+      .subscribe(
+        (next) => {
+          console.log(next['posts']);
+          this.recommentedPost = next['posts'];
+          this.showRecommented = true;
+        },
+        (error) => {
+          console.log(error);
+          this.showRecommented = false;
+        },
+        () => { } // complete
+      )
   }
 
   predictEvent() {

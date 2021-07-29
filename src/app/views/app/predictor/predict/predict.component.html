@@ -62,20 +62,6 @@
 
     </div>
 
-    <!--
-      <div class="col-7">
-
-      </div>
-
-      <div class="col-5">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="mb-4">{{ 'form-components.embedded' | translate }}</h5>
-
-          </div>
-        </div>
-      </div> -->
-    <!-- </div> -->
 
     <br>
     <div *ngIf="isLoading || (predictImage && predictedResults)" class="card">
@@ -94,4 +80,47 @@
     </div>
   </div>
 
+</div>
+
+<!-- Featured Post -->
+<h5 *ngIf="showRecommented" class="mb-4"
+style="text-align: center;font-size: 30px;">
+<i>{{'carousel.relatedposts' | translate}}</i>
+</h5>
+<div *ngIf="showRecommented" class="row">
+<div class="col-md-12 mb-4">
+  <app-glide [settings]="{
+      gap: 0,
+      type: 'carousel',
+      peek: { before: 50, after: 50 },
+      perView: 3,
+      breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
+    }">
+    <div *ngFor="let item of recommentedPost" class="glide__slide">
+
+      <div class="card">
+        <div class="position-relative">
+          <a href="/app/post/post-detail?id={{ item?.id }}">
+            <img style="height: 220px; object-fit: cover;" class="card-img-top" [src]="item?.thumbnail"
+              [alt]="item?.title">
+          </a>
+          <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">
+            {{ item.category | uppercase}}
+          </span>
+        </div>
+        <div class="card-body">
+          <h6 class="mb-4"><a href="/app/post/post-detail?id={{ item?.id }}">{{item?.title}}</a></h6>
+          <footer>
+            <p class="text-muted text-small mb-0 font-weight-light">
+              {{ item?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} |
+              {{ item?.dateCreated | amTimeAgo }}
+            </p>
+          </footer>
+        </div>
+      </div>
+
+    </div>
+  </app-glide>
+
+</div>
 </div>

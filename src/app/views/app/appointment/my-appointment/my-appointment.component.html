@@ -1,0 +1,46 @@
+<app-list-page-header [itemOptionsPerPage]="itemOptionsPerPage" [itemsPerPage]="itemsPerPage"
+  (itemsPerPageChange)="itemsPerPageChange($event)" [showOrderBy]="false" [showDisplayMode]="false"
+  [showAddNewButton]="false" [showSelectedOption]="false">
+</app-list-page-header>
+
+<div class="row">
+
+  <div class="col-12 list">
+    <div class="card d-flex flex-row mb-3" *ngFor="let p of data; let i=index" style="cursor: pointer;"
+      onclick="window.location='http://google.com';">
+      <div class="d-flex flex-grow-1 min-width-zero">
+        <div
+          class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+          <p class="list-item-heading mb-0 truncate w-25 w-xs-100">
+            {{ 'Customer: ' + p.displayNameC}}
+          </p>
+          <p class="list-item-heading mb-0 truncate w-25 w-xs-100">
+            {{ 'Designer: ' + p.displayNameD}}
+          </p>
+          <!-- <p class="mb-0 text-muted text-small w-15 w-xs-100">{{p.category}}</p> -->
+          <div class="w-15 w-xs-100">
+            <span class="badge badge-pill badge-info">
+              {{p?.dateRange[0] | amLocal | amDateFormat: 'YYYY-MM-DD'}}
+            </span>
+          </div>
+          <div class="w-15 w-xs-100">
+            <span class="badge badge-pill badge-success">
+              {{p?.dateRange[1] | amLocal | amDateFormat: 'YYYY-MM-DD'}}
+            </span>
+          </div>
+          <p class="mb-0 text-muted text-small w-15 w-xs-100">
+            {{ p.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD' }} | {{ p.dateCreated | amTimeAgo }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-12">
+    <pagination [totalItems]="totalItem" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+      [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center"
+      previousText="<i class='simple-icon-arrow-left'></i>" nextText="<i class='simple-icon-arrow-right'></i>">
+    </pagination>
+  </div>
+</div>

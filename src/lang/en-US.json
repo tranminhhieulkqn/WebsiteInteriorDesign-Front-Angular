@@ -19,6 +19,8 @@
     "code": "Reset Code"
   },
   "menu": {
+    "appointment": "Appointment",
+    "my-appointment": "My Appointment",
     "management": "Management",
     "user": "User",
     "post-edit": "Edit Post",
@@ -359,6 +361,7 @@
     "new": "New"
   },
   "button": {
+    "booking-me": "Booking Me",
     "default": "Bootstrap Default",
     "colors": "Colors",
     "rounded": "Rounded",
@@ -490,6 +493,7 @@
     "quill-bubble": "Quill Bubble"
   },
   "forms": {
+    "location": "Location",
     "mainColor": "Main Color",
     "pattern": "Pattern",
     "avatar": "Avatar",

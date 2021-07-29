@@ -17,6 +17,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { MomentModule } from 'ngx-moment';
+import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MomentModule } from 'ngx-moment';
       useBootstrap4: true,
     }),
     PagesContainersModule,
-    MomentModule
+    MomentModule,
+    ComponentsCarouselModule
   ]
 })
 export class PredictorModule { }

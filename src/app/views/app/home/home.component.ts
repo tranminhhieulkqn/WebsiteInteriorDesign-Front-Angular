@@ -42,18 +42,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   featuredPosts = [] as Post[];
   recentPosts = [] as Post[];
 
-  private mywindow;
-  openWindow() {
-    if (this.mywindow) {
-      console.log(this.mywindow);
-      this.mywindow.close();
-    }
-    this.mywindow = window.open('http://localhost:4200/app/home', "_blank", "resizable=no, toolbar=no, scrollbars=no, menubar=no, status=no, directories=no, location=no, width=1000, height=600, left=100, top=100 ");
-
-  }
-
-
-
   constructor(
     private authService: AuthService,
     private notifications: NotificationsService,

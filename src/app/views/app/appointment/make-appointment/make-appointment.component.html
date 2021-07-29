@@ -1,0 +1,143 @@
+<app-heading></app-heading>
+<app-breadcrumb></app-breadcrumb>
+<div class="separator mb-5"></div>
+
+<form #inInputForm="ngForm" (ngSubmit)="clickSubmitButton(inInputForm)" novalidate>
+  <div class="card">
+    <div class="card-body">
+      <aw-wizard [navBarLayout]="'large-empty-symbols'">
+
+        <!-- Personal Info -->
+        <aw-wizard-step stepTitle="Personal Info" style="min-height: 350px; align-items: center;">
+          <ng-template awWizardStepSymbol><i class="simple-icon-user"></i></ng-template>
+          <div style="width: 500px;">
+            <br>
+            <div class="form-group">
+              <label class="form-group has-top-label tooltip-right-top">
+                <input class="form-control" name="displayNameC" #displayNameC="ngModel"
+                  [(ngModel)]="userCurrentInfo.displayName" />
+                <span>{{ 'forms.display-name' | translate | uppercase }}</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="form-group has-top-label">
+                <input class="form-control" name="emailC" #emailC="ngModel" [(ngModel)]="userCurrentInfo.email" />
+                <span>{{ 'forms.email' | translate | uppercase }}</span>
+              </label>
+              <!-- Phone -->
+              <div class="form-group">
+                <label class="form-group has-top-label tooltip-right-top">
+                  <input class="form-control" name="phoneC" #phoneC="ngModel" [(ngModel)]="userCurrentInfo.phone"
+                    required />
+                  <span>{{ 'forms.phone' | translate | uppercase }}</span>
+                </label>
+              </div>
+              <!-- Address -->
+              <div class="form-group">
+                <label class="form-group has-top-label tooltip-right-top">
+                  <input class="form-control" name="addressC" #addressC="ngModel" [(ngModel)]="userCurrentInfo.address"
+                    required />
+                  <span>{{ 'forms.address' | translate | uppercase }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" awPreviousStep disabled>{{ 'wizard.prev' | translate
+              }}</button>{{" "}}
+            <button [disabled]="checkPersonalInfo(inInputForm)" type="button" class="btn btn-primary" awNextStep>
+              {{'wizard.next' | translate }}
+            </button>
+          </div>
+        </aw-wizard-step>
+
+        <!-- Designer Info -->
+        <aw-wizard-step stepTitle="Designer Info" style="min-height: 350px; align-items: center;">
+          <ng-template awWizardStepSymbol><i class="simple-icon-user-following"></i></ng-template>
+          <div style="width: 500px;">
+            <br>
+            <div class="form-group">
+              <label class="form-group has-top-label tooltip-right-top">
+                <input class="form-control" name="displayNameD" #displayNameD="ngModel"
+                  [(ngModel)]="designerInfo.displayName" readonly />
+                <span>{{ 'forms.display-name' | translate | uppercase }}</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="form-group has-top-label">
+                <input class="form-control" name="emailD" #emailD="ngModel" [(ngModel)]="designerInfo.email" readonly />
+                <span>{{ 'forms.email' | translate | uppercase }}</span>
+              </label>
+              <!-- Phone -->
+              <div *ngIf="designerInfo.phone" class="form-group">
+                <label class="form-group has-top-label tooltip-right-top">
+                  <input class="form-control" name="phoneD" #phoneD="ngModel" [(ngModel)]="designerInfo.phone" required
+                    readonly />
+                  <span>{{ 'forms.phone' | translate | uppercase }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+            <button type="button" class="btn btn-primary" awNextStep>{{ 'wizard.next' | translate }}</button>
+          </div>
+        </aw-wizard-step>
+
+        <!-- Appointment Details -->
+        <aw-wizard-step stepTitle="Appointment Details" style="min-height: 350px; align-items: center;">
+          <ng-template awWizardStepSymbol><i class="simple-icon-location-pin"></i></ng-template>
+          <div style="width: 500px;">
+            <br>
+            <div class="form-group">
+              <label class="form-group has-top-label tooltip-right-top">
+                <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [container]="'html'"
+                  [(ngModel)]="dateRange" name="dateRange">
+                <span>{{ 'forms.date' | translate | uppercase }}</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="form-group has-top-label tooltip-right-top">
+                <ng-select name="location" [items]="[{name:'Online'}, {name:'Offline'}]" bindLabel="name"
+                  bindValue="name" #location ngModel required>
+                </ng-select>
+                <span>{{ 'forms.location' | translate | uppercase }}</span>
+              </label>
+            </div>
+
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+            <button [disabled]="checkAppointmentDetails(inInputForm)" type="button" class="btn btn-primary" awNextStep>
+              {{ 'wizard.next' | translate }}
+            </button>
+          </div>
+        </aw-wizard-step>
+
+        <!-- Payment -->
+        <aw-wizard-step stepTitle="Payment" style="min-height: 350px; align-items: center;">
+          <ng-template awWizardStepSymbol><i class="iconsminds-dollar-sign-2"></i></ng-template>
+          <div style="width: 500px; height: 100%; display: flex; align-items: center;">
+            <div [style]="(!transactionDetails) ? 'width: 100%;' :
+            'width: 100%; pointer-events: none; opacity: 0.5;'" #paypalRef>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+            <button [disabled]="!transactionDetails" type="submit" class="btn btn-primary" awNextStep>
+              {{'wizard.next' | translate }}
+            </button>
+          </div>
+        </aw-wizard-step>
+
+        <aw-wizard-completion-step stepTitle="{{ 'wizard.done' | translate }}" style="min-height: 350px;">
+          <ng-template awWizardStepSymbol><i class="simple-icon-check"></i></ng-template>
+          <div class="text-center complete-message-centered">
+            <h2 class="mb-2">{{ 'wizard.content-thanks' | translate }}</h2>
+            <p>{{ 'wizard.registered' | translate }}</p>
+          </div>
+        </aw-wizard-completion-step>
+      </aw-wizard>
+    </div>
+  </div>
+</form>

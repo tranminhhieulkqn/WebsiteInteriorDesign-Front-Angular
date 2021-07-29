@@ -1,47 +1,45 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlankPageComponent } from './blank-page/blank-page.component';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
-import { HomeComponent } from './home/home.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { BootstrapModule } from "../../components/bootstrap/bootstrap.module";
 import { UiCardsContainersModule } from 'src/app/containers/ui/cards/ui.cards.containers.module';
 import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
 import { MomentModule } from "ngx-moment";
-import { AboutUsComponent } from './about-us/about-us.component';
 import { LightboxModule } from 'ngx-lightbox';
-import { ContactUsComponent } from './contact-us/contact-us.component';
-import { MakeAppointmentComponent } from './appointment/make-appointment/make-appointment.component';
 import { WizardsContainersModule } from 'src/app/containers/wizard/wizards.containers.module';
 import { FormValidationsContainersModule } from 'src/app/containers/form-validations/form.validations.containers.module';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
-import { AppointmentComponent } from './appointment/appointment.component';
+import { BootstrapModule } from 'src/app/components/bootstrap/bootstrap.module';
+import { AppointmentRoutingModule } from './appointment.routing';
+import { AppointmentComponent } from './appointment.component';
+import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+import { MyAppointmentComponent } from './my-appointment/my-appointment.component';
+import { HotkeyModule } from 'angular2-hotkeys';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
+import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 
 
 @NgModule({
   declarations: [
-    BlankPageComponent,
-    AppComponent,
-    HomeComponent,
-    AboutUsComponent,
-    ContactUsComponent
+    AppointmentComponent,
+    MakeAppointmentComponent,
+    MyAppointmentComponent,
+    AppointmentDetailsComponent
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
+    AppointmentRoutingModule,
     SharedModule,
     LayoutContainersModule,
     SimpleNotificationsModule.forRoot(),
     BootstrapModule,
     UiCardsContainersModule,
     ComponentsCarouselModule,
-    MomentModule,
     LightboxModule,
     WizardsContainersModule,
     FormValidationsContainersModule,
@@ -50,8 +48,17 @@ import { AppointmentComponent } from './appointment/appointment.component';
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
+    HotkeyModule.forRoot(),
+    ContextMenuModule.forRoot({
+      useBootstrap4: true,
+    }),
+    PagesContainersModule,
+    MomentModule
+  ],
+  exports: [
+
   ]
 })
-export class AppModule { }
+export class AppointmentModule { }
 
 

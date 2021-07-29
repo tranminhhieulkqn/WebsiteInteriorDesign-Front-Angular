@@ -22,6 +22,7 @@ export class PostService {
   private urlGetAllPublic = `${this.urlAPI}getPublic`
   private urlGetAllByAuhtor = `${this.urlAPI}getByAuthor`;
   private urlGetAllByAuhtor_ = `${this.urlAPI}getByAuthorID`;
+  private urlGetPostsByCategory = `${this.urlAPI}getByCategory`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetLast = `${this.urlAPI}getLast`;
   private urlGetFeatured = `${this.urlAPI}getFeatured`;
@@ -153,6 +154,19 @@ export class PostService {
     return this.http.get<Post>(url).pipe(
       tap(_ => this.log(`fetched ${amount} featured post.`)),
       catchError(this.handleError<Post>(`getFeaturedPost`))
+    );
+  }
+
+  /** GET lastest post by id. Will 404 if id not found */
+  getPostsByCategory(category: string, amount: number = 1): Observable<Post[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('amount', amount.toString())
+      .set('category', category.toString());
+    const url = `${this.urlGetPostsByCategory}?${params.toString()}`;
+    return this.http.get<Post[]>(url).pipe(
+      tap(_ => this.log(`fetched ${amount} ${category} post.`)),
+      catchError(this.handleError<Post[]>(`getPostsByCategory`))
     );
   }
 
