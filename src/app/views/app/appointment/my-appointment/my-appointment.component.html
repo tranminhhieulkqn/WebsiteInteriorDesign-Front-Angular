@@ -6,8 +6,7 @@
 <div class="row">
 
   <div class="col-12 list">
-    <div class="card d-flex flex-row mb-3" *ngFor="let p of data; let i=index" style="cursor: pointer;"
-      onclick="window.location='http://google.com';">
+    <div class="card d-flex flex-row mb-3" *ngFor="let p of data; let i=index">
       <div class="d-flex flex-grow-1 min-width-zero">
         <div
           class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
@@ -30,6 +29,11 @@
           </div>
           <p class="mb-0 text-muted text-small w-15 w-xs-100">
             {{ p.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD' }} | {{ p.dateCreated | amTimeAgo }}
+          </p>
+          <p class="list-item-heading mb-0 truncate w-10 w-xs-100">
+            <a href="/app/appointment/appointment-details?id={{ p.id }}">
+              {{ 'View Details'}}
+            </a>
           </p>
         </div>
       </div>
