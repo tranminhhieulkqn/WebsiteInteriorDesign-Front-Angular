@@ -11,6 +11,7 @@ import { PredictResult } from 'src/app/models/predictResult.model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { PostService } from 'src/app/shared/post.service';
 import { Post } from 'src/app/models/post.model';
+import { UserRecordsService } from 'src/app/shared/user-records.service';
 
 @Component({
   selector: 'app-predict',
@@ -36,7 +37,8 @@ export class PredictComponent implements OnInit {
     private notifications: NotificationsService,
     private predictService: PredictService,
     private predictResultService: PredictResultService,
-    private postService: PostService
+    private postService: PostService,
+    private userRecordsService: UserRecordsService
   ) { }
 
   ngOnInit(): void {
@@ -288,6 +290,15 @@ export class PredictComponent implements OnInit {
       )
   }
 
+  saveFavorite(style: string) {
+    this.userRecordsService.saveFavorite(this.authService.user.uid.toString(), style).
+      subscribe(
+        (next) => { },
+        (error) => { },
+        () => { }
+      );
+  }
+
   predict() {
     this.isLoading = true
     if (this.predictImage) {
@@ -304,6 +315,9 @@ export class PredictComponent implements OnInit {
             });
             // Save predict result
             this.savePredictResult();
+
+            // Save favorite
+            this.saveFavorite(this.predictedLabel);
 
             this.barChartData = {
               labels: ['ArtDecor', 'HiTech', 'Indochina', 'Industrial', 'Scandinavian'],

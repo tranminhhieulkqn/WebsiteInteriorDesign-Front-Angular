@@ -8,7 +8,7 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/shared/user.service';
 import { CommentService } from 'src/app/shared/comment.service';
 import { AuthService } from 'src/app/shared/auth.service';
-import { PostsHistoryService } from 'src/app/shared/posts-history.service';
+import { UserRecordsService } from 'src/app/shared/user-records.service';
 
 interface ICarouselImage {
   id: string;
@@ -35,6 +35,8 @@ export class PostDetailComponent implements OnInit {
 
   //#endregion
 
+  showRecommentedPost = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -42,22 +44,21 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private userService: UserService,
     private commentService: CommentService,
-    private postsHistoryService: PostsHistoryService
+    private userRecordsService: UserRecordsService
   ) {
     this.getParamFromURL(); // get id post from url
     this.currentUserID = authService.user.uid;
-    this.getCurrentUser()
+    this.getCurrentUser();
   }
 
   ngOnInit(): void {
     if (this.currentPostID) { // if in url has id param and get success
       this.getPost();
+      this.addNewViewed();
     }
     else { // if not, get lastest post.
       this.getLastestPost();
     }
-    this.postsHistoryService.addViewed(this.currentUserID.toString(), this.currentPostID)
-      .subscribe()
   }
 
   ngOnDestroy() {
@@ -68,11 +69,21 @@ export class PostDetailComponent implements OnInit {
     this.route.queryParams.subscribe(
       params => {
         this.currentPostID = params['id'];
-        console.log(this.currentPostID);
       });
   }
 
   //#region /** Get data (post) for page */
+
+  addNewViewed() {
+    this.userRecordsService.addViewed(this.currentUserID.toString(), this.currentPostID)
+      .subscribe(
+        (next) => { },
+        (error) => { },
+        () => {
+          this.showRecommentedPost = true;
+        }
+      )
+  }
 
   getGallery() {
     this.currentPost.gallery.forEach(element => {
@@ -134,6 +145,7 @@ export class PostDetailComponent implements OnInit {
         (error) => console.log(error), // show message if error
         () => {
           this.currentPostID = this.currentPost.id; // get current post id
+          this.addNewViewed();
           this.getAuthor(); // get user author
           this.getGallery(); // get image for gallery
           this.getComments(); // get all comments of post

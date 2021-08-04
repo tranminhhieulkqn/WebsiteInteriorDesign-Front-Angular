@@ -48,7 +48,9 @@
 
 
 
-    <app-post-recommended></app-post-recommended>
+    <div *ngIf="showRecommentedPost">
+      <app-post-recommended></app-post-recommended>
+    </div>
     <app-post-featured></app-post-featured>
     <app-post-recent></app-post-recent>
   </div>

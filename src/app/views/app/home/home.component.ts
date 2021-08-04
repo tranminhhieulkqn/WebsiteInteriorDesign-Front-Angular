@@ -8,6 +8,7 @@ import { CarouselConfig } from 'ngx-bootstrap/carousel';
 import { carouselData, ICarouselItem, IPostItem } from 'src/app/data/carousels';
 import { Post } from 'src/app/models/post.model';
 import { PostService } from 'src/app/shared/post.service';
+import { UserService } from 'src/app/shared/user.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -38,6 +39,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   postID: string;
   currentPost: Post;
 
+  showQuestion = false;
+
 
   featuredPosts = [] as Post[];
   recentPosts = [] as Post[];
@@ -45,7 +48,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private authService: AuthService,
     private notifications: NotificationsService,
-    private test: TestService,
+    private userService: UserService,
     private postService: PostService,
   ) {
 
@@ -78,7 +81,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.notifications.create(
       `Hello ${this.displayName}`,
-      'content',
+      '',
       NotificationType.Info,
       {
         timeOut: 3000,
@@ -95,13 +98,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.getFeaturedPosts()
     if (this.authService.user) {
       this.displayName = this.authService.user.displayName;
+      this.userService.getUser(this.authService.user.uid.toString())
+        .subscribe(
+          (next) => {
+            this.showQuestion = (next['user'].role === 'user');
+          },
+          (error) => { },
+          () => { }
+        )
     }
     this.userCurrent = this.authService.userCurrent$;
-    this.test.getAllUser()
-      .subscribe(res => {
-        this.allUser = res['users'];
-        console.log(this.allUser)
-      });
+
   }
 
 }

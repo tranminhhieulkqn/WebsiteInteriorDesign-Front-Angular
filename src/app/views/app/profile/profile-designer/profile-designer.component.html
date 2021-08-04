@@ -8,7 +8,7 @@
 
   <div class="col-12 col-sm-12 col-lg-6 col-xl-4" *ngFor="let item of data">
     <div class="card d-flex flex-row mb-4">
-      <a class="d-flex" href="javascript:;">
+      <a class="d-flex" [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: item.id}">
         <img alt="Profile" [src]="item?.avatarURL"
           class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
       </a>
@@ -16,7 +16,7 @@
         <div
           class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
           <div class="min-width-zero">
-            <a href="javascript:;">
+            <a [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: item.id}">
               <p class="list-item-heading mb-1 truncate">{{ item?.displayName }}</p>
             </a>
             <p class="mb-2 text-muted text-small">{{ 'Designer' }}</p>
@@ -29,7 +29,8 @@
             </p>
             <div class="row">
               <div style="padding-right: 8px; padding-left: 8px;"></div>
-              <button type="button" class="btn btn-xs btn-outline-primary">View</button>
+              <button type="button" class="btn btn-xs btn-outline-primary"
+                (click)="gotoPortfolio(item.id);">View</button>
               <div style="padding-right: 5px; padding-left: 5px;"></div>
               <button type="button" class="btn btn-xs btn-outline-primary">Follow</button>
             </div>

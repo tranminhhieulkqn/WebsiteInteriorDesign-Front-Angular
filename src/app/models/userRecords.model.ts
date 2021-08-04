@@ -1,4 +1,4 @@
-export interface PostsHistory {
+export interface UserRecords {
   userID: string;
   viewedPosts: string[];
   likedPosts: string[];

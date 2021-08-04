@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 import { data, IDesigner } from 'src/app/data/designer';
 import follow, { IFollow } from 'src/app/data/follow';
@@ -35,6 +36,8 @@ export class ProfileDesignerComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private postService: PostService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
     // get user authorized
     this.userAuthorized = this.authService.user;
@@ -88,6 +91,10 @@ export class ProfileDesignerComponent implements OnInit {
 
   onContextMenuClick(action: string, item: User) {
     console.log('onContextMenuClick -> action :  ', action, ', item.title :', item?.displayName);
+  }
+
+  gotoPortfolio(id: string) {
+    this.router.navigate(['/app/profile/portfolio'], { queryParams: { id: id } });
   }
 
 }

@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { ModalFavoriteComponent } from './home/components/modal-favorite/modal-favorite.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AppointmentComponent } from './appointment/appointment.component';
     AppComponent,
     HomeComponent,
     AboutUsComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    ModalFavoriteComponent
   ],
   imports: [
     CommonModule,

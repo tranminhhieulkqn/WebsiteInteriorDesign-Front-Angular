@@ -1,4 +1,7 @@
 <!--  -->
+<app-modal-favorite *ngIf="showQuestion"></app-modal-favorite>
+<perfect-scrollbar class="scroll" [config]="{suppressScrollX: true}">
+
 <div class="row">
   <div class="col-12">
     <div class="card mb-4" style="height: 100vh;">
@@ -324,6 +327,8 @@
     </div>
   </div>
 </div>
+
+</perfect-scrollbar>
 
 <!--  -->
 <!-- <div *ngFor="let user of allUser">

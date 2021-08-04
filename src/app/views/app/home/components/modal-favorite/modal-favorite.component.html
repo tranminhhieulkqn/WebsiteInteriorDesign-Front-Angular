@@ -1,0 +1,78 @@
+<!-- <button type="button" class="btn btn-primary" (click)="openModal(template_confirm)">{{'modal.open-modal' |
+  translate}}</button>
+<br> -->
+<ng-template #template_confirm>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{'What\'s your favorite style?' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <h6 class="modal-title mb-4">{{'Do you have pictures of the style you like?' | translate}}</h6>
+    <button type="button" class="btn btn-primary" (click)="yes_redirect()">{{'I have' | translate}}
+    </button> {{""}}
+    <button type="button" class="btn btn-outline-primary" (click)="later_confirm()">{{'Later' | translate}}</button>
+  </div>
+</ng-template>
+
+
+<ng-template #template_redirect>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{'Redirect' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <h6 class="modal-title mb-4">{{'Do you have pictures of the style you like?' | translate}}</h6>
+    <ul style="text-align: left;">
+      <li>If you already have an image of the style you like, come to our prediction tool.</li>
+      <li>If not, continue, we will suggest some pictures for you.</li>
+    </ul>
+  </div>
+  <div class="modal-footer text-center" style="justify-content: center;">
+    <button type="button" class="btn btn-outline-primary" (click)="yes_redirect()">{{'Redirect to Predictor' | translate}}
+    </button> {{""}}
+    <button type="button" class="btn btn-primary" (click)="next_redirect()">{{'Next' | translate}}</button>
+  </div>
+</ng-template>
+
+<ng-template #template_chooses>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{'modal.modal-title' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <ng-container>
+      <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true}">
+        <div class="col-12 list">
+          <div class="row" style="max-height: 50vh;">
+            <div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let p of favorite; let i=index">
+              <div class="card">
+
+                <img class="card-img" style="height: 10vw; object-fit: cover;" [src]="p?.image">
+
+                <div style="position: absolute; top: 10px; right: 10px;" class="custom-control custom-checkbox pl-1">
+                  <label class="custom-control custom-checkbox  mb-0">
+                    <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i">
+                    <label class="custom-control-label" [for]="'customCheck'+i"></label>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </ng-container>
+
+  </div>
+  <div class="modal-footer text-center" style="justify-content: center;">
+    <button type="button" class="btn btn-outline-primary" (click)="yes_chooses()">{{'modal.yes' | translate}}
+    </button> {{""}}
+    <button type="button" class="btn btn-primary" (click)="cancel_chooses()">{{'Cancel' | translate}}</button>
+  </div>
+</ng-template>

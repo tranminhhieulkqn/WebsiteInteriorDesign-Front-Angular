@@ -3,17 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
-import { PostsHistory } from '../models/postsHistory.model';
+import { UserRecords } from '../models/userRecords.model';
 import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostsHistoryService {
+export class UserRecordsService {
 
   /** API URL */
-  private urlAPI = `${environment.apiBackUrl}postsHistory/`;
+  private urlAPI = `${environment.apiBackUrl}userRecords/`;
   private urlCreate = `${this.urlAPI}view`
+  private urlSaveFavorite = `${this.urlAPI}saveFavorite`
 
 
   httpOptions = {
@@ -26,17 +27,31 @@ export class PostsHistoryService {
   ) { }
 
   /** POST: add a new viewed post to the server */
-  addViewed(userID: string, postID: string): Observable<PostsHistory> {
+  addViewed(userID: string, postID: string): Observable<UserRecords> {
     // define query parametters for request.
     let params = new HttpParams()
       .set('postID', postID.toString())
       .set('userID', userID.toString());
     const url = `${this.urlCreate}?${params.toString()}`;
-    return this.http.post<PostsHistory>(url, this.httpOptions).pipe(
-      tap((newViewed: PostsHistory) => this.log(`added viewed post for user id : ${userID}`)),
-      catchError(this.handleError<PostsHistory>('addViewed'))
+    return this.http.post<UserRecords>(url, this.httpOptions).pipe(
+      tap((newViewed: UserRecords) => this.log(`added viewed post for user id : ${userID}`)),
+      catchError(this.handleError<UserRecords>('addViewed'))
     );
   }
+
+  /** POST: add a new viewed post to the server */
+  saveFavorite(userID: string, style: string): Observable<UserRecords> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('userID', userID.toString())
+      .set('style', style.toString());
+    const url = `${this.urlSaveFavorite}?${params.toString()}`;
+    return this.http.post<UserRecords>(url, this.httpOptions).pipe(
+      tap((newViewed: UserRecords) => this.log(`saved favorite style for user id : ${userID}`)),
+      catchError(this.handleError<UserRecords>('saveFavorite'))
+    );
+  }
+
 
   //////// Catch and Handle Errors  //////////
 
