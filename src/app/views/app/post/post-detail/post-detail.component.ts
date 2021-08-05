@@ -30,9 +30,10 @@ export class PostDetailComponent implements OnInit {
   // for show gallery
   showGallery = false;
   detailImages: ICarouselImage[] = [];
-
   currentUserID: string;
 
+  amountDesigner: number = 3;
+  recommendedDesigners = [] as User[];
   //#endregion
 
   showRecommentedPost = false;
@@ -59,6 +60,9 @@ export class PostDetailComponent implements OnInit {
     else { // if not, get lastest post.
       this.getLastestPost();
     }
+    setTimeout(() => {
+      this.getRecommendedDesigner();
+    }, 3000);
   }
 
   ngOnDestroy() {
@@ -135,6 +139,15 @@ export class PostDetailComponent implements OnInit {
           this.getGallery(); // get image for gallery
           this.getComments(); // get all comments of post
         }
+      )
+  }
+
+  getRecommendedDesigner() {
+    this.userService.getRecommendedDesigner(this.currentUserID, this.amountDesigner)
+      .subscribe(
+        (next) => this.recommendedDesigners = next['designers'],
+        (error) => { },
+        () => { }
       )
   }
 

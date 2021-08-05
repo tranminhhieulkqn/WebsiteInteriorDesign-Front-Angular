@@ -18,6 +18,7 @@ export class UserService {
   private urlGetWithPagination = `${this.urlAPI}getWithPagination`;
   private urlGetBy = `${this.urlAPI}getBy`;
   private urlGetByRole = `${this.urlAPI}getByRole`;
+  private urlGetRecommendedDesigner = `${this.urlAPI}getByRecommendedDesigner`;
   private urlRegister = `${this.urlAPI}register`
   private urlUpdate = `${this.urlAPI}update`
 
@@ -70,6 +71,20 @@ export class UserService {
       .pipe(
         tap(_ => this.log('fetched user')),
         catchError(this.handleError<User[]>('getUsers', []))
+      );
+  }
+
+  /** GET users from the server */
+  getRecommendedDesigner(userID: string, amount: number): Observable<User[]> {
+    // define query parametters for request.
+    let params = new HttpParams()
+      .set('amount', amount.toString())
+      .set('userID', userID.toString());
+    const url = `${this.urlGetRecommendedDesigner}?${params.toString()}`;
+    return this.http.get<User[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched recommended designer.')),
+        catchError(this.handleError<User[]>('getRecommendedDesigner', []))
       );
   }
 

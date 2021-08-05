@@ -27,7 +27,7 @@ export class PostRecentComponent implements OnInit {
       .subscribe(
         (next) => {
           this.recentPosts = next['posts']
-          console.log(this.recentPosts);
+          // console.log(this.recentPosts);
         },
         (error) => console.log(error), // show message
         () => { } // complete

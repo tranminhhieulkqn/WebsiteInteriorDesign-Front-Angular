@@ -16,7 +16,7 @@
 </div>
 <div class="row gallery gallery-page mb-5">
   <div class="col-6 col-md-6" *ngFor="let item of galleryXlarge; let i=index;">
-    <img class="img-fluid border-radius c-pointer" [src]="item.thumb" (click)="openLightbox(galleryXlarge,i)"/>
+    <img style="width: 100%;" class="img-fluid border-radius c-pointer" [src]="item.thumb" (click)="openLightbox(galleryXlarge,i)"/>
   </div>
 </div>
 

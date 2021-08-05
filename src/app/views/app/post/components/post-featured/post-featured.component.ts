@@ -28,7 +28,7 @@ export class PostFeaturedComponent implements OnInit {
       .subscribe(
         (next) => {
           this.featuredPosts = next['posts']
-          console.log(this.featuredPosts);
+          // console.log(this.featuredPosts);
         },
         (error) => console.log(error), // show message
         () => { } // complete

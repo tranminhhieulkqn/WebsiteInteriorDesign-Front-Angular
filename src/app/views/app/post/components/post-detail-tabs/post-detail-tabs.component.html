@@ -39,16 +39,16 @@
         </div>
 
         <!-- Post info right -->
-        <div class="col-6">
+        <div *ngIf="postAuthor" class="col-6">
           <div class="d-flex flex-row mb-3 border-top justify-content-between align-items-center">
             <div style="margin: 75px 0px 0px 0px;"></div>
-            <a href="#">
+            <a [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: postAuthor?.id}">
               <img [src]="postAuthor?.avatarURL" [alt]="postAuthor?.displayName"
                 style="height: 40px; width: 40px; object-fit: cover;"
                 class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
             </a>
             <div class="pl-3 flex-fill">
-              <a href="#">
+              <a [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: postAuthor?.id}">
                 <p class="font-weight-medium mb-0" ellipsis>{{ postAuthor?.displayName }}</p>
                 <p class="text-muted mb-0 text-small" ellipsis>
                   {{ currentPost?.dateCreated | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm' }} |
@@ -70,13 +70,13 @@
       <div
         [class]="i===postComments.length-1 ? 'd-flex flex-row mb-3 pb-3 justify-content-between': 'd-flex flex-row mb-3 pb-3 border-bottom justify-content-between'"
         *ngFor="let comment of postComments; let i = index;">
-        <a href="javascript:;">
+        <a [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: comment?.authorID}">
           <img [src]="comment.authorAvatar" [alt]="comment.content"
             style="height: 40px; width: 40px; object-fit: cover;"
             class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
         </a>
         <div class="pl-3 flex-grow-1">
-          <a href="javascript:;">
+          <a [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: comment?.authorID}">
             <p class="font-weight-medium mb-0 ">{{ comment.displayNameAuthor }}</p>
             <p class="text-muted mb-1 text-small">{{ comment.content }}</p>
             <p class="text-muted mb-1 text-small">
@@ -110,7 +110,7 @@
           </span>
           <br>
           <br>
-          <div class="post-icon">
+          <div *ngIf="currentUserID == comment?.authorID" class="post-icon">
             <a href="javascript:;" (click)="clickDeleteComment(comment)">
               <i class="simple-icon-trash"></i>
             </a>

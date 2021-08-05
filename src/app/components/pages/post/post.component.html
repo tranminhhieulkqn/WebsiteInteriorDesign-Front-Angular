@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="d-flex flex-row mb-3">
       <a href="javascript:;">
-        <img [src]="data.profilePic" [alt]="data.name"
+        <img style="width: 100%;" [src]="data.profilePic" [alt]="data.name"
           class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
       </a>
       <div class="pl-3">
@@ -19,11 +19,11 @@
       <app-player *ngIf="data.type === 'video'" class="video-js card-img video-content mb-3" [options]="{
           preload: 'auto',
           controls: true,
-          poster: '/assets/img/subpage-video-poster.jpg',
-          sources: [{src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          poster: 'https://firebasestorage.googleapis.com/v0/b/interior-design-afc76.appspot.com/o/assets%2Fposts%2Fintro.jpg?alt=media&token=3e08323e-c7f2-43bb-84e1-74c0fc0d1b14',
+          sources: [{src: 'https://firebasestorage.googleapis.com/v0/b/interior-design-afc76.appspot.com/o/assets%2Fposts%2Fvideos%2FInterior%20Design%20Trends%202021.mp4?alt=media&token=49666a1a-7bd9-43df-a67d-97d7ee374313',
           type: 'video/mp4'}]}">
       </app-player>
-      <img *ngIf="data.type === 'image'" class="img-fluid border-0 border-radius mb-3 c-pointer" [src]="data.image"
+      <img style="width: 100%;" *ngIf="data.type === 'image'" class="img-fluid border-0 border-radius mb-3 c-pointer" [src]="data.image"
         (click)="openLightbox(data.image)" />
     </div>
     <div>
@@ -39,7 +39,7 @@
       <div *ngIf="data.commentCount > 0" class="remove-last-border">
         <div *ngFor="let comment of data.comments" class="d-flex flex-row mb-3 border-bottom justify-content-between">
           <a href="javascript:;">
-            <img [src]="comment.thumb" [alt]="comment.name"
+            <img style="width: 100%;" [src]="comment.thumb" [alt]="comment.name"
               class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
           </a>
           <div class="pl-3 flex-grow-1">

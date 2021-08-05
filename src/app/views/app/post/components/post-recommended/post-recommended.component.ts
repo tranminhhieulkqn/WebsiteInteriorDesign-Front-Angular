@@ -33,7 +33,7 @@ export class PostRecommendedComponent implements OnInit {
       .subscribe(
         (next) => {
           this.recommendedPosts = next['posts']
-          console.log(this.recommendedPosts);
+          // console.log(this.recommendedPosts);
         },
         (error) => console.log(error), // show message
         () => { } // complete

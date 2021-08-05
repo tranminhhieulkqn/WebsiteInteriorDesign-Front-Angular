@@ -2,7 +2,7 @@
   <div class="col-12">
     <div>
       <h1>{{ userAuthorized?.displayName }}</h1>
-      <div class="text-zero top-right-button-container">
+      <!-- <div class="text-zero top-right-button-container">
         <div dropdown>
           <button id="button-basic" dropdownToggle type="button" placement="bottom right"
             class="btn btn-outline-primary dropdown-toggle btn-lg" aria-controls="dropdown-basic">{{ 'pages.actions' |
@@ -19,7 +19,7 @@
                 [routerLink]="['/', 'app', 'profile', 'portfolio']">Portfolio</a></li>
           </ul>
         </div>
-      </div>
+      </div> -->
       <app-breadcrumb></app-breadcrumb>
     </div>
 
@@ -29,7 +29,8 @@
         <tab heading="{{'pages.profile' | translate | uppercase }}">
           <div class="row">
             <div class="col-12 mb-5">
-              <img class="social-header card-img" src="/assets/img/social-header.jpg" />
+              <img class="social-header card-img"
+                src="https://firebasestorage.googleapis.com/v0/b/interior-design-afc76.appspot.com/o/assets%2Fimage%2Fsocial%2Fsocial-header.jpg?alt=media&token=a5e6d996-f0da-4d13-a1e2-6ac5fbed3eda" />
             </div>
             <div class="col-12 col-lg-5 col-xl-4 col-left">
               <app-profile-user-social [user]="userAuthorizedInfo"></app-profile-user-social>

@@ -51,6 +51,33 @@
     <div *ngIf="showRecommentedPost">
       <app-post-recommended></app-post-recommended>
     </div>
+
+    <!--  -->
+    <div *ngIf="recommendedDesigners?.length" class="card mb-4 d-none d-lg-block">
+      <div class="card-body">
+        <h5 class="card-title">{{'Designers for You' | translate}}</h5>
+        <div *ngFor="let item of recommendedDesigners"
+          class="d-flex flex-row mb-3 pb-3 border-bottom justify-content-between align-items-center">
+          <a [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: item?.id}">
+            <img [src]="item?.avatarURL" [alt]="item?.displayName"
+              class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
+          </a>
+          <div class="pl-3 flex-fill">
+            <a [routerLink]="['/app/profile/portfolio']" [queryParams]="{id: item?.id}">
+              <p class="font-weight-medium mb-0">{{ item?.displayName }}</p>
+              <p class="text-muted mb-0 text-small">{{ "I'm designer." }}</p>
+            </a>
+          </div>
+          <div>
+            <a class="btn btn-outline-primary btn-xs" [routerLink]="['/app/profile/portfolio']"
+              [queryParams]="{id: item?.id}">VIEW</a>
+          </div>
+        </div>
+        <!-- <app-user-follow *ngFor="let item of data" [data]="item"></app-user-follow> -->
+      </div>
+    </div>
+
+
     <app-post-featured></app-post-featured>
     <app-post-recent></app-post-recent>
   </div>
