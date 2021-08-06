@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.userService.getUser(this.authService.user.uid.toString())
       .subscribe(
         (next) => {
-          // this.getMenu(next['user'].role) // switch get menu
+          this.getMenu(next['user'].role) // switch get menu
         }
       )
     this.subscription = this.sidebarService.getSidebar().subscribe(

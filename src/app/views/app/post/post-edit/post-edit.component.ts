@@ -325,9 +325,9 @@ export class PostEditComponent implements OnInit {
           // show message
           this.notifications.create(
             'Done',
-            'Your post is creating, Please wait a moment you will be redirected to the home page!',
+            'Your post is processing, Please wait a moment you will be redirected!',
             NotificationType.Success,
-            { theClass: 'outline primary', timeOut: 3000, showProgressBar: true }
+            { theClass: 'primary', timeOut: 3000, showProgressBar: true }
           );
           // set the time to turn pages
           setTimeout(() => this.router.navigate([`/app/post/post-detail`], {

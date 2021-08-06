@@ -7,6 +7,7 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
 import { AuthService } from 'src/app/shared/auth.service';
 import { PostService } from 'src/app/shared/post.service';
 import { Post } from 'src/app/models/post.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-manage',
@@ -44,6 +45,8 @@ export class PostManageComponent implements OnInit {
     private hotkeysService: HotkeysService,
     private apiService: ApiService,
     private postService: PostService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     // get user authorized
     this.userAuthorized = this.authService.user;
@@ -154,7 +157,22 @@ export class PostManageComponent implements OnInit {
     this.loadData(this.itemsPerPage, 1, val, this.orderBy);
   }
 
-  onContextMenuClick(action: string, item: IProduct) {
-    console.log('onContextMenuClick -> action :  ', action, ', item.title :', item.title);
+  onContextMenuClick(action: string, item: Post) {
+    switch (action) {
+      case 'view':
+        this.router.navigate(['/app/post/post-detail'], { queryParams: { id: item.id } });
+        break;
+
+      case 'edit':
+        this.router.navigate(['/app/post/post-edit'], { queryParams: { id: item.id } });
+        break;
+
+      case 'delete':
+        console.log('onContextMenuClick -> action :  ', action, ', item.title :', item.title);
+        break;
+
+      default:
+        break;
+    }
   }
 }

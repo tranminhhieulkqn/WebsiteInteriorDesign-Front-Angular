@@ -299,7 +299,7 @@ export class PostCreateComponent implements OnInit {
             'Done',
             'Your post is creating, Please wait a moment you will be redirected to the home page!',
             NotificationType.Success,
-            { theClass: 'outline primary', timeOut: 3000, showProgressBar: true }
+            { theClass: 'primary', timeOut: 3000, showProgressBar: true }
           );
           // set the time to turn pages
           setTimeout(() => this.router.navigate([`/app/post/post-detail`], {
