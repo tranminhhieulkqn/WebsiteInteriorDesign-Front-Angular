@@ -301,6 +301,7 @@ export class PredictComponent implements OnInit {
 
   predict() {
     this.isLoading = true
+    this.predictedResults = null;
     if (this.predictImage) {
       this.predictService.predictImage(this.predictImage)
         .subscribe(
